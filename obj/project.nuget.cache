@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "xDUhpCpeIt1gLdEaDwbsKD+77a7QlbbSF0s270izqAN3zRxzk3P9iQtVBJHzTaVlGfzJGEt9ag88o9vj88dTgA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\david\\Desktop\\RomeoTec\\ServicioMontacargas\\ServicioMontacargas.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\david\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
