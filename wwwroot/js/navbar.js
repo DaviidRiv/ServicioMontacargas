@@ -30,16 +30,17 @@
         if (linkColor) {
             linkColor.forEach(l => l.classList.remove('active'));
             this.classList.add('active');
-
-            // Store the selected link in local storage
             localStorage.setItem('selectedLink', this.href);
         }
     }
 
-    // Add logic to mark the active link based on the current URL or the stored link
-    linkColor.forEach(l => {
+    // Solo activa el primer enlace al cargar la página
+    linkColor[0].classList.add('active');
+
+    // Add logic para marcar el enlace activo basado en la URL actual o el enlace almacenado
+    linkColor.forEach((l, index) => {
         const storedLink = localStorage.getItem('selectedLink');
-        if (storedLink && l.href === storedLink) {
+        if (index !== 0 && ((index === 0 && !storedLink) || (storedLink && l.href === storedLink))) {
             l.classList.add('active');
         } else if (window.location.href.indexOf(l.href) > -1) {
             l.classList.add('active');
@@ -48,6 +49,5 @@
         l.addEventListener('click', colorLink);
     });
 
-
-    // Your code to run since DOM is loaded and ready
+    // Tu código para ejecutar una vez que el DOM está cargado y listo
 });
