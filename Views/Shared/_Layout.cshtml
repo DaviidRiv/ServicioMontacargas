@@ -20,23 +20,23 @@
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
         <div class="header_img"> <img src="~/img/LogoJacasa.jpeg" alt=""> </div>
         @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ServicioMontacargas</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+        <div class="container-fluid">
+        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ServicioMontacargas</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+        <ul class="navbar-nav flex-grow-1">
+        <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </li>
+        </ul>
+        </div>
+        </div>
         </nav>*@
     </header>
     <div class="l-navbar" id="nav-bar">
@@ -44,7 +44,7 @@
             <div>
                 <a class="nav_logo">
                     <i class='bx bx-layer nav_logo-icon'></i>
-                    <span class="nav_logo-name"><center>JACSA</center></span>
+                    <span class="nav_logo-name"><center>ㅤJACSA</center></span>
                 </a>
                 <div class="nav_list">
                     <a href="#" class="nav_link active" id="montacargasDropdown">
@@ -52,8 +52,8 @@
                         <span class="nav_name">Montacargas</span>
                     </a>
                     <div class="dropdown-content" id="montacargasDropdownContent">
-                        <a href="#" class="nav_link">Renta de Montacargas</a>
-                        <a href="#" class="nav_link">Nuevo Montacargas</a>
+                        <a asp-controller="Montacarga" asp-action="Index" class="nav_link">Lista Montacargas</a>
+                        <a asp-controller="EntregaMntCrg" asp-action="Index" class="nav_link">Entrega Montacarga</a>
                     </div>
                     <a href="#" class="nav_link">
                         <i class='bx bx-user nav_icon'></i>
@@ -85,9 +85,9 @@
     </div>
 
     @*<footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - ServicioMontacargas - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
+    <div class="container">
+    &copy; 2023 - ServicioMontacargas - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </div>
     </footer>*@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

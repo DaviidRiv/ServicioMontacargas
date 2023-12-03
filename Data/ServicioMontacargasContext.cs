@@ -15,5 +15,7 @@ namespace ServicioMontacargas.Data
         }
 
         public DbSet<ServicioMontacargas.Models.MontacargasModel> MontacargasModel { get; set; } = default!;
+
+        public DbSet<ServicioMontacargas.Models.EntregaMntCrgModel>? EntregaMntCrgModel { get; set; }
     }
 }

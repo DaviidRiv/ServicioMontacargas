@@ -114,8 +114,8 @@ a {
 .nav_link {
     position: relative;
     color: var(--first-color-light);
-    margin-bottom: 1.5rem;
-    transition: .3s
+    transition: .3s;
+    margin: 0px 0px 0px;
 }
 
     .nav_link:hover {
@@ -153,14 +153,15 @@ a {
     display: none;
     position: absolute;
     background-color: #1a027d;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     z-index: 1;
+    align-content:center;
 }
 
     .dropdown-content a {
         color: #cdc0ffe0;
-        padding: 1px 1px;
-        display: block;
+        padding: 0px 10px 0px 10px;
+        margin: 3px 20px 1px;
+        display: flex;
         text-decoration: none;
     }
 

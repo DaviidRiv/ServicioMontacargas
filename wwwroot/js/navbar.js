@@ -50,7 +50,9 @@
     });
 
     //dropdown interno
-    document.getElementById("montacargasDropdown").addEventListener("click", function () {
+    document.getElementById("montacargasDropdown").addEventListener("click", function (event) {
+        event.preventDefault(); // Evita que el enlace se siga ejecutando
+
         var dropdownContent = document.getElementById("montacargasDropdownContent");
         if (dropdownContent.style.display === "block") {
             dropdownContent.style.display = "none";
@@ -61,11 +63,9 @@
 
     // Cierra el dropdown si el usuario hace clic fuera de él
     window.addEventListener("click", function (event) {
-        if (!event.target.matches("#montacargasDropdown")) {
-            var dropdownContent = document.getElementById("montacargasDropdownContent");
-            if (dropdownContent.style.display === "block") {
-                dropdownContent.style.display = "none";
-            }
+        var dropdownContent = document.getElementById("montacargasDropdownContent");
+        if (event.target.closest("#montacargasDropdown") === null && event.target.closest(".dropdown-content") === null) {
+            dropdownContent.style.display = "none";
         }
     });
 
