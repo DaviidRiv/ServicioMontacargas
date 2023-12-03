@@ -49,5 +49,24 @@
         l.addEventListener('click', colorLink);
     });
 
-    // Tu código para ejecutar una vez que el DOM está cargado y listo
+    //dropdown interno
+    document.getElementById("montacargasDropdown").addEventListener("click", function () {
+        var dropdownContent = document.getElementById("montacargasDropdownContent");
+        if (dropdownContent.style.display === "block") {
+            dropdownContent.style.display = "none";
+        } else {
+            dropdownContent.style.display = "block";
+        }
+    });
+
+    // Cierra el dropdown si el usuario hace clic fuera de él
+    window.addEventListener("click", function (event) {
+        if (!event.target.matches("#montacargasDropdown")) {
+            var dropdownContent = document.getElementById("montacargasDropdownContent");
+            if (dropdownContent.style.display === "block") {
+                dropdownContent.style.display = "none";
+            }
+        }
+    });
+
 });
