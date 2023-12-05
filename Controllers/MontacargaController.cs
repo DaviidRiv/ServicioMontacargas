@@ -136,9 +136,7 @@ namespace ServicioMontacargas.Controllers
             return View(montacargasModel);
         }
 
-        // POST: Montacarga/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.MontacargasModel == null)

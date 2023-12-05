@@ -1,65 +1,115 @@
 ﻿@model IEnumerable<ServicioMontacargas.Models.MontacargasModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Montacargas";
 }
 
-<h1>Index</h1>
+<h1>Lista de Montacargas</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <div class="d-flex justify-content-end">
+        <a class="btn btn-primary" asp-action="Create">Agregar Nuevo</a>
+    </div>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.NumeroSerie)
+                Número Económico
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NumeroEconomico)
+                No de Serie
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Marca)
+                Marca
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Modelo)
+                Modelo
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Horometro)
+                Horómetro
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Status)
+                Estatus
             </th>
-            <th></th>
+            <th>
+                Opciones
+            </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumeroSerie)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumeroEconomico)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Marca)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Modelo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Horometro)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdMontacargas">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdMontacargas">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdMontacargas">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumeroEconomico)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumeroSerie)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Marca)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Modelo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Horometro) hrs
+                </td>
+                <td>
+                    @{
+                        if (item.Status == "Disponible")
+                        {
+                            <span class="badge bg-success">
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </span>
+                        }
+                        else if (item.Status == "En renta")
+                        {
+                            <span class="badge bg-info text-dark">
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </span>
+                        }
+                        else if (item.Status == "En reparación")
+                        {
+                            <span class="badge bg-warning text-dark">
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </span>
+                        }
+                        else if (item.Status == "Baja")
+                        {
+                            <span class="badge bg-danger">
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </span>
+                        }
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdMontacargas"><iconify-icon icon="bi:pencil-square"></iconify-icon></a> |
+                    <a asp-action="Details" asp-route-id="@item.IdMontacargas"><iconify-icon icon="bi:eye-fill"></iconify-icon></a> |
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#eliminarUsuario-@item.IdMontacargas" data-original-title="Elimina">
+                        <iconify-icon icon="bi:trash3-fill"></iconify-icon>
+                    </a>
+                </td>
+            </tr>
+            <!-- Modal -->
+            <div class="modal fade" id="eliminarUsuario-@item.IdMontacargas" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-contenedor">
+                    <div class="modal-content contenedor-eliminar">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Eliminar Montacarga</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                        </div>
+                        <div class="modal-body">
+                            ¿Estas seguro que desea eliminar este Montacarga?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
+                            <a asp-controller="Montacarga" asp-action="DeleteConfirmed" asp-route-id="@item.IdMontacargas" class="btn btn-eliminar">Eliminar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
     </tbody>
 </table>

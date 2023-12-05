@@ -4,55 +4,74 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>MontacargasModel</h4>
+<h1>Agregar Nuevo Montacargas</h1>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="row">
+        <div class="col-md-6">
             <div class="form-group">
-                <label asp-for="NumeroSerie" class="control-label"></label>
-                <input asp-for="NumeroSerie" class="form-control" />
+                <label class="control-label">Número de Serie</label>
+                <input asp-for="NumeroSerie" class="form-control" required/>
                 <span asp-validation-for="NumeroSerie" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="NumeroEconomico" class="control-label"></label>
-                <input asp-for="NumeroEconomico" class="form-control" />
+                <label class="control-label">Número Económico</label>
+                <input asp-for="NumeroEconomico" class="form-control" required/>
                 <span asp-validation-for="NumeroEconomico" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Marca" class="control-label"></label>
-                <input asp-for="Marca" class="form-control" />
+                <input asp-for="Marca" class="form-control" required/>
                 <span asp-validation-for="Marca" class="text-danger"></span>
             </div>
+        </div>
+
+        <div class="col-md-6">
             <div class="form-group">
                 <label asp-for="Modelo" class="control-label"></label>
-                <input asp-for="Modelo" class="form-control" />
+                <input asp-for="Modelo" class="form-control" required/>
                 <span asp-validation-for="Modelo" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Horometro" class="control-label"></label>
-                <input asp-for="Horometro" class="form-control" />
+                <input asp-for="Horometro" class="form-control" required />
                 <span asp-validation-for="Horometro" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
+                <label class="control-label">Estatus</label>
+                <select asp-for="Status" class="form-select" required>
+                    <option value="" selected disabled>--Seleccionar--</option>
+                    <option value="En renta">En renta</option>
+                    <option value="Disponible">Disponible</option>
+                    <option value="En reparación">En reparación</option>
+                    <option value="Baja">Baja</option>
+                </select>
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
+        </div>
+        <div class="d-flex justify-content-center">
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <br />
+                <input type="submit" value="Agregar" class="btn btn-success" />
             </div>
-        </form>
+        </div>
     </div>
-</div>
+</form>
+
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <br />
+    <a asp-action="Index"><iconify-icon icon="bi:arrow-left-circle-fill"></iconify-icon> Regresar</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }
