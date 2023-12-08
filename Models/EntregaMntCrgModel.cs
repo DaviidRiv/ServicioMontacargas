@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ServicioMontacargas.Models
@@ -52,15 +54,20 @@ namespace ServicioMontacargas.Models
         public string? NombreCliente { get; set; }
         public string? EmpresaCliente { get; set; }
         public string? FirmaCliente{ get; set; }
-        [NotMapped]
-        public byte[] FirmaClienteB64
-        {
-            get => string.IsNullOrEmpty(FirmaCliente) ? null : Convert.FromBase64String(FirmaCliente);
-            set => FirmaCliente = Convert.ToBase64String(value);
-        }
+
 
         //Evidencias
+        [NotMapped]
+        public IFormFile? EvidenciaImagen1File { get; set; }
+
         public byte[]? EvidenciaImagen1 { get; set; }
+
+        public string? EvidenciaImagen1Base64 { get; set; }
+        [NotMapped]
+        public IFormFile? EvidenciaImagen2File { get; set; }
+
         public byte[]? EvidenciaImagen2 { get; set; }
+
+        public string? EvidenciaImagen2Base64 { get; set; }
     }
 }

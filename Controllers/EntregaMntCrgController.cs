@@ -22,9 +22,9 @@ namespace ServicioMontacargas.Controllers
         // GET: EntregaMntCrg
         public async Task<IActionResult> Index()
         {
-              return _context.EntregaMntCrgModel != null ? 
-                          View(await _context.EntregaMntCrgModel.ToListAsync()) :
-                          Problem("Entity set 'ServicioMontacargasContext.EntregaMntCrgModel'  is null.");
+            return _context.EntregaMntCrgModel != null ?
+                        View(await _context.EntregaMntCrgModel.ToListAsync()) :
+                        Problem("Entity set 'ServicioMontacargasContext.EntregaMntCrgModel'  is null.");
         }
 
         // GET: EntregaMntCrg/Details/5
@@ -45,10 +45,25 @@ namespace ServicioMontacargas.Controllers
             return View(entregaMntCrgModel);
         }
 
+        private List<SelectListItem> ObtenerMontacargasOptionsDesdeBD()
+        {
+            var montacargasDesdeBD = _context.MontacargasModel.ToList();
+
+            // Mapea los resultados a SelectListItem
+            var opciones = montacargasDesdeBD.Select(m => new SelectListItem
+            {
+                Value = m.IdMontacargas.ToString(),
+                Text = $"{m.IdMontacargas} - {m.NumeroEconomico} - {m.Marca} - {m.Modelo} - {m.NumeroSerie}" // Personaliza el texto según tus necesidades
+            }).ToList();
+
+            return opciones;
+        }
+
         // GET: EntregaMntCrg/Create
         public IActionResult Create()
         {
-            return View();
+            ViewBag.MontacargasOptions = ObtenerMontacargasOptionsDesdeBD();
+            return View(new EntregaMntCrgModel());
         }
 
         // POST: EntregaMntCrg/Create
@@ -56,16 +71,40 @@ namespace ServicioMontacargas.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdEntregaMntCrg,FechaEntrega,HorometroEntrega,idMontacargas,NivelAceiteMotor,NivelAnticongelante,NivelAceiteHidraulico,NivelLiquidoFrenos,TanqueGasSoportes,FrenoEstacionamiento,FugaSistemaGas,ElementoAire,DistanciaFrenado,CapacidadCarga,RespaldoCarga,Horquillas,Tablero,PinturaGeneral,CubiertaPiston,LlantasDireccion,LlantasTraccion,BateriaTerminales,LimpiezaGeneral,SistemaArranque,LucesTrabajo,LucesTraseras,Torreta,AlarmaReversa,Claxon,Extintor,Espejos,CinturonSeguridad,Asiento,FaroProximidad,Observaciones,Llave,NombreCliente,EmpresaCliente,FirmaCliente,EvidenciaImagen1,EvidenciaImagen2")] EntregaMntCrgModel entregaMntCrgModel)
+        public async Task<IActionResult> Create(EntregaMntCrgModel entregaMntCrgModel)
         {
+            if (entregaMntCrgModel.EvidenciaImagen1File != null)
+            {
+                // Convierte IFormFile a byte[]
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    await entregaMntCrgModel.EvidenciaImagen1File.CopyToAsync(ms);
+                    entregaMntCrgModel.EvidenciaImagen1 = ms.ToArray();
+                    entregaMntCrgModel.EvidenciaImagen1Base64 = Convert.ToBase64String(entregaMntCrgModel.EvidenciaImagen1);
+                }
+            }
+
+            if (entregaMntCrgModel.EvidenciaImagen2File != null)
+            {
+                // Convierte IFormFile a byte[]
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    await entregaMntCrgModel.EvidenciaImagen2File.CopyToAsync(ms);
+                    entregaMntCrgModel.EvidenciaImagen2 = ms.ToArray();
+                    entregaMntCrgModel.EvidenciaImagen2Base64 = Convert.ToBase64String(entregaMntCrgModel.EvidenciaImagen2);
+                }
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(entregaMntCrgModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(entregaMntCrgModel);
         }
+
 
         // GET: EntregaMntCrg/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -136,9 +175,6 @@ namespace ServicioMontacargas.Controllers
             return View(entregaMntCrgModel);
         }
 
-        // POST: EntregaMntCrg/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.EntregaMntCrgModel == null)
@@ -150,14 +186,14 @@ namespace ServicioMontacargas.Controllers
             {
                 _context.EntregaMntCrgModel.Remove(entregaMntCrgModel);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool EntregaMntCrgModelExists(int id)
         {
-          return (_context.EntregaMntCrgModel?.Any(e => e.IdEntregaMntCrg == id)).GetValueOrDefault();
+            return (_context.EntregaMntCrgModel?.Any(e => e.IdEntregaMntCrg == id)).GetValueOrDefault();
         }
     }
 }
