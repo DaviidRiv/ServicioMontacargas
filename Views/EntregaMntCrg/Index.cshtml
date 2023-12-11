@@ -21,6 +21,12 @@
                 Horometro Entrega
             </th>
             <th>
+                Fecha Recoleccion
+            </th>
+            <th>
+                Horometro Recoleccion
+            </th>
+            <th>
                 Montacargas
             </th>
             <th>
@@ -36,13 +42,16 @@
                 Liquido Frenos
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.AceiteDiferencial)
+            </th>
+            <th>
                 Tanque de gas y Soportes
             </th>
             <th>
                 Freno Estacionamiento
             </th>
             <th>
-                Fuga en sistema gas
+                Fugas
             </th>
             <th>
                 Elemento de aire
@@ -129,6 +138,9 @@
                 Firma
             </th>
             <th>
+                Nombre del Entregante
+            </th>
+            <th>
                 Evidencia 1
             </th>
             <th>
@@ -148,6 +160,12 @@
                     @Html.DisplayFor(modelItem => item.HorometroEntrega)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.FechaRecoleccion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HorometroRecoleccion)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.idMontacargas)
                 </td>
                 <td>
@@ -161,6 +179,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.NivelLiquidoFrenos)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AceiteDiferencial)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.TanqueGasSoportes)
@@ -256,6 +277,9 @@
                     <img src="@item.FirmaCliente" alt="Firma del Cliente" width="100" height="100" />
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.NombreJacsa)
+                </td>
+                <td>
                     <img src="data:image/jpeg;base64, @item.EvidenciaImagen1Base64" alt="Evidencia1" width="100" height="100" />
                 </td>
                 <td>
@@ -271,7 +295,7 @@
                 </td>
             </tr>
             <!-- Modal -->
-            <div class="modal fade" id="eliminarUsuario-@item.IdEntregaMntCrg" tabindex="-1" aria-hidden="true">
+            <div class="modal fade" id="eliminarUsuario-@item.IdEntregaMntCrg" tabindex="9999" aria-hidden="true" style="width:100%">
                 <div class="modal-dialog modal-contenedor">
                     <div class="modal-content contenedor-eliminar">
                         <div class="modal-header">

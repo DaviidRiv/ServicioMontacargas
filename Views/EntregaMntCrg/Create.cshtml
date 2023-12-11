@@ -13,17 +13,27 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create" enctype="multipart/form-data">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="FechaEntrega" class="control-label"></label>
-                <input asp-for="FechaEntrega" class="form-control" />
+                <input type="datetime-local" name="FechaEntrega" class="form-control text-muted" />
                 <span asp-validation-for="FechaEntrega" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="HorometroEntrega" class="control-label"></label>
-                <input asp-for="HorometroEntrega" class="form-control" />
+                <input asp-for="HorometroEntrega" class="form-control text-muted" />
                 <span asp-validation-for="HorometroEntrega" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaRecoleccion" class="control-label"></label>
+                <input type="datetime-local" name="FechaRecoleccion" class="form-control text-muted" />
+                <span asp-validation-for="FechaRecoleccion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HorometroRecoleccion" class="control-label"></label>
+                <input asp-for="HorometroRecoleccion" class="form-control" />
+                <span asp-validation-for="HorometroRecoleccion" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="idMontacargas" class="control-label"></label>
@@ -79,6 +89,16 @@
             <div class="form-group">
                 <label asp-for="NivelLiquidoFrenos" class="control-label"></label>
                 <select asp-for="NivelLiquidoFrenos" class="form-select" required>
+                    <option value="" selected disabled>--Selecciona una opcion--</option>
+                    <option value="Bien">Bien</option>
+                    <option value="Bajo">Bajo</option>
+                    <option value="N/A">N/A</option>
+                </select>
+                <span asp-validation-for="NivelLiquidoFrenos" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AceiteDiferencial" class="control-label"></label>
+                <select asp-for="AceiteDiferencial" class="form-select" required>
                     <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Bien">Bien</option>
                     <option value="Bajo">Bajo</option>
@@ -380,15 +400,20 @@
                 </div>
             </div>
             <div class="form-group">
+                <label asp-for="NombreJacsa" class="control-label"></label>
+                <input asp-for="NombreJacsa" class="form-control" />
+                <span asp-validation-for="NombreJacsa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="EvidenciaImagen1" class="control-label"></label>
-                <input type="file" asp-for="EvidenciaImagen1" class="form-control" />
+                <input type="file" name="EvidenciaImagen1File" class="form-control" />
                 <span asp-validation-for="EvidenciaImagen1" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EvidenciaImagen2" class="control-label"></label>
-                <input type="file" asp-for="EvidenciaImagen2" class="form-control" />
+                <input type="file" name="EvidenciaImagen2File" class="form-control" />
                 <span asp-validation-for="EvidenciaImagen2" class="text-danger"></span>
-            </div>
+            </div><br />
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

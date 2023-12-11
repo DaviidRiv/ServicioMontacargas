@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ServicioMontacargas.Data;
 
@@ -11,9 +12,10 @@ using ServicioMontacargas.Data;
 namespace ServicioMontacargas.Migrations
 {
     [DbContext(typeof(ServicioMontacargasContext))]
-    partial class ServicioMontacargasContextModelSnapshot : ModelSnapshot
+    [Migration("20231211045951_UpdateEntregaMontacarga")]
+    partial class UpdateEntregaMontacarga
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,7 +89,7 @@ namespace ServicioMontacargas.Migrations
                     b.Property<DateTime>("FechaEntrega")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("FechaRecoleccion")
+                    b.Property<DateTime>("FechaRecoleccion")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FirmaCliente")
