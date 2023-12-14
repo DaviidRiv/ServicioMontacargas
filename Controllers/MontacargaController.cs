@@ -56,7 +56,7 @@ namespace ServicioMontacargas.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdMontacargas,NumeroSerie,NumeroEconomico,Marca,Modelo,Horometro,Status")] MontacargasModel montacargasModel)
+        public async Task<IActionResult> Create([Bind("IdMontacargas,NumeroSerie,NumeroEconomico,Marca,Modelo,Horometro,Status,Equipo")] MontacargasModel montacargasModel)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +88,7 @@ namespace ServicioMontacargas.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdMontacargas,NumeroSerie,NumeroEconomico,Marca,Modelo,Horometro,Status")] MontacargasModel montacargasModel)
+        public async Task<IActionResult> Edit(int id, [Bind("IdMontacargas,NumeroSerie,NumeroEconomico,Marca,Modelo,Horometro,Status,Equipo")] MontacargasModel montacargasModel)
         {
             if (id != montacargasModel.IdMontacargas)
             {

@@ -1,0 +1,27 @@
+﻿thead input {
+    width: 100%;
+    background-color: #FFFFFF !important
+}
+
+.btn-exportar-excel {
+    background-color: #198754 !important;
+    color: white !important;
+}
+
+.btn-exportar-pdf {
+    background-color: #dc3545 !important;
+    color: white !important;
+}
+
+.btn-exportar-print {
+    background-color: #00a7c9 !important;
+    color: white !important;
+}
+
+tr, td{
+    text-align:center;
+}
+.table-hover tbody tr:hover {
+    background-color: #8888B6 !important; /* Cambia esto al color que desees */
+}
+

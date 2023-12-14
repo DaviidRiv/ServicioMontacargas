@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\ServicioMontacargas.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\david\\Desktop\\RomeoTec\\ServicioMontacargas\\wwwroot\\css\\Datatables.css",
+      "PackagePath": "staticwebassets\\css\\Datatables.css"
+    },
+    {
       "Id": "C:\\Users\\david\\Desktop\\RomeoTec\\ServicioMontacargas\\wwwroot\\css\\navbar.css",
       "PackagePath": "staticwebassets\\css\\navbar.css"
     },
@@ -19,6 +23,10 @@
     {
       "Id": "C:\\Users\\david\\Desktop\\RomeoTec\\ServicioMontacargas\\wwwroot\\img\\LogoJacasa.jpeg",
       "PackagePath": "staticwebassets\\img\\LogoJacasa.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\david\\Desktop\\RomeoTec\\ServicioMontacargas\\wwwroot\\js\\datatables.js",
+      "PackagePath": "staticwebassets\\js\\datatables.js"
     },
     {
       "Id": "C:\\Users\\david\\Desktop\\RomeoTec\\ServicioMontacargas\\wwwroot\\js\\navbar.js",
