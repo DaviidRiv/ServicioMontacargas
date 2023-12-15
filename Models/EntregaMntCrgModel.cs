@@ -21,6 +21,7 @@ namespace ServicioMontacargas.Models
 
         //Recoleccion
         [DisplayName("Fecha de Recoleccion")]
+        [DataType(DataType.DateTime)]
         public DateTime? FechaRecoleccion { get; set; }        
         [DisplayName("Horometro de Recolección")]
         public int? HorometroRecoleccion { get; set; }

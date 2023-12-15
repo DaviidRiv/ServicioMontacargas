@@ -17,11 +17,49 @@
     background-color: #00a7c9 !important;
     color: white !important;
 }
+.btn-colvis {
+    background-color: #898989 !important;
+    color: white !important;
+}
 
-tr, td{
-    text-align:center;
+tr, td {
+    text-align: center;
 }
 .table-hover tbody tr:hover {
     background-color: #8888B6 !important; /* Cambia esto al color que desees */
 }
+
+th, td {
+    white-space: nowrap;
+}
+
+div.dataTables_wrapper {
+    width: auto;
+    margin: 0 auto;
+}
+
+/* Ajusta el ancho de la lista de columnas y el texto */
+.three-column .buttons-columnVisibility {
+    max-height: 400px;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+/* Ajusta el ancho de los elementos de la lista */
+.three-column .dt-button-collection .dt-button {
+    width: 100%;
+    text-align: left;    
+    white-space: normal;
+    overflow: hidden;
+}
+
+    /* Ajusta el estilo de los textos según sea necesario */
+    .three-column .dt-button-collection .dt-button span {
+        display: inline-block;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 

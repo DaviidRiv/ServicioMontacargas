@@ -8,6 +8,8 @@
         language: {
             url: "https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
         },
+        paging: true, // Habilita la paginación
+        pageLength: 10,
         //________________ TERCERO ____________
         columnDefs: [
             {
@@ -96,5 +98,65 @@
                 });
             });
         },
+    });
+}); 
+
+//EntregaMontacarga
+$(document).ready(function () {
+
+    $('#tb_entrega').DataTable({
+        //________________ SEGUNDO ____________
+        language: {
+            url: "https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
+        },
+        //________________ TERCERO ____________
+        columnDefs: [
+            {
+                targets: 0,
+                visible: true
+            }
+        ],
+        //_______________ CUARTO ______________
+        dom: 'BfrtipC',
+        buttons: [
+            //'excel',
+            {
+                extend: 'excelHtml5',
+                text: 'Excel',
+                filename: 'Inventario Equipo',
+                title: 'Datos del Equipo',
+                exportOptions: {
+                    columns: ':not(:last-child)' // Excluir la última columna
+                },
+                className: 'btn-exportar-excel',
+            },
+            //'pdf',
+            {
+                extend: 'pdfHtml5',
+                text: 'PDF',
+                filename: 'Inventario Equipo',
+                title: 'Datos del Equipo',
+                exportOptions: {
+                    columns: ':not(:last-child)' // Excluir la última columna
+                },
+                className: 'btn-exportar-pdf',
+            },
+            //'print'
+            {
+                extend: 'print',
+                title: 'Inventario Equipo',
+                className: 'btn-exportar-print'
+
+            },
+            {
+                extend: 'colvis',
+                text: 'Columnas',
+                className: 'btn-colvis',
+                collectionLayout: 'fixed three-column'
+            },
+            //extra
+            'pageLength'
+        ],
+        //______________ QUINTO _______________
     });
 });

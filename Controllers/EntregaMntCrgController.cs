@@ -19,7 +19,6 @@ namespace ServicioMontacargas.Controllers
             _context = context;
         }
 
-        // GET: EntregaMntCrg
         public async Task<IActionResult> Index()
         {
             return _context.EntregaMntCrgModel != null ?
@@ -45,7 +44,7 @@ namespace ServicioMontacargas.Controllers
             return View(entregaMntCrgModel);
         }
 
-        private List<SelectListItem> ObtenerMontacargasOptionsDesdeBD()
+        private List<SelectListItem> ObtenerMontacargasOptions()
         {
             var montacargasDesdeBD = _context.MontacargasModel.ToList();
 
@@ -53,7 +52,7 @@ namespace ServicioMontacargas.Controllers
             var opciones = montacargasDesdeBD.Select(m => new SelectListItem
             {
                 Value = m.IdMontacargas.ToString(),
-                Text = $"{m.IdMontacargas} - {m.NumeroEconomico} - {m.Marca} - {m.Modelo} - {m.NumeroSerie}" // Personaliza el texto según tus necesidades
+                Text = $"{m.IdMontacargas} - {m.NumeroEconomico} - {m.Marca} - {m.Modelo} - {m.NumeroSerie}"
             }).ToList();
 
             return opciones;
@@ -62,13 +61,10 @@ namespace ServicioMontacargas.Controllers
         // GET: EntregaMntCrg/Create
         public IActionResult Create()
         {
-            ViewBag.MontacargasOptions = ObtenerMontacargasOptionsDesdeBD();
+            ViewBag.MontacargasOptions = ObtenerMontacargasOptions();
             return View(new EntregaMntCrgModel());
         }
 
-        // POST: EntregaMntCrg/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(EntregaMntCrgModel entregaMntCrgModel)
@@ -102,11 +98,10 @@ namespace ServicioMontacargas.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            ViewBag.MontacargasOptions = ObtenerMontacargasOptions();
             return View(entregaMntCrgModel);
         }
 
-
-        // GET: EntregaMntCrg/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.EntregaMntCrgModel == null)
@@ -119,21 +114,40 @@ namespace ServicioMontacargas.Controllers
             {
                 return NotFound();
             }
+            ViewBag.MontacargasOptions = ObtenerMontacargasOptions();
             return View(entregaMntCrgModel);
         }
 
-        // POST: EntregaMntCrg/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdEntregaMntCrg,FechaEntrega,HorometroEntrega,idMontacargas,NivelAceiteMotor,NivelAnticongelante,NivelAceiteHidraulico,NivelLiquidoFrenos,TanqueGasSoportes,FrenoEstacionamiento,FugaSistemaGas,ElementoAire,DistanciaFrenado,CapacidadCarga,RespaldoCarga,Horquillas,Tablero,PinturaGeneral,CubiertaPiston,LlantasDireccion,LlantasTraccion,BateriaTerminales,LimpiezaGeneral,SistemaArranque,LucesTrabajo,LucesTraseras,Torreta,AlarmaReversa,Claxon,Extintor,Espejos,CinturonSeguridad,Asiento,FaroProximidad,Observaciones,Llave,NombreCliente,EmpresaCliente,FirmaCliente,EvidenciaImagen1,EvidenciaImagen2")] EntregaMntCrgModel entregaMntCrgModel)
+        public async Task<IActionResult> Edit(int id, EntregaMntCrgModel entregaMntCrgModel)
         {
             if (id != entregaMntCrgModel.IdEntregaMntCrg)
             {
                 return NotFound();
             }
 
+            if (entregaMntCrgModel.EvidenciaImagen1File != null)
+            {
+                // Convierte IFormFile a byte[]
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    await entregaMntCrgModel.EvidenciaImagen1File.CopyToAsync(ms);
+                    entregaMntCrgModel.EvidenciaImagen1 = ms.ToArray();
+                    entregaMntCrgModel.EvidenciaImagen1Base64 = Convert.ToBase64String(entregaMntCrgModel.EvidenciaImagen1);
+                }
+            }
+
+            if (entregaMntCrgModel.EvidenciaImagen2File != null)
+            {
+                // Convierte IFormFile a byte[]
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    await entregaMntCrgModel.EvidenciaImagen2File.CopyToAsync(ms);
+                    entregaMntCrgModel.EvidenciaImagen2 = ms.ToArray();
+                    entregaMntCrgModel.EvidenciaImagen2Base64 = Convert.ToBase64String(entregaMntCrgModel.EvidenciaImagen2);
+                }
+            }
             if (ModelState.IsValid)
             {
                 try
@@ -154,6 +168,7 @@ namespace ServicioMontacargas.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.MontacargasOptions = ObtenerMontacargasOptions();
             return View(entregaMntCrgModel);
         }
 
