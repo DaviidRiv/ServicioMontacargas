@@ -118,6 +118,22 @@ namespace ServicioMontacargas.Controllers
             return View(entregaMntCrgModel);
         }
 
+        public async Task<IActionResult> Entrega(int? id)
+        {
+            if (id == null || _context.EntregaMntCrgModel == null)
+            {
+                return NotFound();
+            }
+
+            var entregaMntCrgModel = await _context.EntregaMntCrgModel.FindAsync(id);
+            if (entregaMntCrgModel == null)
+            {
+                return NotFound();
+            }
+            ViewBag.MontacargasOptions = ObtenerMontacargasOptions();
+            return View(entregaMntCrgModel);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, EntregaMntCrgModel entregaMntCrgModel)
@@ -171,6 +187,66 @@ namespace ServicioMontacargas.Controllers
             ViewBag.MontacargasOptions = ObtenerMontacargasOptions();
             return View(entregaMntCrgModel);
         }
+        [HttpPost]
+        public async Task<IActionResult> Recoleccion(int id, EntregaMntCrgModel entregaMntCrgModel)
+        {
+            if (id != entregaMntCrgModel.IdEntregaMntCrg)
+            {
+                return NotFound();
+            }
+
+            // Carga la entrega actual desde la base de datos
+            var existingEntrega = await _context.EntregaMntCrgModel.FindAsync(id);
+
+            // Actualiza solo los campos necesarios (propiedades escalares)
+            _context.Entry(existingEntrega).CurrentValues.SetValues(entregaMntCrgModel);
+
+            // Actualiza las propiedades específicas de las imágenes si se proporcionan nuevas
+            if (entregaMntCrgModel.EvidenciaImagen1File != null)
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    await entregaMntCrgModel.EvidenciaImagen1File.CopyToAsync(ms);
+                    existingEntrega.EvidenciaImagen1 = ms.ToArray();
+                    existingEntrega.EvidenciaImagen1Base64 = Convert.ToBase64String(existingEntrega.EvidenciaImagen1);
+                }
+            }
+
+            if (entregaMntCrgModel.EvidenciaImagen2File != null)
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    await entregaMntCrgModel.EvidenciaImagen2File.CopyToAsync(ms);
+                    existingEntrega.EvidenciaImagen2 = ms.ToArray();
+                    existingEntrega.EvidenciaImagen2Base64 = Convert.ToBase64String(existingEntrega.EvidenciaImagen2);
+                }
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Guarda los cambios en la base de datos
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!EntregaMntCrgModelExists(entregaMntCrgModel.IdEntregaMntCrg))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+
+            ViewBag.MontacargasOptions = ObtenerMontacargasOptions();
+            return View(entregaMntCrgModel);
+        }
+
 
         // GET: EntregaMntCrg/Delete/5
         public async Task<IActionResult> Delete(int? id)
