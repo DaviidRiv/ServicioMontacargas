@@ -103,7 +103,7 @@ namespace ServicioMontacargas.Models
         [DisplayName("Nombre del Entregante")]
         public string? NombreJacsa { get; set; }
 
-        //Evidencias
+        //Evidencias Entrega
         [NotMapped]
         public IFormFile? EvidenciaImagen1File { get; set; }
         [DisplayName("Evidencia 1")]
@@ -116,5 +116,19 @@ namespace ServicioMontacargas.Models
         public byte[]? EvidenciaImagen2 { get; set; }
         [DisplayName("Evidencia 2")]
         public string? EvidenciaImagen2Base64 { get; set; }
+
+        //Evidencias Recoleccion
+        [NotMapped]
+        public IFormFile? EvidenciaRImagen1File { get; set; }
+        [DisplayName("Evidencia 1")]
+        public byte[]? EvidenciaRImagen1 { get; set; }
+        [DisplayName("Evidencia 1")]
+        public string? EvidenciaRImagen1Base64 { get; set; }
+        [NotMapped]
+        public IFormFile? EvidenciaRImagen2File { get; set; }
+        [DisplayName("Evidencia 2")]
+        public byte[]? EvidenciaRImagen2 { get; set; }
+        [DisplayName("Evidencia 2")]
+        public string? EvidenciaRImagen2Base64 { get; set; }
     }
 }

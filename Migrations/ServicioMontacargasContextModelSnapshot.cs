@@ -78,6 +78,18 @@ namespace ServicioMontacargas.Migrations
                     b.Property<string>("EvidenciaImagen2Base64")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("EvidenciaRImagen1")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("EvidenciaRImagen1Base64")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("EvidenciaRImagen2")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("EvidenciaRImagen2Base64")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Extintor")
                         .HasColumnType("nvarchar(max)");
 
@@ -185,6 +197,9 @@ namespace ServicioMontacargas.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdMontacargas"), 1L, 1);
+
+                    b.Property<string>("Equipo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Horometro")
                         .HasColumnType("int");

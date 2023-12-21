@@ -1,0 +1,257 @@
+﻿@model ServicioMontacargas.Models.EntregaMntCrgModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ViewReportePDF</title>
+</head>
+<body>
+    <table style="width: 100%; border: solid 1px;">
+        <tr>
+            <td style="border: none;">
+                <img src="~/img/LogoJacasa.jpeg" width="250" height="130" />
+            </td>
+            <td style="border: none; color: blue;">
+                <h2 style="text-align:center">Montacargas de San Luis S.A. de C.V.</h2>
+                <h3 style="text-align:center">Las Vegas 235 San Luis Potosi, S.L.P.</h3>
+                <h3 style="text-align:center">Tel 444 168 1000</h3>
+            </td>
+        </tr>
+    </table>
+    <table style="width: 100%; border: none;">
+        <tr>
+            <td style="border: none; vertical-align: top; line-height: 1;">
+                <h3><u>Formato Entrega Equipo en Renta</u></h3>
+                <strong style="font-size:20px">@Model.EmpresaCliente</strong>
+                <p>Montacargas: @Model.idMontacargas</p>
+                <p>Modelo: @Model.idMontacargas</p>
+                <p>Serie: @Model.idMontacargas</p>
+                <p>No. Economico: @Model.idMontacargas</p>
+                <p>Fecha de Entrega: <em>@Model.FechaEntrega</em></p>
+                <p>Horómetro de Entrega: <em>@Model.HorometroEntrega</em></p>
+                <p>Fecha de Recolección: <em>@Model.FechaRecoleccion</em></p>
+                <p>Horómetro de Recolección: <em>@Model.HorometroRecoleccion</em></p>
+            </td>
+
+            <td style="border: none; vertical-align: top; margin-left: 50px;">
+                <p>Evidencias Entrega</p>
+                <p>
+                    <img src="data:image/jpeg;base64, @Html.DisplayFor(model => model.EvidenciaImagen1Base64)" alt="Evidencia1" width="100" height="100" />
+                    <img src="data:image/jpeg;base64, @Html.DisplayFor(model => model.EvidenciaImagen2Base64)" alt="Evidencia2" width="100" height="100" />
+                </p>
+                <p>Evidencias Recolección</p>
+                <p>
+                    <img src="data:image/jpeg;base64, @Html.DisplayFor(model => model.EvidenciaRImagen1Base64)" alt="RecolecciónEvidencia1" width="100" height="100" />
+                    <img src="data:image/jpeg;base64, @Html.DisplayFor(model => model.EvidenciaRImagen2Base64)" alt="RecolecciónEvidencia2" width="100" height="100" />
+                </p>
+            </td>
+        </tr>
+    </table>
+    <hr />
+    <table style="width: 100%; border: none;">
+        <tr>
+            <td style="width: 33%; vertical-align: top;">
+                <table style="width: 100%; border: none;">
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.NivelAceiteMotor)</th>
+                        <td>@Html.DisplayFor(model => model.NivelAceiteMotor)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.NivelAnticongelante)</th>
+                        <td>@Html.DisplayFor(model => model.NivelAnticongelante)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.NivelAceiteHidraulico)</th>
+                        <td>@Html.DisplayFor(model => model.NivelAceiteHidraulico)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.NivelLiquidoFrenos)</th>
+                        <td>@Html.DisplayFor(model => model.NivelLiquidoFrenos)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.AceiteDiferencial)</th>
+                        <td>@Html.DisplayFor(model => model.AceiteDiferencial)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.TanqueGasSoportes)</th>
+                        <td>@Html.DisplayFor(model => model.TanqueGasSoportes)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.FrenoEstacionamiento)</th>
+                        <td>@Html.DisplayFor(model => model.FrenoEstacionamiento)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.FugaSistemaGas)</th>
+                        <td>@Html.DisplayFor(model => model.FugaSistemaGas)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.ElementoAire)</th>
+                        <td>@Html.DisplayFor(model => model.ElementoAire)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.DistanciaFrenado)</th>
+                        <td>@Html.DisplayFor(model => model.DistanciaFrenado)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.CapacidadCarga)</th>
+                        <td>@Html.DisplayFor(model => model.CapacidadCarga)</td>
+                    </tr>
+                </table>
+            </td>
+
+            <td style="width: 33%; vertical-align: top;">
+                <table style="width: 100%; border: none;">
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.RespaldoCarga)</th>
+                        <td>@Html.DisplayFor(model => model.RespaldoCarga)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Horquillas)</th>
+                        <td>@Html.DisplayFor(model => model.Horquillas)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Tablero)</th>
+                        <td>@Html.DisplayFor(model => model.Tablero)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.PinturaGeneral)</th>
+                        <td>@Html.DisplayFor(model => model.PinturaGeneral)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.CubiertaPiston)</th>
+                        <td>@Html.DisplayFor(model => model.CubiertaPiston)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.LlantasDireccion)</th>
+                        <td>@Html.DisplayFor(model => model.LlantasDireccion)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.LlantasTraccion)</th>
+                        <td>@Html.DisplayFor(model => model.LlantasTraccion)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.BateriaTerminales)</th>
+                        <td>@Html.DisplayFor(model => model.BateriaTerminales)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.LimpiezaGeneral)</th>
+                        <td>@Html.DisplayFor(model => model.LimpiezaGeneral)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.SistemaArranque)</th>
+                        <td>@Html.DisplayFor(model => model.SistemaArranque)</td>
+                    </tr>
+                </table>
+            </td>
+
+            <td style="width: 33%; vertical-align: top;">
+                <table style="width: 100%; border: none;">
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.LucesTrabajo)</th>
+                        <td>@Html.DisplayFor(model => model.LucesTrabajo)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.LucesTraseras)</th>
+                        <td>@Html.DisplayFor(model => model.LucesTraseras)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Torreta)</th>
+                        <td>@Html.DisplayFor(model => model.Torreta)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.AlarmaReversa)</th>
+                        <td>@Html.DisplayFor(model => model.AlarmaReversa)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Claxon)</th>
+                        <td>@Html.DisplayFor(model => model.Claxon)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Extintor)</th>
+                        <td>@Html.DisplayFor(model => model.Extintor)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Espejos)</th>
+                        <td>@Html.DisplayFor(model => model.Espejos)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.CinturonSeguridad)</th>
+                        <td>@Html.DisplayFor(model => model.CinturonSeguridad)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Asiento)</th>
+                        <td>@Html.DisplayFor(model => model.Asiento)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.FaroProximidad)</th>
+                        <td>@Html.DisplayFor(model => model.FaroProximidad)</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    
+    <div>
+        <dl>
+            <dt>
+                <strong>@Html.DisplayNameFor(model => model.Llave)</strong>
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Llave)
+            </dd>
+            <dt>
+                <strong>@Html.DisplayNameFor(model => model.Observaciones)</strong>
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Observaciones)
+            </dd>
+        </dl>
+    </div>
+    <hr />
+    <div>
+        <div style="border: 2px solid black; padding: 0; margin-left:10px;">
+            <p>
+                Notas: El cliente se compromete a tener el maximo cuidado del montacargas protegiendolo de cualquier ambiente que pudiera deteriorar y poner en riesgo su existencia teniendo
+                la obligación de guardar y asegurar el montacargas cuando este no sea utilizado, siendo en consecuencia el responsable directo de los daños o perdida del uso total o parcial, que
+                por tales motivos se pudiera ocacionar al montacargas, obligandose a restituir de inmediato en cantidad y calidad las piezas dañadas, el cliente será responsable por cualquier daño
+                ocasionando al montacargas, salvo aquellos que sean consecuencia del uso y desgaste normal montacargas, el cliente esta obligado a reportar al arredador cualquier falla del
+                equipo y no utilizarlo hasta que sea reparado por el personal autorizado.
+            </p>
+        </div>
+    </div>
+    <table style="width: 100%;">
+        <tr>
+            <td style="text-align: center; padding: 20px;">
+                <dl>
+                    <dd>
+                        <u>@Html.DisplayFor(model => model.NombreJacsa)</u>
+                    </dd>
+                    <dt>
+                        MONTACARGAS DE SAN LUIS S.A. DE C.V.
+                    </dt>
+                </dl>
+            </td>
+            <td style="text-align: center; padding: 20px;">
+                <dl>
+                    <dd>
+                        <u><img src="@Html.DisplayFor(model => model.FirmaCliente)" alt="Firma Cliente" width="150" height="150" /></u>
+                    </dd>
+                    <dt>
+                        @Html.DisplayFor(model => model.NombreCliente)
+                    </dt>
+                    <dt>
+                        @Html.DisplayFor(model => model.EmpresaCliente)
+                    </dt>
+                </dl>
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Rotativa.AspNetCore;
 using ServicioMontacargas.Data;
 using ServicioMontacargas.Models;
 
@@ -285,6 +286,29 @@ namespace ServicioMontacargas.Controllers
         private bool EntregaMntCrgModelExists(int id)
         {
             return (_context.EntregaMntCrgModel?.Any(e => e.IdEntregaMntCrg == id)).GetValueOrDefault();
+        }
+
+        public async Task<IActionResult> ViewReportePDF(int? id)
+        {
+            if (id == null || _context.EntregaMntCrgModel == null)
+            {
+                return NotFound();
+            }
+
+            var entregaMntCrgModel = await _context.EntregaMntCrgModel
+                .FirstOrDefaultAsync(m => m.IdEntregaMntCrg == id);
+            if (entregaMntCrgModel == null)
+            {
+                return NotFound();
+            }
+
+            //return View(entregaMntCrgModel);
+            return new ViewAsPdf("ViewReportePDF", entregaMntCrgModel)
+            {
+                FileName = $"Entrega Equipo en Renta {entregaMntCrgModel.IdEntregaMntCrg}.pdf",
+                PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
+                PageSize = Rotativa.AspNetCore.Options.Size.A4
+            };
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ServicioMontacargas.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ServicioMontacargasContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ServicioMontacargasContext") ?? throw new InvalidOperationException("Connection string 'ServicioMontacargasContext' not found.")));
@@ -28,5 +29,8 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+IWebHostEnvironment env = app.Environment;
+Rotativa.AspNetCore.RotativaConfiguration.Setup(env.WebRootPath,"../Rotativa");
 
 app.Run();
