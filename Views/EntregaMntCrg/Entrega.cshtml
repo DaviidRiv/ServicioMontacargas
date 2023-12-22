@@ -166,7 +166,17 @@
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-4"> 
+            <div class="form-group">
+                <label asp-for="EvidenciaRImagen1" class="control-label"></label>
+                <input type="file" name="EvidenciaRImagen1File" class="form-control" />
+                <span asp-validation-for="EvidenciaRImagen1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EvidenciaRImagen2" class="control-label"></label>
+                <input type="file" name="EvidenciaRImagen2File" class="form-control" />
+                <span asp-validation-for="EvidenciaRImagen2" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="NombreJacsa" class="control-label"></label>
                 <input asp-for="NombreJacsa" class="form-control text-muted" readonly />

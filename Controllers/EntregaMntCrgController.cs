@@ -196,6 +196,27 @@ namespace ServicioMontacargas.Controllers
                 return NotFound();
             }
 
+            if (entregaMntCrgModel.EvidenciaRImagen1File != null)
+            {
+                // Convierte IFormFile a byte[]
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    await entregaMntCrgModel.EvidenciaRImagen1File.CopyToAsync(ms);
+                    entregaMntCrgModel.EvidenciaRImagen1 = ms.ToArray();
+                    entregaMntCrgModel.EvidenciaRImagen1Base64 = Convert.ToBase64String(entregaMntCrgModel.EvidenciaRImagen1);
+                }
+            }
+
+            if (entregaMntCrgModel.EvidenciaRImagen2File != null)
+            {
+                // Convierte IFormFile a byte[]
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    await entregaMntCrgModel.EvidenciaRImagen2File.CopyToAsync(ms);
+                    entregaMntCrgModel.EvidenciaRImagen2 = ms.ToArray();
+                    entregaMntCrgModel.EvidenciaRImagen2Base64 = Convert.ToBase64String(entregaMntCrgModel.EvidenciaRImagen2);
+                }
+            }
             // Carga la entrega actual desde la base de datos
             var existingEntrega = await _context.EntregaMntCrgModel.FindAsync(id);
 
@@ -296,19 +317,44 @@ namespace ServicioMontacargas.Controllers
             }
 
             var entregaMntCrgModel = await _context.EntregaMntCrgModel
+                .Include(e => e.Montacarga)
                 .FirstOrDefaultAsync(m => m.IdEntregaMntCrg == id);
+
             if (entregaMntCrgModel == null)
             {
                 return NotFound();
             }
 
-            //return View(entregaMntCrgModel);
+            // Obtén el IdMontacargas de la entidad principal
+            var idMontacargas = entregaMntCrgModel.idMontacargas;
+
+            // Realiza una segunda consulta para obtener el MontacargasModel
+            var montacargasModel = await _context.MontacargasModel
+                .FirstOrDefaultAsync(m => m.IdMontacargas == idMontacargas);
+
+            if (montacargasModel == null)
+            {
+                return NotFound();
+            }
+
+            // Almacena los datos en ViewBag
+            entregaMntCrgModel.MarcaMontacargas = montacargasModel.Marca;
+            entregaMntCrgModel.ModeloMontacargas = montacargasModel.Modelo;
+            entregaMntCrgModel.NumeroSerieMontacargas = montacargasModel.NumeroSerie;
+            entregaMntCrgModel.NumeroEconomicoMontacargas = montacargasModel.NumeroEconomico;
+
             return new ViewAsPdf("ViewReportePDF", entregaMntCrgModel)
             {
                 FileName = $"Entrega Equipo en Renta {entregaMntCrgModel.IdEntregaMntCrg}.pdf",
                 PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
-                PageSize = Rotativa.AspNetCore.Options.Size.A4
+                PageSize = Rotativa.AspNetCore.Options.Size.A4,
+                CustomSwitches = $"--footer-center \"Folio {entregaMntCrgModel.IdEntregaMntCrg} - Página [page]\" --footer-font-size 10",
             };
+
+            //return View(entregaMntCrgModel);
         }
+
+
+
     }
 }

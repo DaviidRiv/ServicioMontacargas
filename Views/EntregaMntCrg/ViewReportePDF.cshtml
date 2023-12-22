@@ -29,34 +29,26 @@
             <td style="border: none; vertical-align: top; line-height: 1;">
                 <h3><u>Formato Entrega Equipo en Renta</u></h3>
                 <strong style="font-size:20px">@Model.EmpresaCliente</strong>
-                <p>Montacargas: @Model.idMontacargas</p>
-                <p>Modelo: @Model.idMontacargas</p>
-                <p>Serie: @Model.idMontacargas</p>
-                <p>No. Economico: @Model.idMontacargas</p>
+                <p>Montacargas: @Model.idMontacargas - @Model.MarcaMontacargas</p>
+                <p>Modelo: @Model.ModeloMontacargas</p>
+                <p>Serie: @Model.NumeroSerieMontacargas</p>
+                <p>No Económico: @Model.NumeroEconomicoMontacargas</p>
+
+            </td>
+
+            <td style="border: none; vertical-align: top; margin-left: 50px;">
+                <br /><br /><br />
                 <p>Fecha de Entrega: <em>@Model.FechaEntrega</em></p>
                 <p>Horómetro de Entrega: <em>@Model.HorometroEntrega</em></p>
                 <p>Fecha de Recolección: <em>@Model.FechaRecoleccion</em></p>
                 <p>Horómetro de Recolección: <em>@Model.HorometroRecoleccion</em></p>
-            </td>
-
-            <td style="border: none; vertical-align: top; margin-left: 50px;">
-                <p>Evidencias Entrega</p>
-                <p>
-                    <img src="data:image/jpeg;base64, @Html.DisplayFor(model => model.EvidenciaImagen1Base64)" alt="Evidencia1" width="100" height="100" />
-                    <img src="data:image/jpeg;base64, @Html.DisplayFor(model => model.EvidenciaImagen2Base64)" alt="Evidencia2" width="100" height="100" />
-                </p>
-                <p>Evidencias Recolección</p>
-                <p>
-                    <img src="data:image/jpeg;base64, @Html.DisplayFor(model => model.EvidenciaRImagen1Base64)" alt="RecolecciónEvidencia1" width="100" height="100" />
-                    <img src="data:image/jpeg;base64, @Html.DisplayFor(model => model.EvidenciaRImagen2Base64)" alt="RecolecciónEvidencia2" width="100" height="100" />
-                </p>
             </td>
         </tr>
     </table>
     <hr />
     <table style="width: 100%; border: none;">
         <tr>
-            <td style="width: 33%; vertical-align: top;">
+            <td style="width: 33%; vertical-align: top; text-align: left;">
                 <table style="width: 100%; border: none;">
                     <tr>
                         <th>@Html.DisplayNameFor(model => model.NivelAceiteMotor)</th>
@@ -105,7 +97,7 @@
                 </table>
             </td>
 
-            <td style="width: 33%; vertical-align: top;">
+            <td style="width: 33%; vertical-align: top; text-align: left;">
                 <table style="width: 100%; border: none;">
                     <tr>
                         <th>@Html.DisplayNameFor(model => model.RespaldoCarga)</th>
@@ -147,15 +139,15 @@
                         <th>@Html.DisplayNameFor(model => model.SistemaArranque)</th>
                         <td>@Html.DisplayFor(model => model.SistemaArranque)</td>
                     </tr>
-                </table>
-            </td>
-
-            <td style="width: 33%; vertical-align: top;">
-                <table style="width: 100%; border: none;">
                     <tr>
                         <th>@Html.DisplayNameFor(model => model.LucesTrabajo)</th>
                         <td>@Html.DisplayFor(model => model.LucesTrabajo)</td>
                     </tr>
+                </table>
+            </td>
+
+            <td style="width: 33%; vertical-align: top; text-align: left;">
+                <table style="width: 100%; border: none;">                    
                     <tr>
                         <th>@Html.DisplayNameFor(model => model.LucesTraseras)</th>
                         <td>@Html.DisplayFor(model => model.LucesTraseras)</td>
@@ -192,6 +184,10 @@
                         <th>@Html.DisplayNameFor(model => model.FaroProximidad)</th>
                         <td>@Html.DisplayFor(model => model.FaroProximidad)</td>
                     </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Llave)</th>
+                        <td>@Html.DisplayFor(model => model.Llave)</td>
+                    </tr>
                 </table>
             </td>
         </tr>
@@ -199,12 +195,6 @@
     
     <div>
         <dl>
-            <dt>
-                <strong>@Html.DisplayNameFor(model => model.Llave)</strong>
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Llave)
-            </dd>
             <dt>
                 <strong>@Html.DisplayNameFor(model => model.Observaciones)</strong>
             </dt>
@@ -215,7 +205,7 @@
     </div>
     <hr />
     <div>
-        <div style="border: 2px solid black; padding: 0; margin-left:10px;">
+        <div style="border: 2px solid black; padding: 5px; margin-left:0px;">
             <p>
                 Notas: El cliente se compromete a tener el maximo cuidado del montacargas protegiendolo de cualquier ambiente que pudiera deteriorar y poner en riesgo su existencia teniendo
                 la obligación de guardar y asegurar el montacargas cuando este no sea utilizado, siendo en consecuencia el responsable directo de los daños o perdida del uso total o parcial, que
@@ -227,31 +217,53 @@
     </div>
     <table style="width: 100%;">
         <tr>
-            <td style="text-align: center; padding: 20px;">
+            <td style="text-align: center; padding: 10px; width: 50%">
                 <dl>
+                    <br /><br /><br /><br /><br />
                     <dd>
-                        <u>@Html.DisplayFor(model => model.NombreJacsa)</u>
+                        @Html.DisplayFor(model => model.NombreJacsa)
+                        <hr>
                     </dd>
                     <dt>
-                        MONTACARGAS DE SAN LUIS S.A. DE C.V.
+                        <strong>MONTACARGAS DE SAN LUIS S.A. DE C.V.</strong>
                     </dt>
                 </dl>
             </td>
-            <td style="text-align: center; padding: 20px;">
+            <td style="text-align: center; width: 50%">
                 <dl>
-                    <dd>
-                        <u><img src="@Html.DisplayFor(model => model.FirmaCliente)" alt="Firma Cliente" width="150" height="150" /></u>
+                    <dd style="border: 1px solid black; padding: 2px;">
+                        <img src="@Html.DisplayFor(model => model.FirmaCliente)" alt="Firma Cliente" width="150" height="150" />
                     </dd>
                     <dt>
-                        @Html.DisplayFor(model => model.NombreCliente)
+                        <strong>@Html.DisplayFor(model => model.NombreCliente)</strong>
                     </dt>
                     <dt>
-                        @Html.DisplayFor(model => model.EmpresaCliente)
+                        <strong>@Html.DisplayFor(model => model.EmpresaCliente)</strong>
                     </dt>
                 </dl>
             </td>
         </tr>
     </table>
+    <br />
+    <br />
+    <br />
+    <p></p>
+    <br>
+    <p></p>
+    <br />
+    <br />
 
+    <div>
+        <h3>Evidencias Entrega</h3>
+        <p>
+            <img src="data:image/jpeg;base64, @Html.DisplayFor(model => model.EvidenciaImagen1Base64)" alt="Evidencia1" width="300" height="300" />
+            <img src="data:image/jpeg;base64, @Html.DisplayFor(model => model.EvidenciaImagen2Base64)" alt="Evidencia2" width="300" height="300" />
+        </p>
+        <h3>Evidencias Recolección</h3>
+        <p>
+            <img src="data:image/jpeg;base64, @Html.DisplayFor(model => model.EvidenciaRImagen1Base64)" alt="RecolecciónEvidencia1" width="300" height="300" />
+            <img src="data:image/jpeg;base64, @Html.DisplayFor(model => model.EvidenciaRImagen2Base64)" alt="RecolecciónEvidencia2" width="300" height="300" />
+        </p>
+    </div>
 </body>
 </html>

@@ -120,15 +120,25 @@ namespace ServicioMontacargas.Models
         //Evidencias Recoleccion
         [NotMapped]
         public IFormFile? EvidenciaRImagen1File { get; set; }
-        [DisplayName("Evidencia 1")]
+        [DisplayName("Evidencia Recolección 1")]
         public byte[]? EvidenciaRImagen1 { get; set; }
-        [DisplayName("Evidencia 1")]
+        [DisplayName("Evidencia Recolección 1")]
         public string? EvidenciaRImagen1Base64 { get; set; }
         [NotMapped]
         public IFormFile? EvidenciaRImagen2File { get; set; }
-        [DisplayName("Evidencia 2")]
+        [DisplayName("Evidencia Recolección 2")]
         public byte[]? EvidenciaRImagen2 { get; set; }
-        [DisplayName("Evidencia 2")]
+        [DisplayName("Evidencia Recolección 2")]
         public string? EvidenciaRImagen2Base64 { get; set; }
+
+        //PDF
+        [NotMapped]
+        public string? MarcaMontacargas { get; set; }
+        [NotMapped]
+        public string? ModeloMontacargas { get; set; }
+        [NotMapped]
+        public string? NumeroSerieMontacargas { get; set; }
+        [NotMapped]
+        public string? NumeroEconomicoMontacargas { get; set; }
     }
 }
