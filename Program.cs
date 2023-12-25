@@ -3,6 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using ServicioMontacargas.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
 builder.Services.AddDbContext<ServicioMontacargasContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ServicioMontacargasContext") ?? throw new InvalidOperationException("Connection string 'ServicioMontacargasContext' not found.")));
 
