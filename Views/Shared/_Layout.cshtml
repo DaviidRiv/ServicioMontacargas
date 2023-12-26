@@ -27,7 +27,7 @@
 <body>
     <nav class="navbar navbar-light bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand"><img src="~/img/LogoJacasa.jpeg" width="240" height="50" /></a>
+            <a class="navbar-brand"><img src="~/img/LogoJacasa.jpeg" width="240" height="60" /></a>
             @*<form class="d-flex">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
@@ -43,13 +43,13 @@
                     </a>
                     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                         <li class="nav-item">
-                            <a href="#" class="nav-link align-middle px-0">
+                            <a asp-controller="Home" asp-action="Index" class="nav-link align-middle px-0">
                                 <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Inicio</span>
                             </a>
                         </li>
                         <li>
                             <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                                <iconify-icon class="fs-1 align-bottom" icon="material-symbols-light:forklift"></iconify-icon><span class="ms-1 d-none d-sm-inline">Montacargas</span>
+                                <iconify-icon class="fs-2 align-bottom" icon="mdi:forklift"></iconify-icon><span class="ms-1 d-none d-sm-inline">Montacargas</span>
                             </a>
                             <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                                 <li class="w-100">
@@ -59,10 +59,10 @@
                                     <a asp-controller="EntregaMntCrg" asp-action="Index" class="nav-link px-0">-<span class="d-none d-sm-inline"></span>Entrega y Recolección</a>
                                 </li>
                                 <li>
-                                    <a asp-controller="EntregaMntCrg" asp-action="Index" class="nav-link px-0">-<span class="d-none d-sm-inline"></span>CheckList</a>
+                                    <a href="#" class="nav-link px-0">-<span class="d-none d-sm-inline"></span>CheckList</a>
                                 </li>
                                 <li>
-                                    <a asp-controller="EntregaMntCrg" asp-action="Index" class="nav-link px-0">-<span class="d-none d-sm-inline"></span>Correctivo Preventivo</a>
+                                    <a href="#" class="nav-link px-0">-<span class="d-none d-sm-inline"></span>Correctivo Preventivo</a>
                                 </li>
                             </ul>
                         </li>
@@ -105,7 +105,7 @@
                         </li>
                         <li>
                             <a href="#" class="nav-link px-0 align-middle">
-                                <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Customers</span>
+                                <iconify-icon class="fs-3 align-bottom" icon="bi:people-fill"></iconify-icon><span class="ms-1 d-none d-sm-inline">Usuarios</span>
                             </a>
                         </li>
                     </ul>
