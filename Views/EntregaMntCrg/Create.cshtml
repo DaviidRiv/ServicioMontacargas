@@ -16,12 +16,12 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="FechaEntrega" class="control-label"></label>
-                <input type="datetime-local" name="FechaEntrega" class="form-control text-muted" />
+                <input type="datetime-local" name="FechaEntrega" class="form-control text-muted" required />
                 <span asp-validation-for="FechaEntrega" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="HorometroEntrega" class="control-label"></label>
-                <input asp-for="HorometroEntrega" class="form-control text-muted" />
+                <input asp-for="HorometroEntrega" class="form-control text-muted" required />
                 <span asp-validation-for="HorometroEntrega" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -389,20 +389,20 @@
 
             <div class="form-group">
                 <label asp-for="NombreCliente" class="control-label"></label>
-                <input asp-for="NombreCliente" class="form-control" />
+                <input asp-for="NombreCliente" class="form-control" required />
                 <span asp-validation-for="NombreCliente" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EmpresaCliente" class="control-label"></label>
-                <input asp-for="EmpresaCliente" class="form-control" />
+                <input asp-for="EmpresaCliente" class="form-control" required />
                 <span asp-validation-for="EmpresaCliente" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FirmaCliente" class="control-label">Firma del Cliente</label>
                 <div>
-                    <canvas id="signatureCanvas" width="400" height="200"></canvas>
+                    <canvas id="signatureCanvas" width="400" height="200" required></canvas>
                     <button type="button" onclick="clearSignature()">Borrar Firma</button>
-                    <input type="hidden" asp-for="FirmaCliente" id="hiddenFirmaCliente" />
+                    <input type="hidden" asp-for="FirmaCliente" id="hiddenFirmaCliente" required/>
                     <span asp-validation-for="FirmaCliente" class="text-danger"></span>
                 </div>
             </div>     
@@ -418,7 +418,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="NombreJacsa" class="control-label"></label>
-                <input asp-for="NombreJacsa" class="form-control" />
+                <input asp-for="NombreJacsa" class="form-control" required />
                 <span asp-validation-for="NombreJacsa" class="text-danger"></span>
             </div>
         </div>         
