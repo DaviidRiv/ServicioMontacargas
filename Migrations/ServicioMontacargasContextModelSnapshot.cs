@@ -198,7 +198,13 @@ namespace ServicioMontacargas.Migrations
                     b.Property<string>("Equipo")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("HorasMtto")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Horometro")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("HorometroMtto")
                         .HasColumnType("int");
 
                     b.Property<string>("Marca")
@@ -214,6 +220,9 @@ namespace ServicioMontacargas.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("cliente")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IdMontacargas");

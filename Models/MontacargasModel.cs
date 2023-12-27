@@ -13,5 +13,8 @@ namespace ServicioMontacargas.Models
         public int Horometro { get; set; }
         public string? Status { get; set; }
         public string? Equipo { get; set; }
+        public int? HorometroMtto { get; set; }
+        public string? HorasMtto { get; set; }
+        public string? cliente { get; set; }
     }
 }

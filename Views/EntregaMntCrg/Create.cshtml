@@ -156,14 +156,6 @@
                 <span asp-validation-for="DistanciaFrenado" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="NombreJacsa" class="control-label"></label>
-                <input asp-for="NombreJacsa" class="form-control" />
-                <span asp-validation-for="NombreJacsa" class="text-danger"></span>
-            </div>            
-        </div>
-
-        <div class="col-md-4">
-            <div class="form-group">
                 <label asp-for="CapacidadCarga" class="control-label"></label>
                 <select asp-for="CapacidadCarga" class="form-select" required>
                     <option value="" selected disabled>--Selecciona una opcion--</option>
@@ -172,7 +164,11 @@
                     <option value="N/A">N/A</option>
                 </select>
                 <span asp-validation-for="CapacidadCarga" class="text-danger"></span>
-            </div>
+            </div>                       
+        </div>
+
+        <div class="col-md-4">
+            
             <div class="form-group">
                 <label asp-for="RespaldoCarga" class="control-label"></label>
                 <select asp-for="RespaldoCarga" class="form-select" required>
@@ -314,14 +310,6 @@
                 <span asp-validation-for="AlarmaReversa" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EvidenciaImagen1" class="control-label"></label>
-                <input type="file" name="EvidenciaImagen1File" class="form-control" />
-                <span asp-validation-for="EvidenciaImagen1" class="text-danger"></span>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="form-group">
                 <label asp-for="Claxon" class="control-label"></label>
                 <select asp-for="Claxon" class="form-select" required>
                     <option value="" selected disabled>--Selecciona una opcion--</option>
@@ -330,7 +318,7 @@
                     <option value="N/A">N/A</option>
                 </select>
                 <span asp-validation-for="Claxon" class="text-danger"></span>
-            </div>
+            </div>          
             <div class="form-group">
                 <label asp-for="Extintor" class="control-label"></label>
                 <select asp-for="Extintor" class="form-select" required>
@@ -341,6 +329,9 @@
                 </select>
                 <span asp-validation-for="Extintor" class="text-danger"></span>
             </div>
+        </div>
+
+        <div class="col-md-4">                       
             <div class="form-group">
                 <label asp-for="Espejos" class="control-label"></label>
                 <select asp-for="Espejos" class="form-select" required>
@@ -414,11 +405,21 @@
                     <input type="hidden" asp-for="FirmaCliente" id="hiddenFirmaCliente" />
                     <span asp-validation-for="FirmaCliente" class="text-danger"></span>
                 </div>
-            </div>                       
+            </div>     
+            <div class="form-group">
+                <label asp-for="EvidenciaImagen1" class="control-label"></label>
+                <input type="file" name="EvidenciaImagen1File" class="form-control" />
+                <span asp-validation-for="EvidenciaImagen1" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="EvidenciaImagen2" class="control-label"></label>
                 <input type="file" name="EvidenciaImagen2File" class="form-control" />
                 <span asp-validation-for="EvidenciaImagen2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NombreJacsa" class="control-label"></label>
+                <input asp-for="NombreJacsa" class="form-control" />
+                <span asp-validation-for="NombreJacsa" class="text-danger"></span>
             </div>
         </div>         
         <center>

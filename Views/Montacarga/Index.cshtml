@@ -33,10 +33,19 @@
                     Modelo
                 </th>
                 <th>
+                    Mtto Anterior
+                </th>
+                <th>
                     Horómetro
                 </th>
                 <th>
+                    Mtto Siguiente
+                </th>
+                <th>
                     Estatus
+                </th>
+                <th>
+                    Cliente
                 </th>
                 <th>
                     Opciones
@@ -66,7 +75,13 @@
                         @Html.DisplayFor(modelItem => item.Modelo)
                     </td>
                     <td>
+                        @Html.DisplayFor(modelItem => item.HorometroMtto)                       
+                    </td>
+                    <td>
                         @Html.DisplayFor(modelItem => item.Horometro) hrs
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HorasMtto)
                     </td>
                     <td>
                         @{
@@ -96,6 +111,10 @@
                             }
                         }
                     </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.cliente)
+                    </td>
+                    
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.IdMontacargas"><iconify-icon icon="bi:pencil-square"></iconify-icon></a>
                         <a asp-action="Details" asp-route-id="@item.IdMontacargas"><iconify-icon icon="bi:eye-fill"></iconify-icon></a>

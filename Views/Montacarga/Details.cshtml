@@ -45,11 +45,23 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Modelo)
         </dd>
+        <dt class="col-sm-2">
+            Mtto Anterior
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.HorometroMtto)
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Horometro)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Horometro)
+        </dd>
+        <dt class="col-sm-2">
+            Mtto Siguiente
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HorasMtto)
         </dd>
         <dt class = "col-sm-2">
             Estatus
@@ -81,6 +93,12 @@
                     </span>
                 }
             }
+        </dd>
+        <dt class="col-sm-2">
+            Cliente
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.cliente)
         </dd>
     </dl>
 </div>
