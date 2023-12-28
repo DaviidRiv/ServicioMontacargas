@@ -4,16 +4,22 @@
     ViewData["Title"] = "Detalles Montacarga";
 }
 
-<h1>Detalles Montacarga @Model.NumeroEconomico</h1>
+<h1>Detalles del Montacarga : @Model.NumeroEconomico</h1>
 <hr />
 
 <div>
     <dl class="row">
-        <dt class="col-sm-2">
+        @*<dt class="col-sm-2">
             Folio
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.IdMontacargas)
+        </dd>*@
+        <dt class = "col-sm-2">
+            Número Económico
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NumeroEconomico)
         </dd>
         <dt class="col-sm-2">
             Equipo
@@ -26,13 +32,7 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.NumeroSerie)
-        </dd>
-        <dt class = "col-sm-2">
-            Número Económico
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NumeroEconomico)
-        </dd>
+        </dd>        
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Marca)
         </dt>
@@ -87,6 +87,18 @@
                     </span>
                 }
                 else if (Model.Status == "Baja")
+                {
+                    <span class="badge bg-danger">
+                        @Html.DisplayFor(model => model.Status)
+                    </span>
+                }
+                else if (Model.Status == "Mantenimiento")
+                {
+                    <span class="badge bg-danger">
+                        @Html.DisplayFor(model => model.Status)
+                    </span>
+                }
+                else
                 {
                     <span class="badge bg-danger">
                         @Html.DisplayFor(model => model.Status)

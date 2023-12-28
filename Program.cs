@@ -1,6 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ServicioMontacargas.Data;
+using DinkToPdf;
+using DinkToPdf.Contracts;
+using ServicioMontacargas.Extension;
+using ServicioMontacargas.Interfaces;
+using ServicioMontacargas.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +15,10 @@ builder.Services.AddDbContext<ServicioMontacargasContext>(options =>
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IViewRenderService, ViewRenderService>();
+
+
+builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
 
 var app = builder.Build();
 
@@ -31,9 +40,5 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-IWebHostEnvironment env = app.Environment;
-string wwwroot = app.Environment.WebRootPath;
-Rotativa.AspNetCore.RotativaConfiguration.Setup(wwwroot,"Rotativa");
 
 app.Run();

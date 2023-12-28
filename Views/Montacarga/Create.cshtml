@@ -54,7 +54,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="HorasMtto" class="control-label">Mtto Siguiente</label>
-                <input asp-for="HorasMtto" class="form-control" required />
+                <input asp-for="HorasMtto" class="form-control" required readonly />
                 <span asp-validation-for="HorasMtto" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -64,7 +64,8 @@
                     <option value="En renta">En renta</option>
                     <option value="Disponible">Disponible</option>
                     <option value="En reparación">En reparación</option>
-                    <option value="Baja">Baja</option>
+                    @*<option value="Baja">Baja</option>*@
+                    <option value="Mantenimiento">Mantenimiento</option>
                 </select>
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
@@ -93,4 +94,22 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-    }
+    <script>
+        $(document).ready(function () {
+            // Manejar los eventos 'input' en los campos HorometroMtto y Horometro
+            $('#HorometroMtto, #Horometro').on('input', function () {
+                // Obtener los valores actuales de HorometroMtto y Horometro
+                var horometroMtto = parseFloat($('#HorometroMtto').val()) || 0;
+                var horometro = parseFloat($('#Horometro').val()) || 0;
+
+                // Calcular las HorasMtto
+                var horasMtto = horometroMtto - horometro + 500;
+
+                // Actualizar el valor de HorasMtto
+                $('#HorasMtto').val(horasMtto);
+            });
+        });
+    </script>
+
+
+}

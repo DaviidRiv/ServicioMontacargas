@@ -5,19 +5,30 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Rotativa.AspNetCore;
 using ServicioMontacargas.Data;
 using ServicioMontacargas.Models;
+using DinkToPdf;
+using DinkToPdf.Contracts;
+using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using ServicioMontacargas.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+
 
 namespace ServicioMontacargas.Controllers
 {
     public class EntregaMntCrgController : Controller
     {
         private readonly ServicioMontacargasContext _context;
+        private readonly IConverter _converter;
+        private readonly IViewRenderService _viewRenderService;
 
-        public EntregaMntCrgController(ServicioMontacargasContext context)
+        public EntregaMntCrgController(ServicioMontacargasContext context, IConverter converter, IViewRenderService viewRenderService)
         {
             _context = context;
+            _converter = converter;
+            _viewRenderService = viewRenderService;
         }
 
         public async Task<IActionResult> Index()
@@ -343,18 +354,88 @@ namespace ServicioMontacargas.Controllers
             entregaMntCrgModel.NumeroSerieMontacargas = montacargasModel.NumeroSerie;
             entregaMntCrgModel.NumeroEconomicoMontacargas = montacargasModel.NumeroEconomico;
 
-            return new ViewAsPdf("ViewReportePDF", entregaMntCrgModel)
-            {
-                FileName = $"Entrega Equipo en Renta {entregaMntCrgModel.IdEntregaMntCrg}.pdf",
-                PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
-                PageSize = Rotativa.AspNetCore.Options.Size.A4,
-                CustomSwitches = $"--footer-center \"Folio {entregaMntCrgModel.IdEntregaMntCrg} - Página [page]\" --footer-font-size 10",
-            };
+            //return new ViewAsPdf("ViewReportePDF", entregaMntCrgModel)
+            //{
+            //    FileName = $"Entrega Equipo en Renta {entregaMntCrgModel.IdEntregaMntCrg}.pdf",
+            //    PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
+            //    PageSize = Rotativa.AspNetCore.Options.Size.A4,
+            //    CustomSwitches = $"--footer-center \"Folio {entregaMntCrgModel.IdEntregaMntCrg} - Página [page]\" --footer-font-size 10",
+            //};
 
-            //return View(entregaMntCrgModel);
+            return View(entregaMntCrgModel);
         }
 
+        public IActionResult MostrarPDFenPagina()
+        {
+            string pagina_actual = HttpContext.Request.Path;
+            string url_pagina = HttpContext.Request.GetEncodedUrl();
+            url_pagina = url_pagina.Replace(pagina_actual, "");
+            url_pagina = $"{url_pagina}/EntregaMntCrg/ViewReportePDF/13";
 
+
+            var pdf = new HtmlToPdfDocument()
+            {
+                GlobalSettings = new GlobalSettings()
+                {
+                    PaperSize = PaperKind.A4,
+                    Orientation = Orientation.Portrait
+                },
+                Objects = {
+                    new ObjectSettings(){
+                        Page = url_pagina
+                    }
+                }
+
+            };
+
+            var archivoPDF = _converter.Convert(pdf);
+
+
+            return File(archivoPDF, "application/pdf");
+        }
+
+        public async Task<IActionResult> DescargarPDF(int id)
+        {
+            // Obtén el modelo completo antes de renderizar la vista
+            var entregaMntCrgModel = await _context.EntregaMntCrgModel
+                .Include(e => e.Montacarga)
+                .FirstOrDefaultAsync(m => m.IdEntregaMntCrg == id);
+
+            if (entregaMntCrgModel == null)
+            {
+                return NotFound();
+            }
+
+            // Obtén el contenido HTML de la vista
+            var viewHtml = await _viewRenderService.RenderToStringAsync("~/Views/EntregaMntCrg/ViewReportePDF.cshtml", entregaMntCrgModel);
+
+            // Configuración para el PDF
+            var pdf = new HtmlToPdfDocument()
+            {
+                GlobalSettings = new GlobalSettings()
+                {
+                    PaperSize = PaperKind.A4,
+                    Orientation = Orientation.Portrait
+                },
+                Objects = {
+                    new ObjectSettings(){
+                        HtmlContent = viewHtml
+                    },
+                    new ObjectSettings() // Objeto adicional para el pie de página
+                    {
+                        PagesCount = true,
+                        HtmlContent = "<div style='text-align:center;'>Folio " + entregaMntCrgModel.IdEntregaMntCrg + "</div>",
+                        WebSettings = { DefaultEncoding = "utf-8" }
+                    }
+                }
+            };
+
+            // Conversión y descarga del PDF
+            var archivoPDF = _converter.Convert(pdf);
+            string nombrePDF = "Entrega Equipo en Renta " + DateTime.Now.ToString("ddMMyyyyHHmmss") + ".pdf";
+
+            return File(archivoPDF, "application/pdf", nombrePDF);
+        }
 
     }
 }

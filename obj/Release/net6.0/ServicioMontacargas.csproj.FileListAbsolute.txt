@@ -252,3 +252,14 @@ C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\ref\Servi
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\wwwroot\Rotativa\wkhtmltoimage.exe
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\wwwroot\Rotativa\wkhtmltopdf.exe
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\wwwroot\Rotativa\wkhtmltox.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\LibreriaPDF\libwkhtmltox.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\LibreriaPDF\libwkhtmltox.dylib
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\LibreriaPDF\libwkhtmltox.so
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\DinkToPdf.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\System.Web.Mvc.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\System.Web.Razor.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\System.Web.Helpers.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\System.Web.WebPages.Deployment.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\System.Web.WebPages.Razor.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\System.Web.WebPages.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\Microsoft.Web.Infrastructure.dll
