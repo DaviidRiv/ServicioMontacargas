@@ -1,0 +1,100 @@
+﻿@model ServicioMontacargas.Models.UsuariosModel
+
+@{
+    ViewData["Title"] = "Edit Usuario";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+
+    <h1>Editar Usuario</h1>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <input type="hidden" asp-for="IdUsuario" />
+                <input type="hidden" name="id" value="@Model.IdUsuario" />
+
+                <div class="form-group">
+                    <label asp-for="Nombre" class="control-label"></label>
+                    <input asp-for="Nombre" class="form-control" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ApellidoP" class="control-label"></label>
+                    <input asp-for="ApellidoP" class="form-control" />
+                    <span asp-validation-for="ApellidoP" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ApellidoM" class="control-label"></label>
+                    <input asp-for="ApellidoM" class="form-control" />
+                    <span asp-validation-for="ApellidoM" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label"></label>
+                    <div class="input-group">
+                        <input type="password" asp-for="Password" class="form-control" id="passwordInput" />
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                                <i class="bi bi-eye-fill"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="rolUser" class="control-label"></label>
+                    <select asp-for="rolUser" class="form-select" required>
+                        <option value="" selected disabled>--Seleccionar--</option>
+                        <option value="Administrador">Administrador</option>
+                        <option value="Supervisor">Supervisor</option>
+                        <option value="Cliente">Cliente</option>
+                        <option value="Operador">Operador</option>
+                        <option value="Técnico">Técnico</option>
+                    </select>
+                    <span asp-validation-for="rolUser" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <br />
+                    <input type="submit" value="Guardar" class="btn btn-success" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <br />
+        <a asp-action="Index"><iconify-icon icon="bi:arrow-left-circle-fill"></iconify-icon> Regresar</a>
+    </div>
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+        <script>
+            document.getElementById('togglePassword').addEventListener('click', function () {
+                var passwordInput = document.getElementById('passwordInput');
+                var icon = this.querySelector('i');
+
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    passwordInput.type = 'password';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            });
+        </script>
+    }
+</body>
+</html>

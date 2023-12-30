@@ -26,5 +26,7 @@ namespace ServicioMontacargas.Data
                 .WithMany()
                 .HasForeignKey(e => e.idMontacargas); // Asegúrate de que esta es la clave correcta
         }
+
+        public DbSet<ServicioMontacargas.Models.UsuariosModel>? UsuariosModel { get; set; }
     }
 }

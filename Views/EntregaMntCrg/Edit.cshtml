@@ -11,7 +11,9 @@
 <hr />
 <form asp-action="Edit" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
     <input type="hidden" asp-for="IdEntregaMntCrg" />
+    <input type="hidden" name="id" value="@Model.IdEntregaMntCrg" />
 
     <div class="row">
         <div class="col-md-4">

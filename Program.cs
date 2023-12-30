@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ServicioMontacargas.Data;
-using DinkToPdf;
-using DinkToPdf.Contracts;
-using ServicioMontacargas.Extension;
-using ServicioMontacargas.Interfaces;
-using ServicioMontacargas.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,10 +10,13 @@ builder.Services.AddDbContext<ServicioMontacargasContext>(options =>
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<IViewRenderService, ViewRenderService>();
 
-
-builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
+//session
+builder.Services.AddResponseCaching();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+});
 
 var app = builder.Build();
 
@@ -35,10 +33,14 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Login}/{action=Login}");
 
 app.Run();

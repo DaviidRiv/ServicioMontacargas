@@ -3,15 +3,21 @@
 @{
     ViewData["Title"] = "Editar Montacargas";
 }
-
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"]</title>
+</head>
 <h1>Editar Montacargas @Model.NumeroEconomico</h1>
 <hr />
-<form asp-action="Edit">
+<form asp-controller="Montacarga" asp-action="Edit" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <div class="row">
         <div class="col-md-6">
-            <input type="hidden" asp-for="IdMontacargas" />
+
+            <input type="hidden" name="id" value="@Model.IdMontacargas"/>
+            <input type="hidden" asp-for="IdMontacargas"/>
+
             <div class="form-group">
                 <label class="control-label">Número de Serie</label>
                 <input asp-for="NumeroSerie" class="form-control" required />

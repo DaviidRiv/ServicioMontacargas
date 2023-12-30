@@ -230,6 +230,34 @@ namespace ServicioMontacargas.Migrations
                     b.ToTable("MontacargasModel");
                 });
 
+            modelBuilder.Entity("ServicioMontacargas.Models.UsuariosModel", b =>
+                {
+                    b.Property<int>("IdUsuario")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdUsuario"), 1L, 1);
+
+                    b.Property<string>("ApellidoM")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ApellidoP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("rolUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdUsuario");
+
+                    b.ToTable("UsuariosModel");
+                });
+
             modelBuilder.Entity("ServicioMontacargas.Models.EntregaMntCrgModel", b =>
                 {
                     b.HasOne("ServicioMontacargas.Models.MontacargasModel", "Montacarga")

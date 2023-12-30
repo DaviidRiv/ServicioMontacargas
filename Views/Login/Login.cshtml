@@ -1,0 +1,119 @@
+﻿@{
+    ViewData["Title"] = "Iniciar Sesion";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/login.css">
+    @*<link rel="stylesheet" href="~/css/general.css">*@
+
+</head>
+<body>
+    <section class="ftco-section">
+        <div class="container">
+
+            <div class="row justify-content-center">
+                <div class="col-md-12 col-lg-10">
+                    <div class="wrap d-md-flex">
+                        <div class="img text-center">
+                            <img src="~/img/LogoJacasa.jpeg" alt="" width="80%">
+                        </div>
+                        <div class="login-wrap p-4 p-md-5">
+                            <div class="d-flex">
+                                <div class="w-100">
+                                    <h3 class="mb-4 text-center">Inicia sesión</h3>
+                                </div>
+                            </div>
+                            @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                            {
+                                <div class="alert alert-danger mt-3" role="alert">
+                                    @ViewBag.ErrorMessage
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(ViewBag.CerrarSesion))
+                            {
+                                <div class="alert alert-success mt-3" role="alert">
+                                    @ViewBag.CerrarSesion
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(ViewBag.ErrorSession))
+                            {
+                                <div class="alert alert-danger mt-3" role="alert">
+                                    @ViewBag.ErrorSession
+                                </div>
+                            }
+                            <form class="signin-form" asp-controller="Login" asp-action="IniciarSesion" method="post">
+                                <div class="form-group mb-3">
+                                    <label class="label" for="name">Nombre</label>
+                                    <input type="text" class="form-control" name="nombre" placeholder="Nombre Completo" required>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label class="label" for="name">Apellido Paterno</label>
+                                    <input type="text" class="form-control" name="apellidoP" placeholder="Apellido Paterno" required>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label class="label" for="name">Apellido Materno</label>
+                                    <input type="text" class="form-control" name="apellidoM" placeholder="Apellido Materno" required>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label class="label" for="password">Contraseña</label>
+                                    <input type="password" class="form-control" name="password" placeholder="*********" required id="pwd">
+                                    <span class="toggle-password" onclick="togglePasswordVisibility()"><i class="fas fa-eye"></i></span>
+                                    <span class="clear-password" onclick="clearPassword()"><i class="fa fa-times"></i></span>
+
+                                </div>
+                                <div class="form-group mt-3">
+                                    <button type="submit" class="form-control btn-primary btn-login">INICIAR SESIÓN</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function togglePasswordVisibility() {
+            var passwordField = document.getElementById("pwd");
+            var togglePassword = document.querySelector(".toggle-password i");
+
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                togglePassword.classList.remove("fa-eye");
+                togglePassword.classList.add("fa-eye-slash");
+            } else {
+                passwordField.type = "password";
+                togglePassword.classList.remove("fa-eye-slash");
+                togglePassword.classList.add("fa-eye");
+            }
+        }
+        function clearPassword() {
+            var passwordInput = document.getElementById('pwd');
+            passwordInput.value = '';
+            toggleClearPasswordVisibility();
+        }
+
+        function toggleClearPasswordVisibility() {
+            var passwordInput = document.getElementById('pwd');
+            var clearPasswordButton = document.querySelector('.clear-password');
+            clearPasswordButton.style.display = passwordInput.value.length > 0 ? 'block' : 'none';
+        }
+
+        // Agrega un event listener para detectar cambios en el campo de contraseña
+        document.getElementById('pwd').addEventListener('input', toggleClearPasswordVisibility);
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+</html>

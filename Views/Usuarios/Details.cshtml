@@ -1,0 +1,62 @@
+﻿@model ServicioMontacargas.Models.UsuariosModel
+
+@{
+    ViewData["Title"] = "Detalles Usuario";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <h1>Detalles del Usuario : @Model.IdUsuario</h1>
+    <hr />
+    <div>
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.IdUsuario)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.IdUsuario)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Nombre)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Nombre)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ApellidoP)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ApellidoP)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ApellidoM)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ApellidoM)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Password)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Password)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.rolUser)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.rolUser)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.IdUsuario"><iconify-icon icon="bi:pencil-square"></iconify-icon> Editar</a> |
+        <a asp-action="Index"><iconify-icon icon="bi:arrow-left-circle-fill"></iconify-icon> Regresar</a>
+    </div>
+</body>
+</html>
