@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Fsg2mAbgHpyq6MZHkyl7VOhZrmf6K46DcCWuiLLQxps=",
+  "Hash": "CocDnSLPhTzACexazRgWL4HlmZHPlflY/YmBVTLNA0M=",
   "Source": "ServicioMontacargas",
   "BasePath": "_content/ServicioMontacargas",
   "Mode": "Default",
@@ -66,6 +66,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\Datatables.css"
+    },
+    {
+      "Identity": "C:\\Users\\david\\Desktop\\RomeoTec\\ServicioMontacargas\\wwwroot\\css\\login.css",
+      "SourceId": "ServicioMontacargas",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\david\\Desktop\\RomeoTec\\ServicioMontacargas\\wwwroot\\",
+      "BasePath": "_content/ServicioMontacargas",
+      "RelativePath": "css/login.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\login.css"
     },
     {
       "Identity": "C:\\Users\\david\\Desktop\\RomeoTec\\ServicioMontacargas\\wwwroot\\css\\navbar.css",
@@ -1154,57 +1171,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
-    },
-    {
-      "Identity": "C:\\Users\\david\\Desktop\\RomeoTec\\ServicioMontacargas\\wwwroot\\Rotativa\\wkhtmltoimage.exe",
-      "SourceId": "ServicioMontacargas",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\david\\Desktop\\RomeoTec\\ServicioMontacargas\\wwwroot\\",
-      "BasePath": "_content/ServicioMontacargas",
-      "RelativePath": "Rotativa/wkhtmltoimage.exe",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Rotativa\\wkhtmltoimage.exe"
-    },
-    {
-      "Identity": "C:\\Users\\david\\Desktop\\RomeoTec\\ServicioMontacargas\\wwwroot\\Rotativa\\wkhtmltopdf.exe",
-      "SourceId": "ServicioMontacargas",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\david\\Desktop\\RomeoTec\\ServicioMontacargas\\wwwroot\\",
-      "BasePath": "_content/ServicioMontacargas",
-      "RelativePath": "Rotativa/wkhtmltopdf.exe",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Rotativa\\wkhtmltopdf.exe"
-    },
-    {
-      "Identity": "C:\\Users\\david\\Desktop\\RomeoTec\\ServicioMontacargas\\wwwroot\\Rotativa\\wkhtmltox.dll",
-      "SourceId": "ServicioMontacargas",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\david\\Desktop\\RomeoTec\\ServicioMontacargas\\wwwroot\\",
-      "BasePath": "_content/ServicioMontacargas",
-      "RelativePath": "Rotativa/wkhtmltox.dll",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Always",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Rotativa\\wkhtmltox.dll"
     }
   ]
 }

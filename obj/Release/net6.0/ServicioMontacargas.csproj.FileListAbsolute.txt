@@ -58,7 +58,6 @@ C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\NuGet.Pac
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\NuGet.ProjectModel.dll
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\NuGet.Protocol.dll
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\NuGet.Versioning.dll
-C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\Rotativa.AspNetCore.dll
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\System.Composition.AttributedModel.dll
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\System.Composition.Convention.dll
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\System.Composition.Hosting.dll
@@ -229,7 +228,6 @@ C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\ServicioM
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\ServicioMontacargas.AssemblyInfoInputs.cache
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\ServicioMontacargas.AssemblyInfo.cs
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\ServicioMontacargas.csproj.CoreCompileInputs.cache
-C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\ServicioMontacargas.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\ServicioMontacargas.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\ServicioMontacargas.RazorAssemblyInfo.cache
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\ServicioMontacargas.RazorAssemblyInfo.cs
@@ -249,13 +247,6 @@ C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\refint\Se
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\ServicioMontacargas.pdb
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\ServicioMontacargas.genruntimeconfig.cache
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\ref\ServicioMontacargas.dll
-C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\wwwroot\Rotativa\wkhtmltoimage.exe
-C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\wwwroot\Rotativa\wkhtmltopdf.exe
-C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\wwwroot\Rotativa\wkhtmltox.dll
-C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\LibreriaPDF\libwkhtmltox.dll
-C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\LibreriaPDF\libwkhtmltox.dylib
-C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\LibreriaPDF\libwkhtmltox.so
-C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\DinkToPdf.dll
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\System.Web.Mvc.dll
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\System.Web.Razor.dll
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\System.Web.Helpers.dll
