@@ -294,9 +294,9 @@
                             <a href="#" data-bs-toggle="modal" data-bs-target="#eliminarUsuario-@item.IdEntregaMntCrg" data-original-title="Eliminar"><iconify-icon icon="bi:trash3-fill"></iconify-icon></a>
                             <a asp-action="Entrega" asp-route-id="@item.IdEntregaMntCrg"><iconify-icon icon="mdi:timer-edit"></iconify-icon></a>
                             <a asp-action="ViewReportePDF" asp-route-id="@item.IdEntregaMntCrg"><iconify-icon icon="bxs:file-pdf"></iconify-icon></a>
-                            @*<a href="#" id="generatePdfLink" data-id="@item.IdEntregaMntCrg">
+                            <a href="#" id="generatePdfLink" data-id="@item.IdEntregaMntCrg">
                                 <iconify-icon icon="bxs:file-pdf"></iconify-icon>
-                        </a>*@
+                            </a>
                         </td>
                     </tr>
                     <!-- Modal -->
@@ -324,10 +324,8 @@
     @section Scripts {
 
         <script>
-            console.log("Script jQuery ejecutándose");
             $(document).on('click', '#generatePdfLink', function (e) {
                 e.preventDefault();
-                console.log("entree 1");
                 var id = $(this).data('id');
                 generatePdf(id);
             });
@@ -339,7 +337,7 @@
                     method: 'GET',
                     success: function (data) {
                         // Llama a la función para generar el PDF con los datos obtenidos
-                        generatePdfFromData(data);
+                        generatePdfFromData(data, id);
                     },
                     error: function (error) {
                         console.error('Error al obtener los datos:', error);
@@ -347,17 +345,17 @@
                 });
             }
 
-            function generatePdfFromData(data) {
-                // Crea un elemento temporar para contener los datos de la vista
+            function generatePdfFromData(data, id) {
+                // Crea un elemento temporal para contener los datos de la vista
                 var tempDiv = document.createElement('div');
                 tempDiv.innerHTML = data;
 
                 // Llama a html2pdf para generar el PDF
                 html2pdf(tempDiv, {
-                    filename: 'nombre_del_documento.pdf',
+                    margin: 5,
+                    filename: 'Entrega Equipo en Renta ' + id + '.pdf',                    
                 });
-            }
-                        
+            }                        
         </script>
     }
 </body>
