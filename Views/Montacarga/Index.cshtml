@@ -38,6 +38,15 @@
                         Modelo
                     </th>
                     <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Capacidad
+                    </th>
+                    <th>
+                        Mástil
+                    </th>
+                    <th>
                         Mtto Anterior
                     </th>
                     <th>
@@ -78,6 +87,15 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Modelo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tipo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.capacidad)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.fases)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.HorometroMtto) hrs

@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using ServicioMontacargas.Auths;
 using ServicioMontacargas.Data;
 using ServicioMontacargas.Models;
 
 namespace ServicioMontacargas.Controllers
 {
+    [AutorizacionAdmin]
     public class MontacargaController : Controller
     {
         private readonly ServicioMontacargasContext _context;
@@ -56,7 +58,7 @@ namespace ServicioMontacargas.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdMontacargas,NumeroSerie,NumeroEconomico,Marca,Modelo,Horometro,Status,Equipo,HorometroMtto,HorasMtto,cliente")] MontacargasModel montacargasModel)
+        public async Task<IActionResult> Create([Bind("IdMontacargas,NumeroSerie,NumeroEconomico,Marca,Modelo,Horometro,Status,Equipo,HorometroMtto,HorasMtto,cliente,tipo,capacidad,fases")] MontacargasModel montacargasModel)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +90,7 @@ namespace ServicioMontacargas.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdMontacargas,NumeroSerie,NumeroEconomico,Marca,Modelo,Horometro,Status,Equipo,HorometroMtto,HorasMtto,cliente")] MontacargasModel montacargasModel)
+        public async Task<IActionResult> Edit(int id, [Bind("IdMontacargas,NumeroSerie,NumeroEconomico,Marca,Modelo,Horometro,Status,Equipo,HorometroMtto,HorasMtto,cliente,tipo,capacidad,fases")] MontacargasModel montacargasModel)
         {
             if (id != montacargasModel.IdMontacargas)
             {

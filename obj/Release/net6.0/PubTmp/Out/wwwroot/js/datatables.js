@@ -18,7 +18,7 @@
             }
         ],
         //_______________ CUARTO ______________
-        dom: 'Bfrtip',
+        dom: 'BfrtipC',
         buttons: [
             //'excel',
             {
@@ -48,6 +48,12 @@
                 title: 'Inventario Equipo',
                 className: 'btn-exportar-print'
 
+            },
+            {
+                extend: 'colvis',
+                text: 'Columnas',
+                className: 'btn-colvis',
+                collectionLayout: 'fixed three-column'
             },
             //extra
             'pageLength'

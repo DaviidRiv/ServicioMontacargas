@@ -222,7 +222,16 @@ namespace ServicioMontacargas.Migrations
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("capacidad")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("cliente")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("fases")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("tipo")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IdMontacargas");

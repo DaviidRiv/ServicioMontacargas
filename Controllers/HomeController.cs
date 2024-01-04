@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ServicioMontacargas.Auths;
 using ServicioMontacargas.Models;
 using System.Diagnostics;
 
 namespace ServicioMontacargas.Controllers
 {
+    [AutorizacionAdmin]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

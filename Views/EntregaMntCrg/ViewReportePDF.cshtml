@@ -266,5 +266,19 @@
             <img src="data:image/jpeg;base64, @Html.DisplayFor(model => model.EvidenciaRImagen2Base64)" alt="RecolecciónEvidencia2" width="435" height="435" />
         </p>
     </div>
+    <button id="generatePdf">Generar PDF</button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.4/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.0/html2pdf.bundle.js"></script>
+    <script>
+        generatePdf.onclick = function () {
+            var element = document.body; // Elemento que quieres convertir a PDF
+            html2pdf(element);
+        }
+    </script>
+
 </body>
 </html>

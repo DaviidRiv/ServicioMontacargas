@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ServicioMontacargas.Data;
 using ServicioMontacargas.Models;
-using Microsoft.AspNetCore.Http.Extensions;
-using Microsoft.AspNetCore.Mvc.ViewEngines;
+using ServicioMontacargas.Auths;
+using iText.Kernel.Pdf;
+using iText.Layout;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.Extensions.DependencyInjection;
-
+using iText.Html2pdf;
+using System.IO;
+using iText.Layout.Element;
+using iText.Layout.Properties;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
 
 namespace ServicioMontacargas.Controllers
 {
@@ -64,6 +64,7 @@ namespace ServicioMontacargas.Controllers
         }
 
         // GET: EntregaMntCrg/Create
+        [AutorizacionAdmin]
         public IActionResult Create()
         {
             ViewBag.MontacargasOptions = ObtenerMontacargasOptions();
@@ -106,7 +107,7 @@ namespace ServicioMontacargas.Controllers
             ViewBag.MontacargasOptions = ObtenerMontacargasOptions();
             return View(entregaMntCrgModel);
         }
-
+        [AutorizacionAdmin]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.EntregaMntCrgModel == null)
@@ -274,7 +275,6 @@ namespace ServicioMontacargas.Controllers
         }
 
 
-        // GET: EntregaMntCrg/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.EntregaMntCrgModel == null)
@@ -291,7 +291,7 @@ namespace ServicioMontacargas.Controllers
 
             return View(entregaMntCrgModel);
         }
-
+        [AutorizacionAdmin]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.EntregaMntCrgModel == null)
@@ -357,5 +357,79 @@ namespace ServicioMontacargas.Controllers
 
             return View(entregaMntCrgModel);
         }
+
+
+        public async Task<IActionResult> GeneratePdf(int? id)
+        {
+            if (id == null || _context.EntregaMntCrgModel == null)
+            {
+                return NotFound();
+            }
+
+            var entregaMntCrgModel = await _context.EntregaMntCrgModel
+                .Include(e => e.Montacarga)
+                .FirstOrDefaultAsync(m => m.IdEntregaMntCrg == id);
+
+            if (entregaMntCrgModel == null)
+            {
+                return NotFound();
+            }
+
+            // Crear un MemoryStream para almacenar el PDF
+            using (MemoryStream stream = new MemoryStream())
+            {
+                // Crear un documento PDF
+                using (PdfWriter writer = new PdfWriter(stream))
+                {
+                    using (PdfDocument pdf = new PdfDocument(writer))
+                    {
+                        // Crear un documento iTextSharp
+                        Document document = new Document(pdf);
+
+                        // Agregar contenido desde la vista al documento PDF
+                        var htmlContent = this.RenderViewToString("ViewReportePDF", entregaMntCrgModel);
+
+                        // Utilizar HtmlConverter.ConvertToPdf de la clase ConverterProperties
+                        ConverterProperties properties = new ConverterProperties();
+                        HtmlConverter.ConvertToPdf(htmlContent, pdf, properties);
+
+                        // Guardar el documento
+                        document.Close();
+                    }
+                }
+
+                // Establecer el puntero del MemoryStream al principio
+                stream.Position = 0;
+
+                // Devolver el PDF como un archivo
+                return File(stream, "application/pdf", "reporte.pdf");
+            }
+        }
+
+        private string RenderViewToString(string viewName, object model)
+        {
+            ViewData.Model = model;
+
+            using (var sw = new StringWriter())
+            {
+                var serviceProvider = HttpContext.RequestServices;
+                var viewEngine = serviceProvider.GetRequiredService<ICompositeViewEngine>();
+                var viewResult = viewEngine.FindView(ControllerContext, viewName, false);
+
+                var viewContext = new ViewContext(
+                    ControllerContext,
+                    viewResult.View,
+                    ViewData,
+                    TempData,
+                    sw,
+                    new HtmlHelperOptions()
+                );
+
+                viewResult.View.RenderAsync(viewContext).Wait();
+
+                return sw.GetStringBuilder().ToString();
+            }
+        }
     }
+
 }

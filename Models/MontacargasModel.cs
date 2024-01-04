@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace ServicioMontacargas.Models
 {
@@ -16,5 +17,9 @@ namespace ServicioMontacargas.Models
         public int? HorometroMtto { get; set; }
         public string? HorasMtto { get; set; }
         public string? cliente { get; set; }
+        public string? tipo { get; set; }
+        public string? capacidad { get; set; }
+        [DisplayName("Mástil")]
+        public string? fases { get; set; }
     }
 }
