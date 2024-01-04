@@ -28,8 +28,7 @@ body {
 }
 
 .img {
-    background: rgb(225, 231, 253);
-    background: linear-gradient(180deg, rgb(19 39 114) 0%, rgb(56 58 81) 100%);
+    background: #FFF;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -67,7 +66,7 @@ body {
 
 .login-wrap {
     position: relative;
-    background: linear-gradient(180deg, rgb(19 39 114) 0%, rgb(56 58 81) 100%);
+    background: #FFF;
     background-font-weight: 300;
 }
 
@@ -88,7 +87,7 @@ body {
     }
 
 .form-control {
-    background: #fff;
+    background: #e4e4e4;
     color: #000;
     font-size: 16px;
     border-radius: 12px;
