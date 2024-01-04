@@ -5,6 +5,18 @@ C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Ou
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\ServicioMontacargas.runtimeconfig.json
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\ServicioMontacargas.pdb
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\Humanizer.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\itext.barcodes.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\itext.bouncy-castle-connector.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\itext.forms.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\itext.io.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\itext.kernel.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\itext.layout.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\itext.pdfa.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\itext.sign.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\itext.styledxmlparser.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\itext.svg.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\itext.commons.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\itext.html2pdf.dll
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\MessagePack.dll
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\MessagePack.Annotations.dll
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\System.Web.Mvc.dll
@@ -28,6 +40,7 @@ C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Ou
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\Microsoft.CodeAnalysis.Workspaces.dll
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\Microsoft.Data.SqlClient.dll
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\Microsoft.DiaSymReader.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\Microsoft.DotNet.PlatformAbstractions.dll
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\Microsoft.DotNet.Scaffolding.Shared.dll
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\Microsoft.EntityFrameworkCore.dll
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\Microsoft.EntityFrameworkCore.Abstractions.dll
@@ -35,6 +48,7 @@ C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Ou
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\Microsoft.EntityFrameworkCore.SqlServer.dll
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\Microsoft.Extensions.Caching.Memory.dll
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\Microsoft.Extensions.DependencyModel.dll
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\Microsoft.Identity.Client.dll
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\Microsoft.IdentityModel.JsonWebTokens.dll
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\PubTmp\Out\Microsoft.IdentityModel.Logging.dll

@@ -254,3 +254,17 @@ C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\System.We
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\System.Web.WebPages.Razor.dll
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\System.Web.WebPages.dll
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\Microsoft.Web.Infrastructure.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\itext.barcodes.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\itext.bouncy-castle-connector.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\itext.forms.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\itext.io.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\itext.kernel.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\itext.layout.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\itext.pdfa.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\itext.sign.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\itext.styledxmlparser.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\itext.svg.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\itext.commons.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\itext.html2pdf.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\Microsoft.DotNet.PlatformAbstractions.dll
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\Microsoft.Extensions.DependencyModel.dll
