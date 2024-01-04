@@ -263,19 +263,20 @@
         </p>
     </div>
     <button id="generatePdf">Generar PDF</button>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.4/jspdf.plugin.autotable.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.0/html2pdf.bundle.js"></script>
 
     <script>
         generatePdf.onclick = function () {
             var element = document.body; // Elemento que quieres convertir a PDF
-            html2pdf(element);
+            var options = {
+                filename: 'Entrega Equipo en Renta ' + @Model.IdEntregaMntCrg + '.pdf', // Puedes cambiar 'nombre_del_documento' por el nombre que desees
+            };
+            html2pdf(element, options);
         }
     </script>
+
 
 </body>
 </html>

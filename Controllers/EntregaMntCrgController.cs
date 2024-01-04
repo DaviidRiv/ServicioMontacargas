@@ -359,77 +359,7 @@ namespace ServicioMontacargas.Controllers
         }
 
 
-        public async Task<IActionResult> GeneratePdf(int? id)
-        {
-            if (id == null || _context.EntregaMntCrgModel == null)
-            {
-                return NotFound();
-            }
 
-            var entregaMntCrgModel = await _context.EntregaMntCrgModel
-                .Include(e => e.Montacarga)
-                .FirstOrDefaultAsync(m => m.IdEntregaMntCrg == id);
-
-            if (entregaMntCrgModel == null)
-            {
-                return NotFound();
-            }
-
-            // Crear un MemoryStream para almacenar el PDF
-            using (MemoryStream stream = new MemoryStream())
-            {
-                // Crear un documento PDF
-                using (PdfWriter writer = new PdfWriter(stream))
-                {
-                    using (PdfDocument pdf = new PdfDocument(writer))
-                    {
-                        // Crear un documento iTextSharp
-                        Document document = new Document(pdf);
-
-                        // Agregar contenido desde la vista al documento PDF
-                        var htmlContent = this.RenderViewToString("ViewReportePDF", entregaMntCrgModel);
-
-                        // Utilizar HtmlConverter.ConvertToPdf de la clase ConverterProperties
-                        ConverterProperties properties = new ConverterProperties();
-                        HtmlConverter.ConvertToPdf(htmlContent, pdf, properties);
-
-                        // Guardar el documento
-                        document.Close();
-                    }
-                }
-
-                // Establecer el puntero del MemoryStream al principio
-                stream.Position = 0;
-
-                // Devolver el PDF como un archivo
-                return File(stream, "application/pdf", "reporte.pdf");
-            }
-        }
-
-        private string RenderViewToString(string viewName, object model)
-        {
-            ViewData.Model = model;
-
-            using (var sw = new StringWriter())
-            {
-                var serviceProvider = HttpContext.RequestServices;
-                var viewEngine = serviceProvider.GetRequiredService<ICompositeViewEngine>();
-                var viewResult = viewEngine.FindView(ControllerContext, viewName, false);
-
-                var viewContext = new ViewContext(
-                    ControllerContext,
-                    viewResult.View,
-                    ViewData,
-                    TempData,
-                    sw,
-                    new HtmlHelperOptions()
-                );
-
-                viewResult.View.RenderAsync(viewContext).Wait();
-
-                return sw.GetStringBuilder().ToString();
-            }
-        }
     }
 
 }
