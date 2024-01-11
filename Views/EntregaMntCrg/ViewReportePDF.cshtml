@@ -235,9 +235,20 @@
             <td style="text-align: center; width: 50%">
                 <dl>
                     <br />
-                    <dd style="border: 1px solid black; padding: 2px;">
-                        <img src="@Html.DisplayFor(model => model.FirmaCliente)" alt="Firma Cliente" width="130" height="90" />
-                    </dd>
+                    @{
+                        @if (Model.FirmaCliente != null)
+                        {
+                            <dd style="border: 1px solid black; padding: 2px;">
+                                <img src="@Html.DisplayFor(model => model.FirmaCliente)" alt="Firma Cliente" width="130" height="90" />
+                            </dd>
+                        }
+                        else
+                        {
+                            <dd style="border: 1px solid black; padding: 2px;">
+                                Sin Firma
+                            </dd>
+                        }
+                    }
                     <dt>
                         <strong>@Html.DisplayFor(model => model.NombreCliente)</strong>
                     </dt>
@@ -247,9 +258,9 @@
                 </dl>
             </td>
         </tr>
-    </table>    
+    </table>
     <br />
-    <br />    
+    <br />
     <br />
     <br />
     <footer style="text-align:center; font-size:10px">
@@ -259,13 +270,32 @@
     <div>
         <h4>Evidencias Entrega</h4>
         <p>
-            <img src="data:image/jpeg;base64, @Html.DisplayFor(model => model.EvidenciaImagen1Base64)" alt="Evidencia1" width="370" height="370" />
-            <img src="data:image/jpeg;base64, @Html.DisplayFor(model => model.EvidenciaImagen2Base64)" alt="Evidencia2" width="370" height="370" />
+            @{
+                @if (Model.EvidenciaImagen1Base64 != null && Model.EvidenciaImagen2Base64 != null)
+                {
+                    <img src="data:image/jpeg;base64, @Html.DisplayFor(model => model.EvidenciaImagen1Base64)" alt="Evidencia1" width="370" height="370" />
+                    <img src="data:image/jpeg;base64, @Html.DisplayFor(model => model.EvidenciaImagen2Base64)" alt="Evidencia2" width="370" height="370" />
+                }
+                else
+                {
+                <p>Sin Evidencias en la Entrega</p>
+                }
+            }
+
         </p>
         <h4>Evidencias Recolección</h4>
         <p>
-            <img src="data:image/jpeg;base64, @Html.DisplayFor(model => model.EvidenciaRImagen1Base64)" alt="RecolecciónEvidencia1" width="370" height="370" />
-            <img src="data:image/jpeg;base64, @Html.DisplayFor(model => model.EvidenciaRImagen2Base64)" alt="RecolecciónEvidencia2" width="370" height="370" />
+            @{
+                @if (Model.EvidenciaRImagen1Base64 != null && Model.EvidenciaRImagen2Base64 != null)
+                {
+                    <img src="data:image/jpeg;base64, @Html.DisplayFor(model => model.EvidenciaRImagen1Base64)" alt="RecolecciónEvidencia1" width="370" height="370" />
+                    <img src="data:image/jpeg;base64, @Html.DisplayFor(model => model.EvidenciaRImagen2Base64)" alt="RecolecciónEvidencia2" width="370" height="370" />
+                }
+                else
+                {
+                    <p>Sin Evidencias en Recolección</p>
+                }
+            }            
         </p>
     </div>
     <footer style="text-align:center; font-size:10px">

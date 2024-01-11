@@ -24,6 +24,7 @@ namespace ServicioMontacargas.Controllers
             _context = context;
         }
 
+        [AutorizacionAdmin]
         public async Task<IActionResult> Index()
         {
             return _context.EntregaMntCrgModel != null ?
@@ -31,7 +32,7 @@ namespace ServicioMontacargas.Controllers
                         Problem("Entity set 'ServicioMontacargasContext.EntregaMntCrgModel'  is null.");
         }
 
-        // GET: EntregaMntCrg/Details/5
+        [AutorizacionAdmin]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.EntregaMntCrgModel == null)
@@ -63,8 +64,7 @@ namespace ServicioMontacargas.Controllers
             return opciones;
         }
 
-        // GET: EntregaMntCrg/Create
-        [AutorizacionAdmin]
+        [AutorizacionOperadorG]
         public IActionResult Create()
         {
             ViewBag.MontacargasOptions = ObtenerMontacargasOptions();
@@ -107,6 +107,7 @@ namespace ServicioMontacargas.Controllers
             ViewBag.MontacargasOptions = ObtenerMontacargasOptions();
             return View(entregaMntCrgModel);
         }
+
         [AutorizacionAdmin]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -123,7 +124,7 @@ namespace ServicioMontacargas.Controllers
             ViewBag.MontacargasOptions = ObtenerMontacargasOptions();
             return View(entregaMntCrgModel);
         }
-
+        [AutorizacionOperadorG]
         public async Task<IActionResult> Entrega(int? id)
         {
             if (id == null || _context.EntregaMntCrgModel == null)
@@ -312,7 +313,7 @@ namespace ServicioMontacargas.Controllers
         {
             return (_context.EntregaMntCrgModel?.Any(e => e.IdEntregaMntCrg == id)).GetValueOrDefault();
         }
-
+        [AutorizacionAdmin]
         public async Task<IActionResult> ViewReportePDF(int? id)
         {
             if (id == null || _context.EntregaMntCrgModel == null)
