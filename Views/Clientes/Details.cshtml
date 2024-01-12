@@ -1,0 +1,51 @@
+﻿@model ServicioMontacargas.Models.ClientesModel
+
+@{
+    ViewData["Title"] = "Detalles Cliente";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"]</title>
+
+</head>
+<body>
+    <h1>Detalles del Montacarga : @Model.IdClientes</h1>
+    <hr />
+    <div>
+        <dl class="row">
+            <dt class="col-sm-2">
+                ID
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.IdClientes)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Nombre)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Nombre)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.FechaRegistro)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.FechaRegistro)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Ubicacion)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Ubicacion)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.IdClientes"><iconify-icon icon="bi:pencil-square"></iconify-icon> Editar</a> |
+        <a asp-action="Index"><iconify-icon icon="bi:arrow-left-circle-fill"></iconify-icon> Regresar</a>
+    </div>
+</body>
+</html>

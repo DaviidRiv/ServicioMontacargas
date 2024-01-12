@@ -22,6 +22,28 @@ namespace ServicioMontacargas.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("ServicioMontacargas.Models.ClientesModel", b =>
+                {
+                    b.Property<int>("IdClientes")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdClientes"), 1L, 1);
+
+                    b.Property<string>("FechaRegistro")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Ubicacion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdClientes");
+
+                    b.ToTable("ClientesModel");
+                });
+
             modelBuilder.Entity("ServicioMontacargas.Models.EntregaMntCrgModel", b =>
                 {
                     b.Property<int>("IdEntregaMntCrg")

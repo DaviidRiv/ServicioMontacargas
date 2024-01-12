@@ -28,5 +28,7 @@ namespace ServicioMontacargas.Data
         }
 
         public DbSet<ServicioMontacargas.Models.UsuariosModel>? UsuariosModel { get; set; }
+
+        public DbSet<ServicioMontacargas.Models.ClientesModel>? ClientesModel { get; set; }
     }
 }

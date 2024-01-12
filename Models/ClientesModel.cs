@@ -8,7 +8,9 @@ namespace ServicioMontacargas.Models
         [Key]
         public int IdClientes { get; set; }
         public string? Nombre { get; set; }
+        [DisplayName("Fecha de Registro")]
         public string? FechaRegistro { get; set; }
+        [DisplayName("Ubicación")]
         public string? Ubicacion { get; set; }
 
     }

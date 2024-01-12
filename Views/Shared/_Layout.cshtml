@@ -67,7 +67,7 @@
                                     <a asp-controller="EntregaMntCrg" asp-action="Index" class="nav-link px-0">-<span class="d-none d-sm-inline"></span>Entrega y Recolección</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-0">-<span class="d-none d-sm-inline"></span>CheckList</a>
+                                    <a asp-controller="Checklist" asp-action="Proceso" class="nav-link px-0">-<span class="d-none d-sm-inline"></span>CheckList</a>
                                 </li>
                                 <li>
                                     <a href="#" class="nav-link px-0">-<span class="d-none d-sm-inline"></span>Correctivo Preventivo</a>
@@ -75,11 +75,11 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="#" class="nav-link px-0 align-middle">
+                            <a asp-controller="Clientes" asp-action="Index" class="nav-link px-0 align-middle">
                                 <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Clientes</span>
                             </a>
                         </li>
-                        <li>
+                        @*<li>
                             <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
                                 <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Bootstrap</span>
                             </a>
@@ -91,8 +91,8 @@
                                     <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2</a>
                                 </li>
                             </ul>
-                        </li>
-                        <li>
+                        </li>*@
+                       @* <li>
                             <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                                 <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Products</span>
                             </a>
@@ -110,7 +110,7 @@
                                     <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 4</a>
                                 </li>
                             </ul>
-                        </li>
+                        </li>*@
                         <li>
                             <a asp-controller="Usuarios" asp-action="Index" class="nav-link px-0 align-middle">
                                 <iconify-icon class="fs-3 align-bottom" icon="bi:people-fill"></iconify-icon><span class="ms-1 d-none d-sm-inline">Usuarios</span>
