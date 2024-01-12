@@ -6,8 +6,23 @@
 <head>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature-pad.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js"></script>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
 </head>
 <h1>Generar Entrega Montacargas</h1>
+@if (TempData.ContainsKey("ExitoEntrega"))
+{
+    <script>
+        alert("@TempData["ExitoEntrega"]");
+    </script>
+}
+@if (TempData.ContainsKey("FailEntrega"))
+{
+    <script>
+        alert("@TempData["FailEntrega"]");
+    </script>
+}
 <hr />
 <form asp-action="Create" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>

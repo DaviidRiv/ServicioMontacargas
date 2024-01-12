@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "qpNJ7WmZ6xyoH/UeJfX/zo6iAU6ovFc4/HpynQ7tUlo=",
+  "Hash": "lcqB4hgu0in0HWUkOUFsVe6yZ7OC/uCRAdlPDtB4pWw=",
   "Source": "ServicioMontacargas",
   "BasePath": "_content/ServicioMontacargas",
   "Mode": "Default",
@@ -151,6 +151,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\LogoJacasa.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\david\\Desktop\\RomeoTec\\ServicioMontacargas\\wwwroot\\img\\profile.png",
+      "SourceId": "ServicioMontacargas",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\david\\Desktop\\RomeoTec\\ServicioMontacargas\\wwwroot\\",
+      "BasePath": "_content/ServicioMontacargas",
+      "RelativePath": "img/profile.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\profile.png"
     },
     {
       "Identity": "C:\\Users\\david\\Desktop\\RomeoTec\\ServicioMontacargas\\wwwroot\\js\\datatables.js",

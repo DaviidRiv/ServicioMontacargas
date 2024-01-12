@@ -101,10 +101,13 @@ namespace ServicioMontacargas.Controllers
             {
                 _context.Add(entregaMntCrgModel);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // Agregar mensaje de éxito a TempData
+                TempData["ExitoEntrega"] = "Creacion exitosa";
+                return RedirectToAction(nameof(Create));
             }
 
             ViewBag.MontacargasOptions = ObtenerMontacargasOptions();
+            TempData["FailEntrega"] = "La creacion no pudo ser completada";
             return View(entregaMntCrgModel);
         }
 
@@ -149,10 +152,11 @@ namespace ServicioMontacargas.Controllers
             {
                 return NotFound();
             }
+            var existingEntrega = await _context.EntregaMntCrgModel.FindAsync(id);
 
+            // Verificar si se proporciona una nueva imagen1
             if (entregaMntCrgModel.EvidenciaImagen1File != null)
             {
-                // Convierte IFormFile a byte[]
                 using (MemoryStream ms = new MemoryStream())
                 {
                     await entregaMntCrgModel.EvidenciaImagen1File.CopyToAsync(ms);
@@ -160,10 +164,16 @@ namespace ServicioMontacargas.Controllers
                     entregaMntCrgModel.EvidenciaImagen1Base64 = Convert.ToBase64String(entregaMntCrgModel.EvidenciaImagen1);
                 }
             }
+            else
+            {
+                // Si no se proporciona una nueva imagen1, mantener la existente
+                entregaMntCrgModel.EvidenciaImagen1 = existingEntrega.EvidenciaImagen1;
+                entregaMntCrgModel.EvidenciaImagen1Base64 = existingEntrega.EvidenciaImagen1Base64;
+            }
 
+            // Verificar si se proporciona una nueva imagen2
             if (entregaMntCrgModel.EvidenciaImagen2File != null)
             {
-                // Convierte IFormFile a byte[]
                 using (MemoryStream ms = new MemoryStream())
                 {
                     await entregaMntCrgModel.EvidenciaImagen2File.CopyToAsync(ms);
@@ -171,11 +181,52 @@ namespace ServicioMontacargas.Controllers
                     entregaMntCrgModel.EvidenciaImagen2Base64 = Convert.ToBase64String(entregaMntCrgModel.EvidenciaImagen2);
                 }
             }
+            else
+            {
+                // Si no se proporciona una nueva imagen2, mantener la existente
+                entregaMntCrgModel.EvidenciaImagen2 = existingEntrega.EvidenciaImagen2;
+                entregaMntCrgModel.EvidenciaImagen2Base64 = existingEntrega.EvidenciaImagen2Base64;
+            }
+
+            if (entregaMntCrgModel.EvidenciaRImagen1File != null)
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    await entregaMntCrgModel.EvidenciaRImagen1File.CopyToAsync(ms);
+                    entregaMntCrgModel.EvidenciaRImagen1 = ms.ToArray();
+                    entregaMntCrgModel.EvidenciaRImagen1Base64 = Convert.ToBase64String(entregaMntCrgModel.EvidenciaRImagen1);
+                }
+            }
+            else
+            {
+                // Si no se proporciona una nueva imagen2, mantener la existente
+                entregaMntCrgModel.EvidenciaRImagen1 = existingEntrega.EvidenciaRImagen1;
+                entregaMntCrgModel.EvidenciaRImagen1Base64 = existingEntrega.EvidenciaRImagen1Base64;
+            }
+
+            if (entregaMntCrgModel.EvidenciaRImagen2File != null)
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    await entregaMntCrgModel.EvidenciaRImagen2File.CopyToAsync(ms);
+                    entregaMntCrgModel.EvidenciaRImagen2 = ms.ToArray();
+                    entregaMntCrgModel.EvidenciaRImagen2Base64 = Convert.ToBase64String(entregaMntCrgModel.EvidenciaRImagen2);
+                }
+            }
+            else
+            {
+                // Si no se proporciona una nueva imagen2, mantener la existente
+                entregaMntCrgModel.EvidenciaRImagen2 = existingEntrega.EvidenciaRImagen2;
+                entregaMntCrgModel.EvidenciaRImagen2Base64 = existingEntrega.EvidenciaRImagen2Base64;
+            }
+
+            // Actualiza solo los campos necesarios (propiedades escalares)
+            _context.Entry(existingEntrega).CurrentValues.SetValues(entregaMntCrgModel);
+
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(entregaMntCrgModel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -194,6 +245,8 @@ namespace ServicioMontacargas.Controllers
             ViewBag.MontacargasOptions = ObtenerMontacargasOptions();
             return View(entregaMntCrgModel);
         }
+
+
         [HttpPost]
         public async Task<IActionResult> Recoleccion(int id, EntregaMntCrgModel entregaMntCrgModel)
         {
@@ -268,10 +321,12 @@ namespace ServicioMontacargas.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                TempData["ExitoRecoleccion"] = "Recoleccion exitosa";
+                return RedirectToAction(nameof(Entrega), new { id = entregaMntCrgModel.IdEntregaMntCrg });
             }
 
             ViewBag.MontacargasOptions = ObtenerMontacargasOptions();
+            TempData["FailRecoleccion"] = "La recoleccion no pudo ser completada";
             return View(entregaMntCrgModel);
         }
 
