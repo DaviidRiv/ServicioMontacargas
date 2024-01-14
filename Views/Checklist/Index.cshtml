@@ -1,0 +1,266 @@
+﻿@model IEnumerable<ServicioMontacargas.Models.ChecklistModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdChecklist)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nombreOperador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Clientes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.turno)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Montacargas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.horometro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NivelAceiteMotor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NivelAnticongelante)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NivelAceiteHidraulico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NivelLiquidoFrenos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BandaVentilador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TanqueGasSoportes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FrenoEstacionamiento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FugaSistemaGas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DistanciaFrenado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RespaldoCarga)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Horquillas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Golpes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tablero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PinturaGeneral)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CubiertaPiston)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LlantasDireccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LlantasTraccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BateriaTerminales)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LimpiezaGeneral)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Radiador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SistemaArranque)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LucesTrabajo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LucesTraseras)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Torreta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AlarmaReversa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Claxon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Extintor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Espejos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CinturonSeguridad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Asiento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FaroProximidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ruidos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Observaciones)
+            </th>            
+            <th>
+                Opciones
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdChecklist)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombreOperador)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Clientes.IdClientes) - @Html.DisplayFor(modelItem => item.Clientes.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.turno)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Montacargas.NumeroEconomico) - @Html.DisplayFor(modelItem => item.Montacargas.NumeroSerie)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.horometro)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NivelAceiteMotor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NivelAnticongelante)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NivelAceiteHidraulico)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NivelLiquidoFrenos)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BandaVentilador)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TanqueGasSoportes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FrenoEstacionamiento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FugaSistemaGas)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DistanciaFrenado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RespaldoCarga)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Horquillas)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Golpes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tablero)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PinturaGeneral)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CubiertaPiston)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LlantasDireccion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LlantasTraccion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BateriaTerminales)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LimpiezaGeneral)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Radiador)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SistemaArranque)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LucesTrabajo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LucesTraseras)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Torreta)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AlarmaReversa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Claxon)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Extintor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Espejos)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CinturonSeguridad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Asiento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FaroProximidad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ruidos)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Observaciones)
+                </td>                
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdChecklist">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdChecklist">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdChecklist">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

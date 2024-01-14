@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ServicioMontacargas.Models
 {
@@ -21,5 +22,9 @@ namespace ServicioMontacargas.Models
         public string? capacidad { get; set; }
         [DisplayName("Mástil")]
         public string? fases { get; set; }
+
+        //Listas
+        [NotMapped]
+        public string DisplayInfoMntCrg => $"{NumeroEconomico} - {Marca} - {Modelo} - {NumeroSerie}";
     }
 }

@@ -16,8 +16,24 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\david\Desktop\RomeoTec\ServicioMontacargas
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/david/Desktop/RomeoTec/ServicioMontacargas/Views/Checklist/Proceso.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2hlY2tsaXN0XFByb2Nlc28uY3NodG1s
+[C:/Users/david/Desktop/RomeoTec/ServicioMontacargas/Views/Checklist/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2hlY2tsaXN0XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/david/Desktop/RomeoTec/ServicioMontacargas/Views/Checklist/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2hlY2tsaXN0XERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/david/Desktop/RomeoTec/ServicioMontacargas/Views/Checklist/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2hlY2tsaXN0XERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/david/Desktop/RomeoTec/ServicioMontacargas/Views/Checklist/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2hlY2tsaXN0XEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/david/Desktop/RomeoTec/ServicioMontacargas/Views/Checklist/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2hlY2tsaXN0XEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/david/Desktop/RomeoTec/ServicioMontacargas/Views/Clientes/Create.cshtml]

@@ -22,6 +22,152 @@ namespace ServicioMontacargas.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("ServicioMontacargas.Models.ChecklistModel", b =>
+                {
+                    b.Property<int>("IdChecklist")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdChecklist"), 1L, 1);
+
+                    b.Property<string>("AlarmaReversa")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Asiento")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BandaVentilador")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BateriaTerminales")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CinturonSeguridad")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Claxon")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CubiertaPiston")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DistanciaFrenado")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Espejos")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("EvidenciaImagen1")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("EvidenciaImagen1Base64")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("EvidenciaImagen2")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("EvidenciaImagen2Base64")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Extintor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FaroProximidad")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Firma")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FrenoEstacionamiento")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FugaSistemaGas")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Golpes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Horquillas")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IdClientes")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdMontacargas")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LimpiezaGeneral")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LlantasDireccion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LlantasTraccion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LucesTrabajo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LucesTraseras")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NivelAceiteHidraulico")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NivelAceiteMotor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NivelAnticongelante")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NivelLiquidoFrenos")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Observaciones")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PinturaGeneral")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Radiador")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RespaldoCarga")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Ruidos")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SistemaArranque")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tablero")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TanqueGasSoportes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Torreta")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("horometro")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("nombreOperador")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("turno")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdChecklist");
+
+                    b.HasIndex("IdClientes");
+
+                    b.HasIndex("IdMontacargas");
+
+                    b.ToTable("ChecklistModel");
+                });
+
             modelBuilder.Entity("ServicioMontacargas.Models.ClientesModel", b =>
                 {
                     b.Property<int>("IdClientes")
@@ -287,6 +433,25 @@ namespace ServicioMontacargas.Migrations
                     b.HasKey("IdUsuario");
 
                     b.ToTable("UsuariosModel");
+                });
+
+            modelBuilder.Entity("ServicioMontacargas.Models.ChecklistModel", b =>
+                {
+                    b.HasOne("ServicioMontacargas.Models.ClientesModel", "Clientes")
+                        .WithMany()
+                        .HasForeignKey("IdClientes")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ServicioMontacargas.Models.MontacargasModel", "Montacargas")
+                        .WithMany()
+                        .HasForeignKey("IdMontacargas")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Clientes");
+
+                    b.Navigation("Montacargas");
                 });
 
             modelBuilder.Entity("ServicioMontacargas.Models.EntregaMntCrgModel", b =>

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ServicioMontacargas.Models
 {
@@ -13,5 +14,8 @@ namespace ServicioMontacargas.Models
         [DisplayName("Ubicación")]
         public string? Ubicacion { get; set; }
 
+        //Listas
+        [NotMapped]
+        public string DisplayInfoCl => $"{IdClientes} - {Nombre}";
     }
 }
