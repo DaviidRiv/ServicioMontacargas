@@ -393,11 +393,11 @@
                 <span asp-validation-for="Observaciones" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Firma" class="control-label">Firma del Cliente</label>
+                <label asp-for="Firma" class="control-label">Firma</label>
                 <div>
                     <canvas id="signatureCanvas" width="400" height="200" required></canvas>
                     <button type="button" onclick="clearSignature()">Borrar Firma</button>
-                    <input type="hidden" asp-for="Firma" id="hiddenFirmaCliente" required />
+                    <input type="hidden" asp-for="Firma" id="hiddenFirma" required />
                     <span asp-validation-for="Firma" class="text-danger"></span>
                 </div>
             </div>
@@ -439,11 +439,11 @@
 
         function clearSignature() {
             canvas.clear();
-            document.getElementById('hiddenFirmaCliente').value = '';
+            document.getElementById('hiddenFirma').value = '';
         }
 
         canvas.onEnd = function () {
-            document.getElementById('hiddenFirmaCliente').value = canvas.toDataURL();
+            document.getElementById('hiddenFirma').value = canvas.toDataURL();
         };
     </script>
 }

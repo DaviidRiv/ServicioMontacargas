@@ -66,16 +66,39 @@ namespace ServicioMontacargas.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdChecklist,nombreOperador,IdClientes,turno,IdMontacargas,horometro,NivelAceiteMotor,NivelAnticongelante,NivelAceiteHidraulico,NivelLiquidoFrenos,BandaVentilador,TanqueGasSoportes,FrenoEstacionamiento,FugaSistemaGas,DistanciaFrenado,RespaldoCarga,Horquillas,Golpes,Tablero,PinturaGeneral,CubiertaPiston,LlantasDireccion,LlantasTraccion,BateriaTerminales,LimpiezaGeneral,Radiador,SistemaArranque,LucesTrabajo,LucesTraseras,Torreta,AlarmaReversa,Claxon,Extintor,Espejos,CinturonSeguridad,Asiento,FaroProximidad,Ruidos,Observaciones,EvidenciaImagen1,EvidenciaImagen1Base64,EvidenciaImagen2,EvidenciaImagen2Base64,Firma")] ChecklistModel checklistModel)
+        public async Task<IActionResult> Create(ChecklistModel checklistModel)
         {
+            if (checklistModel.EvidenciaImagen1File != null)
+            {
+                // Convierte IFormFile a byte[]
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    await checklistModel.EvidenciaImagen1File.CopyToAsync(ms);
+                    checklistModel.EvidenciaImagen1 = ms.ToArray();
+                    checklistModel.EvidenciaImagen1Base64 = Convert.ToBase64String(checklistModel.EvidenciaImagen1);
+                }
+            }
+
+            if (checklistModel.EvidenciaImagen2File != null)
+            {
+                // Convierte IFormFile a byte[]
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    await checklistModel.EvidenciaImagen2File.CopyToAsync(ms);
+                    checklistModel.EvidenciaImagen2 = ms.ToArray();
+                    checklistModel.EvidenciaImagen2Base64 = Convert.ToBase64String(checklistModel.EvidenciaImagen2);
+                }
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(checklistModel);
                 await _context.SaveChangesAsync();
+                TempData["ExitoChecklist"] = "Creacion exitosa";
                 return RedirectToAction(nameof(Index));
             }
             ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "IdMontacargas", checklistModel.IdMontacargas);
             ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "IdClientes", checklistModel.IdClientes);
+            TempData["FailChecklist"] = "La creacion no pudo ser completada";
             return View(checklistModel);
         }
 

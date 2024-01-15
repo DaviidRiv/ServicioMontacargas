@@ -24,8 +24,8 @@
             {
                 extend: 'excelHtml5',
                 text: 'Excel',
-                filename: 'Inventario Equipo',
-                title: 'Datos del Equipo',
+                filename: 'Lista Montacargas',
+                title: 'Lista Montacargas',
                 exportOptions: {
                     columns: ':not(:last-child)' // Excluir la última columna
                 },
@@ -35,8 +35,8 @@
             {
                 extend: 'pdfHtml5',
                 text: 'PDF',
-                filename: 'Inventario Equipo',
-                title: 'Datos del Equipo',
+                filename: 'Lista Montacargas',
+                title: 'Lista Montacargas',
                 exportOptions: {
                     columns: ':not(:last-child)' // Excluir la última columna
                 },
@@ -45,7 +45,7 @@
             //'print'
             {
                 extend: 'print',
-                title: 'Inventario Equipo',
+                title: 'Lista Montacargas',
                 className: 'btn-exportar-print'
 
             },
@@ -129,8 +129,8 @@ $(document).ready(function () {
             {
                 extend: 'excelHtml5',
                 text: 'Excel',
-                filename: 'Inventario Equipo',
-                title: 'Datos del Equipo',
+                filename: 'Entrega Montacarga',
+                title: 'Entrega Montacarga',
                 exportOptions: {
                     columns: ':not(:last-child)' // Excluir la última columna
                 },
@@ -140,8 +140,8 @@ $(document).ready(function () {
             {
                 extend: 'pdfHtml5',
                 text: 'PDF',
-                filename: 'Inventario Equipo',
-                title: 'Datos del Equipo',
+                filename: 'Entrega Montacarga',
+                title: 'Entrega Montacarga',
                 exportOptions: {
                     columns: ':not(:last-child)' // Excluir la última columna
                 },
@@ -150,7 +150,7 @@ $(document).ready(function () {
             //'print'
             {
                 extend: 'print',
-                title: 'Inventario Equipo',
+                title: 'Entrega Montacarga',
                 className: 'btn-exportar-print'
 
             },
@@ -164,5 +164,56 @@ $(document).ready(function () {
             'pageLength'
         ],
         //______________ QUINTO _______________
+    });
+});
+
+//CheckList
+$(document).ready(function () {
+    $('#tb_checklist').DataTable({
+        language: {
+            url: "https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
+        },
+        columnDefs: [
+            {
+                targets: 0,
+                visible: true
+            }
+        ],
+        scrollX: true, // Habilitar scroll horizontal
+        dom: 'BfrtipC',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: 'Excel',
+                filename: 'CheckList Montacargas',
+                title: 'CheckList Montacargas',
+                exportOptions: {
+                    columns: ':not(:last-child)'
+                },
+                className: 'btn-exportar-excel',
+            },
+            {
+                extend: 'pdfHtml5',
+                text: 'PDF',
+                filename: 'CheckList Montacargas',
+                title: 'CheckList Montacargas',
+                exportOptions: {
+                    columns: ':not(:last-child)'
+                },
+                className: 'btn-exportar-pdf',
+            },
+            {
+                extend: 'print',
+                title: 'CheckList Montacargas',
+                className: 'btn-exportar-print'
+            },
+            {
+                extend: 'colvis',
+                text: 'Columnas',
+                className: 'btn-colvis',
+                collectionLayout: 'fixed three-column'
+            },
+            'pageLength'
+        ],
     });
 });
