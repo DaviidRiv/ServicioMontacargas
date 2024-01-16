@@ -27,9 +27,10 @@ namespace ServicioMontacargas.Controllers
         [AutorizacionAdmin]
         public async Task<IActionResult> Index()
         {
-            return _context.EntregaMntCrgModel != null ?
-                        View(await _context.EntregaMntCrgModel.ToListAsync()) :
-                        Problem("Entity set 'ServicioMontacargasContext.EntregaMntCrgModel'  is null.");
+            var servicioMontacargasContext = _context.EntregaMntCrgModel
+                .Include(c => c.Montacarga);
+
+            return View(await servicioMontacargasContext.ToListAsync());
         }
 
         [AutorizacionAdmin]
@@ -58,7 +59,7 @@ namespace ServicioMontacargas.Controllers
             var opciones = montacargasDesdeBD.Select(m => new SelectListItem
             {
                 Value = m.IdMontacargas.ToString(),
-                Text = $"{m.IdMontacargas} - {m.NumeroEconomico} - {m.Marca} - {m.Modelo} - {m.NumeroSerie}"
+                Text = $"{m.NumeroEconomico} - {m.Marca} - {m.Modelo} - {m.NumeroSerie}"
             }).ToList();
 
             return opciones;
@@ -152,81 +153,47 @@ namespace ServicioMontacargas.Controllers
             {
                 return NotFound();
             }
-            var existingEntrega = await _context.EntregaMntCrgModel.FindAsync(id);
 
-            // Verificar si se proporciona una nueva imagen1
+            // Obtener la entidad existente desde la base de datos
+            var existingEntrega = await _context.EntregaMntCrgModel
+                                                .FirstOrDefaultAsync(e => e.IdEntregaMntCrg == id);
+
+            if (existingEntrega == null)
+            {
+                return NotFound();
+            }
+
+            // Actualizar las propiedades de la entidad con los nuevos valores
+            existingEntrega.EvidenciaImagen1File = entregaMntCrgModel.EvidenciaImagen1File;
+            existingEntrega.EvidenciaImagen2File = entregaMntCrgModel.EvidenciaImagen2File;
+            // ... (actualizar otras propiedades)
+
+            // Actualizar las imágenes solo si se proporcionan nuevos archivos
             if (entregaMntCrgModel.EvidenciaImagen1File != null)
             {
                 using (MemoryStream ms = new MemoryStream())
                 {
                     await entregaMntCrgModel.EvidenciaImagen1File.CopyToAsync(ms);
-                    entregaMntCrgModel.EvidenciaImagen1 = ms.ToArray();
-                    entregaMntCrgModel.EvidenciaImagen1Base64 = Convert.ToBase64String(entregaMntCrgModel.EvidenciaImagen1);
+                    existingEntrega.EvidenciaImagen1 = ms.ToArray();
+                    existingEntrega.EvidenciaImagen1Base64 = Convert.ToBase64String(existingEntrega.EvidenciaImagen1);
                 }
             }
-            else
-            {
-                // Si no se proporciona una nueva imagen1, mantener la existente
-                entregaMntCrgModel.EvidenciaImagen1 = existingEntrega.EvidenciaImagen1;
-                entregaMntCrgModel.EvidenciaImagen1Base64 = existingEntrega.EvidenciaImagen1Base64;
-            }
 
-            // Verificar si se proporciona una nueva imagen2
             if (entregaMntCrgModel.EvidenciaImagen2File != null)
             {
                 using (MemoryStream ms = new MemoryStream())
                 {
                     await entregaMntCrgModel.EvidenciaImagen2File.CopyToAsync(ms);
-                    entregaMntCrgModel.EvidenciaImagen2 = ms.ToArray();
-                    entregaMntCrgModel.EvidenciaImagen2Base64 = Convert.ToBase64String(entregaMntCrgModel.EvidenciaImagen2);
+                    existingEntrega.EvidenciaImagen2 = ms.ToArray();
+                    existingEntrega.EvidenciaImagen2Base64 = Convert.ToBase64String(existingEntrega.EvidenciaImagen2);
                 }
             }
-            else
-            {
-                // Si no se proporciona una nueva imagen2, mantener la existente
-                entregaMntCrgModel.EvidenciaImagen2 = existingEntrega.EvidenciaImagen2;
-                entregaMntCrgModel.EvidenciaImagen2Base64 = existingEntrega.EvidenciaImagen2Base64;
-            }
-
-            if (entregaMntCrgModel.EvidenciaRImagen1File != null)
-            {
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    await entregaMntCrgModel.EvidenciaRImagen1File.CopyToAsync(ms);
-                    entregaMntCrgModel.EvidenciaRImagen1 = ms.ToArray();
-                    entregaMntCrgModel.EvidenciaRImagen1Base64 = Convert.ToBase64String(entregaMntCrgModel.EvidenciaRImagen1);
-                }
-            }
-            else
-            {
-                // Si no se proporciona una nueva imagen2, mantener la existente
-                entregaMntCrgModel.EvidenciaRImagen1 = existingEntrega.EvidenciaRImagen1;
-                entregaMntCrgModel.EvidenciaRImagen1Base64 = existingEntrega.EvidenciaRImagen1Base64;
-            }
-
-            if (entregaMntCrgModel.EvidenciaRImagen2File != null)
-            {
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    await entregaMntCrgModel.EvidenciaRImagen2File.CopyToAsync(ms);
-                    entregaMntCrgModel.EvidenciaRImagen2 = ms.ToArray();
-                    entregaMntCrgModel.EvidenciaRImagen2Base64 = Convert.ToBase64String(entregaMntCrgModel.EvidenciaRImagen2);
-                }
-            }
-            else
-            {
-                // Si no se proporciona una nueva imagen2, mantener la existente
-                entregaMntCrgModel.EvidenciaRImagen2 = existingEntrega.EvidenciaRImagen2;
-                entregaMntCrgModel.EvidenciaRImagen2Base64 = existingEntrega.EvidenciaRImagen2Base64;
-            }
-
-            // Actualiza solo los campos necesarios (propiedades escalares)
-            _context.Entry(existingEntrega).CurrentValues.SetValues(existingEntrega);
 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    // Guardar los cambios en la base de datos
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -240,11 +207,14 @@ namespace ServicioMontacargas.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
             ViewBag.MontacargasOptions = ObtenerMontacargasOptions();
             return View(entregaMntCrgModel);
         }
+
 
 
         [HttpPost]

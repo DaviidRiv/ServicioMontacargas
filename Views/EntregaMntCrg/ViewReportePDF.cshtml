@@ -271,31 +271,44 @@
         <h4>Evidencias Entrega</h4>
         <p>
             @{
-                @if (Model.EvidenciaImagen1Base64 != null && Model.EvidenciaImagen2Base64 != null)
+                var evidencias = new List<string> { Model.EvidenciaImagen1Base64, Model.EvidenciaImagen2Base64 };
+
+                @if (evidencias.Any(e => !string.IsNullOrEmpty(e)))
                 {
-                    <img src="data:image/jpeg;base64, @Html.DisplayFor(model => model.EvidenciaImagen1Base64)" alt="Evidencia1" width="370" height="370" />
-                    <img src="data:image/jpeg;base64, @Html.DisplayFor(model => model.EvidenciaImagen2Base64)" alt="Evidencia2" width="370" height="370" />
+                    foreach (var evidencia in evidencias)
+                    {
+                        if (!string.IsNullOrEmpty(evidencia))
+                        {
+                            <img src="data:image/jpeg;base64, @evidencia" alt="Evidencia" width="370" height="370" />
+                        }
+                    }
                 }
                 else
                 {
                 <p>Sin Evidencias en la Entrega</p>
                 }
             }
-
         </p>
         <h4>Evidencias Recolección</h4>
         <p>
             @{
-                @if (Model.EvidenciaRImagen1Base64 != null && Model.EvidenciaRImagen2Base64 != null)
+                var evidenciasR = new List<string> { Model.EvidenciaRImagen1Base64, Model.EvidenciaRImagen2Base64 };
+
+                @if (evidenciasR.Any(e => !string.IsNullOrEmpty(e)))
                 {
-                    <img src="data:image/jpeg;base64, @Html.DisplayFor(model => model.EvidenciaRImagen1Base64)" alt="RecolecciónEvidencia1" width="370" height="370" />
-                    <img src="data:image/jpeg;base64, @Html.DisplayFor(model => model.EvidenciaRImagen2Base64)" alt="RecolecciónEvidencia2" width="370" height="370" />
+                    foreach (var evidenciaR in evidenciasR)
+                    {
+                        if (!string.IsNullOrEmpty(evidenciaR))
+                        {
+                        <img src="data:image/jpeg;base64, @evidenciaR" alt="Evidencia" width="370" height="370" />
+                        }
+                    }
                 }
                 else
                 {
-                    <p>Sin Evidencias en Recolección</p>
+                <p>Sin Evidencias en la Entrega</p>
                 }
-            }            
+            }
         </p>
     </div>
     <footer style="text-align:center; font-size:10px">

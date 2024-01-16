@@ -152,7 +152,7 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.IdEntregaMntCrg)
                         </td>
-                        <td style="font-size:small;">
+                        <td>
                             @item.FechaEntrega.ToString("dd-MM-yyyy")
                         </td>
                         <td>
@@ -171,14 +171,14 @@
                                 fechaFormateada = null;
                             }
                         }
-                        <td style="font-size:small;">
+                        <td>
                             @fechaFormateada
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.HorometroRecoleccion)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.idMontacargas)
+                            <a asp-controller="Montacarga" asp-action="Details" asp-route-id="@item.idMontacargas">@Html.DisplayFor(modelItem => item.Montacarga.NumeroEconomico)</a>
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.NivelAceiteMotor)
