@@ -105,6 +105,9 @@ namespace ServicioMontacargas.Migrations
                     b.Property<string>("LlantasTraccion")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Llave")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("LucesTrabajo")
                         .HasColumnType("nvarchar(max)");
 
@@ -148,6 +151,9 @@ namespace ServicioMontacargas.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Torreta")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("fecha")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("horometro")

@@ -17,6 +17,7 @@
                 visible: true
             }
         ],
+        scrollX: true, // Habilitar scroll horizontal
         //_______________ CUARTO ______________
         dom: 'BfrtipC',
         buttons: [
@@ -122,6 +123,7 @@ $(document).ready(function () {
                 visible: true
             }
         ],
+        scrollX: true, // Habilitar scroll horizontal
         //_______________ CUARTO ______________
         dom: 'BfrtipC',
         buttons: [

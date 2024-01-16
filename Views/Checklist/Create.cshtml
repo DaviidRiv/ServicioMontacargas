@@ -36,7 +36,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="IdClientes" class="control-label"></label>
-                <select asp-for="IdClientes" class="form-control" asp-items="ViewBag.IdClientes" required>
+                <select asp-for="IdClientes" class="form-select" asp-items="ViewBag.IdClientes" required>
                     <option value="" selected disabled>--Selecciona una Empresa--</option>
                 </select>
                 <span asp-validation-for="IdClientes" class="text-danger"></span>
@@ -46,12 +46,18 @@
                 <select asp-for="turno" class="form-select" required>
                     <option value="Matutino">Matutino</option>
                     <option value="Vespertino">Vespertino</option>
+                    <option value="Nocturno">Nocturno</option>
                 </select>
                 <span asp-validation-for="turno" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="fecha" class="control-label"></label>
+                <input type="datetime-local" asp-for="fecha" class="form-control" required />
+                <span asp-validation-for="fecha" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="IdMontacargas" class="control-label"></label>
-                <select asp-for="IdMontacargas" class="form-control" asp-items="ViewBag.IdMontacargas" required>
+                <select asp-for="IdMontacargas" class="form-select" asp-items="ViewBag.IdMontacargas" required>
                     <option value="" selected disabled>--Selecciona un Montacargas--</option>
                 </select>
                 <span asp-validation-for="IdMontacargas" class="text-danger"></span>
@@ -314,9 +320,6 @@
                 </select>
                 <span asp-validation-for="AlarmaReversa" class="text-danger"></span>
             </div>
-        </div>
-
-        <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="Claxon" class="control-label"></label>
                 <select asp-for="Claxon" class="form-select" required>
@@ -327,6 +330,9 @@
                 </select>
                 <span asp-validation-for="Claxon" class="text-danger"></span>
             </div>
+        </div>
+
+        <div class="col-md-4">            
             <div class="form-group">
                 <label asp-for="Extintor" class="control-label"></label>
                 <select asp-for="Extintor" class="form-select" required>
@@ -386,6 +392,16 @@
                     <option value="N/A">N/A</option>
                 </select>
                 <span asp-validation-for="Ruidos" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Llave" class="control-label"></label>
+                <select asp-for="Llave" class="form-select" required>
+                    <option value="" selected disabled>--Selecciona una opcion--</option>
+                    <option value="Si">Si</option>
+                    <option value="No">No</option>
+                    <option value="N/A">N/A</option>
+                </select>
+                <span asp-validation-for="Llave" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Observaciones" class="control-label"></label>

@@ -15,6 +15,7 @@ namespace ServicioMontacargas.Models
         [ForeignKey("Clientes")]
         [DisplayName("Empresa")]
         public int IdClientes { get; set; }
+        [DisplayName("Empresa")]
         public ClientesModel? Clientes { get; set; }
         [DisplayName("Turno")]
         public string? turno { get; set; }
@@ -25,6 +26,8 @@ namespace ServicioMontacargas.Models
 
         [DisplayName("Horometro")]
         public string? horometro { get; set; }
+        [DisplayName("Fecha")]
+        public string? fecha { get; set; }
 
         //Lista Checklist
         [DisplayName("Aceite del Motor")]
@@ -82,6 +85,7 @@ namespace ServicioMontacargas.Models
         public string? FaroProximidad { get; set; }
         [DisplayName("Ruidos raros")]
         public string? Ruidos { get; set; }
+        public string? Llave { get; set; }
         public string? Observaciones { get; set; }
         [DisplayName("Firma")]
         public string? Firma { get; set; }

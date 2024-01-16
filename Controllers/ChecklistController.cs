@@ -59,7 +59,7 @@ namespace ServicioMontacargas.Controllers
                 .ToList();
 
             ViewData["IdMontacargas"] = new SelectList(montacargasList, "IdMontacargas", "DisplayInfoMntCrg");
-            ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "DisplayInfoCl");
+            ViewData["IdClientes"] = new SelectList(clientesList, "IdClientes", "DisplayInfoCl");
             return View();
         }
 
@@ -96,8 +96,8 @@ namespace ServicioMontacargas.Controllers
                 TempData["ExitoChecklist"] = "Creacion exitosa";
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "IdMontacargas", checklistModel.IdMontacargas);
-            ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "IdClientes", checklistModel.IdClientes);
+            ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "DisplayInfoMntCrg", checklistModel.IdMontacargas);
+            ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "DisplayInfoCl", checklistModel.IdClientes);
             TempData["FailChecklist"] = "La creacion no pudo ser completada";
             return View(checklistModel);
         }
@@ -114,26 +114,65 @@ namespace ServicioMontacargas.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "IdMontacargas", checklistModel.IdMontacargas);
-            ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "IdClientes", checklistModel.IdClientes);
+
+            ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "DisplayInfoMntCrg", checklistModel.IdMontacargas);
+            ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "DisplayInfoCl", checklistModel.IdClientes);
 
             return View(checklistModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdChecklist,nombreOperador,IdClientes,turno,IdMontacargas,horometro,NivelAceiteMotor,NivelAnticongelante,NivelAceiteHidraulico,NivelLiquidoFrenos,BandaVentilador,TanqueGasSoportes,FrenoEstacionamiento,FugaSistemaGas,DistanciaFrenado,RespaldoCarga,Horquillas,Golpes,Tablero,PinturaGeneral,CubiertaPiston,LlantasDireccion,LlantasTraccion,BateriaTerminales,LimpiezaGeneral,Radiador,SistemaArranque,LucesTrabajo,LucesTraseras,Torreta,AlarmaReversa,Claxon,Extintor,Espejos,CinturonSeguridad,Asiento,FaroProximidad,Ruidos,Observaciones,EvidenciaImagen1,EvidenciaImagen1Base64,EvidenciaImagen2,EvidenciaImagen2Base64,Firma")] ChecklistModel checklistModel)
+        public async Task<IActionResult> Edit(int id, ChecklistModel checklistModel)
         {
             if (id != checklistModel.IdChecklist)
             {
                 return NotFound();
             }
 
+            var existingEntrega = await _context.ChecklistModel.FindAsync(id);
+
+            // Verificar si se proporciona una nueva imagen1
+            if (checklistModel.EvidenciaImagen1File != null)
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    await checklistModel.EvidenciaImagen1File.CopyToAsync(ms);
+                    checklistModel.EvidenciaImagen1 = ms.ToArray();
+                    checklistModel.EvidenciaImagen1Base64 = Convert.ToBase64String(checklistModel.EvidenciaImagen1);
+                }
+            }
+            else
+            {
+                // Si no se proporciona una nueva imagen1, mantener la existente
+                checklistModel.EvidenciaImagen1 = existingEntrega.EvidenciaImagen1;
+                checklistModel.EvidenciaImagen1Base64 = existingEntrega.EvidenciaImagen1Base64;
+            }
+
+            // Verificar si se proporciona una nueva imagen2
+            if (checklistModel.EvidenciaImagen2File != null)
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    await checklistModel.EvidenciaImagen2File.CopyToAsync(ms);
+                    checklistModel.EvidenciaImagen2 = ms.ToArray();
+                    checklistModel.EvidenciaImagen2Base64 = Convert.ToBase64String(checklistModel.EvidenciaImagen2);
+                }
+            }
+            else
+            {
+                // Si no se proporciona una nueva imagen2, mantener la existente
+                checklistModel.EvidenciaImagen2 = existingEntrega.EvidenciaImagen2;
+                checklistModel.EvidenciaImagen2Base64 = existingEntrega.EvidenciaImagen2Base64;
+            }
+
+            // Actualiza solo los campos necesarios (propiedades escalares)
+            _context.Entry(existingEntrega).CurrentValues.SetValues(checklistModel);
+
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(checklistModel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -149,8 +188,8 @@ namespace ServicioMontacargas.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "IdMontacargas", checklistModel.IdMontacargas);
-            ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "IdClientes", checklistModel.IdClientes);
+            ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "DisplayInfoMntCrg", checklistModel.IdMontacargas);
+            ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "DisplayInfoCl", checklistModel.IdClientes);
 
             return View(checklistModel);
         }
@@ -173,8 +212,6 @@ namespace ServicioMontacargas.Controllers
             return View(checklistModel);
         }
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.ChecklistModel == null)

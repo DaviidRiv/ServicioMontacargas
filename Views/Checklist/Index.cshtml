@@ -7,11 +7,6 @@
     <meta name="viewport" content="width=device-width" />
     <meta charset="utf-8" />
     <title>@ViewData["Title"]</title>
-    <style>
-        body {
-            overflow-x: hidden;
-        }
-    </style>
 </head>
 
 <body>
@@ -50,6 +45,9 @@
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.turno)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.fecha)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Montacargas)
@@ -172,14 +170,19 @@
                             @Html.DisplayFor(modelItem => item.nombreOperador)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Clientes.IdClientes) - @Html.DisplayFor(modelItem => item.Clientes.Nombre)
+                            <a asp-controller="Clientes" asp-action="Details" asp-route-id="@item.IdClientes">
+                                @Html.DisplayFor(modelItem => item.Clientes.Nombre)
+                            </a>
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.turno)
                         </td>
                         <td>
+                            @Html.DisplayFor(modelItem => item.fecha)
+                        </td>
+                        <td>
                             <a asp-controller="Montacarga" asp-action="Details" asp-route-id="@item.IdMontacargas">
-                                @Html.DisplayFor(modelItem => item.Montacargas.NumeroEconomico) - @Html.DisplayFor(modelItem => item.Montacargas.NumeroSerie)
+                                @Html.DisplayFor(modelItem => item.Montacargas.NumeroEconomico)
                             </a>
                         </td>
                         <td>
@@ -295,15 +298,15 @@
                         <div class="modal-dialog modal-contenedor">
                             <div class="modal-content contenedor-eliminar">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Eliminar Entrega de Montacarga</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Eliminar Checklist</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                                 </div>
                                 <div class="modal-body">
-                                    ¿Estas seguro que desea eliminar esta Entrega?
+                                    ¿Estas seguro que desea eliminar este Checklist?
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
-                                    <a asp-controller="EntregaMntCrg" asp-action="DeleteConfirmed" asp-route-id="@item.IdChecklist" class="btn btn-danger">Eliminar</a>
+                                    <a asp-controller="Checklist" asp-action="DeleteConfirmed" asp-route-id="@item.IdChecklist" class="btn btn-danger">Eliminar</a>
                                 </div>
                             </div>
                         </div>

@@ -221,7 +221,7 @@ namespace ServicioMontacargas.Controllers
             }
 
             // Actualiza solo los campos necesarios (propiedades escalares)
-            _context.Entry(existingEntrega).CurrentValues.SetValues(entregaMntCrgModel);
+            _context.Entry(existingEntrega).CurrentValues.SetValues(existingEntrega);
 
             if (ModelState.IsValid)
             {
@@ -368,6 +368,7 @@ namespace ServicioMontacargas.Controllers
         {
             return (_context.EntregaMntCrgModel?.Any(e => e.IdEntregaMntCrg == id)).GetValueOrDefault();
         }
+
         [AutorizacionAdmin]
         public async Task<IActionResult> ViewReportePDF(int? id)
         {
