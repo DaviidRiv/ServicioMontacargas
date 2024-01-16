@@ -262,7 +262,7 @@
             @Html.DisplayNameFor(model => model.FirmaCliente)
         </dt>
         <dd class="col-sm-9">
-            <img src="@Html.DisplayFor(model => model.FirmaCliente)" alt="Firma del Cliente" width="100" height="100" />
+            <img src="@Model.FirmaCliente" alt="Firma del Cliente" width="100" height="100" />
         </dd>
         <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.NombreJacsa)
@@ -276,6 +276,7 @@
         <dd class="col-sm-9">
             <img src="data:image/jpeg;base64, @Html.DisplayFor(model => model.EvidenciaImagen1Base64)" alt="Evidencia1" width="100" height="100" />
         </dd>
+
         <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.EvidenciaImagen2)
         </dt>
@@ -300,4 +301,26 @@
     <a asp-action="Edit" asp-route-id="@Model?.IdEntregaMntCrg"><iconify-icon icon="bi:pencil-square"></iconify-icon> Editar</a> |
     <a asp-action="Index"><iconify-icon icon="bi:arrow-left-circle-fill"></iconify-icon> Regresar</a>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Obtener la cadena base64
+        var base64String = "@Model.FirmaCliente";
 
+        // Longitud de cada fragmento
+        var chunkSize = 5000;
+
+        // Dividir la cadena en fragmentos
+        var chunks = [];
+        for (var i = 0; i < base64String.length; i += chunkSize) {
+            chunks.push(base64String.substring(i, i + chunkSize));
+        }
+
+        // Mostrar cada fragmento en una nueva pestaña al hacer clic en la imagen
+        $("#base64Image").on("click", function () {
+            for (var i = 0; i < chunks.length; i++) {
+                window.open("data:image/png;base64," + chunks[i], "_blank");
+            }
+        });
+    });
+</script>
