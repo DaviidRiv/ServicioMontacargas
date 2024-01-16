@@ -1,0 +1,311 @@
+﻿@model ServicioMontacargas.Models.ChecklistModel
+
+@{
+    ViewData["Title"] = "ReportePDF CheckList";
+    Layout = null;
+}
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <a style="border: none;">
+                    <img src="~/img/LogoJacasa.jpeg" width="350" height="110" />
+                </a>
+            </div>
+            <div class="col-md-6">
+                <a style="border: none; color: darkblue;">
+                    <h3 style="text-align:center">Montacargas de San Luis S.A. de C.V.</h3>
+                    <h4 style="text-align:center">Las Vegas 235 San Luis Potosi, S.L.P.</h4>
+                    <h4 style="text-align:center">Tel 444 168 1000</h4>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <h3><u>Formato Checklist</u></h3>
+                <p><b>Cliente: @Model.Clientes.Nombre</b></p>
+                <p>MONTACARGAS</p>
+                <p>Modelo: @Model.Montacargas.Modelo</p>
+                <p>Serie: @Model.Montacargas.NumeroSerie</p>
+                <p>No. Economico: @Model.Montacargas.NumeroEconomico</p>
+            </div>
+            <div class="col-md-6">
+                <br /><br /><br />
+                <p>Fecha: <u>@Model.fecha</u></p><br /><br />
+                <p>Horometro: <u>@Model.horometro</u></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <table style="width: 100%; border: none;">
+            <tr>
+                <td style="width: 33%; vertical-align: top;">
+                    <table style="width: 100%; border: none;">
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.NivelAceiteMotor)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.NivelAceiteMotor)</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.NivelAnticongelante)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.NivelAnticongelante)</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.NivelAceiteHidraulico)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.NivelAceiteHidraulico)</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.NivelLiquidoFrenos)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.NivelLiquidoFrenos)</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.BandaVentilador)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.BandaVentilador)</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.TanqueGasSoportes)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.TanqueGasSoportes)</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.FrenoEstacionamiento)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.FrenoEstacionamiento)</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.FugaSistemaGas)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.FugaSistemaGas)</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.DistanciaFrenado)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.DistanciaFrenado)</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.RespaldoCarga)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.RespaldoCarga)</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.Horquillas)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.Horquillas)</td>
+                        </tr>
+                    </table>
+                </td>
+
+                <td style="width: 33%; vertical-align: top; text-align: left;">
+                    <table style="width: 100%; border: none;">
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.Golpes)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.Golpes)</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.Tablero)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.Tablero)</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.PinturaGeneral)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.PinturaGeneral)</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.CubiertaPiston)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.CubiertaPiston)</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.LlantasDireccion)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.LlantasDireccion)</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.LlantasTraccion)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.LlantasTraccion)</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.BateriaTerminales)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.BateriaTerminales)</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.LimpiezaGeneral)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.LimpiezaGeneral)</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.Radiador)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.Radiador)</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.SistemaArranque)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.SistemaArranque)</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.LucesTrabajo)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.LucesTrabajo)</td>
+                        </tr>
+                    </table>
+                </td>
+
+                <td style="width: 33%; vertical-align: top; text-align: left;">
+                    <table style="width: 100%; border: none;">
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.LucesTraseras)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.LucesTraseras)</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.Torreta)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.Torreta)</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.AlarmaReversa)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.AlarmaReversa)</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.Claxon)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.Claxon)</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.Extintor)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.Extintor)</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.Espejos)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.Espejos)</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.CinturonSeguridad)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.CinturonSeguridad)</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.Asiento)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.Asiento)</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.FaroProximidad)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.FaroProximidad)</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.Ruidos)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.Ruidos)</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.Llave)</th>
+                            <td style="text-align: left; font-size:10px;">@Html.DisplayFor(model => model.Llave)</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="container-fluid">
+        <dl>
+            <dt>
+                <strong style="text-align: left; font-size:10px;">@Html.DisplayNameFor(model => model.Observaciones)</strong>
+            </dt>
+            <dd style="text-align: left; font-size:10px;">
+                @Html.DisplayFor(model => model.Observaciones)
+            </dd>
+        </dl>
+    </div>
+    <hr />
+    <div class="container-fluid">
+        <div style="border: 2px solid black; padding: 5px; margin-left:0px; font-size:small;">
+            <p>
+                Notas: El cliente se compromete a tener el maximo cuidado del montacargas protegiendolo de cualquier ambiente que pudiera deteriorar y poner en riesgo su existencia teniendo
+                la obligación de guardar y asegurar el montacargas cuando este no sea utilizado, siendo en consecuencia el responsable directo de los daños o perdida del uso total o parcial, que
+                por tales motivos se pudiera ocacionar al montacargas, obligandose a restituir de inmediato en cantidad y calidad las piezas dañadas, el cliente será responsable por cualquier daño
+                ocasionando al montacargas, salvo aquellos que sean consecuencia del uso y desgaste normal montacargas, el cliente esta obligado a reportar al arredador cualquier falla del
+                equipo y no utilizarlo hasta que sea reparado por el personal autorizado.
+            </p>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="text-align: center; padding: 10px; width: 50%">
+                        <dl>
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <dd>
+                                <hr>
+                            </dd>
+                            <dt>
+                                <strong>MONTACARGAS DE SAN LUIS S.A. DE C.V.</strong>
+                            </dt>
+                        </dl>
+                    </td>
+                    <td style="text-align: center; width: 50%">
+                        <dl>
+                            <br />
+                            @{
+                                @if (Model.Firma != null)
+                                {
+                                    <dd style="border: 1px solid black; padding: 2px;">
+                                        <img src="@Html.DisplayFor(model => model.Firma)" alt="Firma" width="130" height="90" />
+                                    </dd>
+                                }
+                                else
+                                {
+                                    <dd style="border: 1px solid black; padding: 2px;">
+                                        Sin Firma
+                                    </dd>
+                                }
+                            }
+                            <dt>
+                                <strong>@Html.DisplayFor(model => model.Clientes.Nombre)</strong>
+                            </dt>
+                        </dl>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <footer style="text-align:center; font-size:10px">
+        Folio @Model.IdChecklist - Página 1 / 2
+    </footer>
+    <br />
+    <div>
+        <h4>Evidencias</h4>
+        <a>
+            @{
+                var evidencias = new List<string> { Model.EvidenciaImagen1Base64, Model.EvidenciaImagen2Base64 };
+
+                @if (evidencias.Any(e => !string.IsNullOrEmpty(e)))
+                {
+                    foreach (var evidencia in evidencias)
+                    {
+                        if (!string.IsNullOrEmpty(evidencia))
+                        {
+                            <img src="data:image/jpeg;base64, @evidencia" alt="Evidencia" width="370" height="370" />
+                        }
+                    }
+                }
+                else
+                {
+                <p>Sin Evidencias en la Entrega</p>
+                }
+            }
+        </a>        
+    </div>
+    <footer style="text-align:center; font-size:10px">
+        Folio @Model.IdChecklist - Página 2 / 2
+    </footer>
+    <!-- Bootstrap 5 JS CDN (Optional, for Bootstrap JS features) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+

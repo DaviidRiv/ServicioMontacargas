@@ -232,5 +232,25 @@ namespace ServicioMontacargas.Controllers
         {
             return (_context.ChecklistModel?.Any(e => e.IdChecklist == id)).GetValueOrDefault();
         }
+
+        public async Task<IActionResult> ReportePDF(int? id)
+        {
+            if (id == null || _context.ChecklistModel == null)
+            {
+                return NotFound();
+            }
+
+            var checklistModel = await _context.ChecklistModel
+                .Include(c => c.Montacargas)
+                .Include(c => c.Clientes)
+                .FirstOrDefaultAsync(m => m.IdChecklist == id);
+
+            if (checklistModel == null)
+            {
+                return NotFound();
+            }
+
+            return View(checklistModel);
+        }
     }
 }

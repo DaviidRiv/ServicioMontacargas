@@ -291,6 +291,9 @@
                             <a asp-action="Edit" asp-route-id="@item.IdChecklist"><iconify-icon icon="bi:pencil-square"></iconify-icon></a>
                             <a asp-action="Details" asp-route-id="@item.IdChecklist"><iconify-icon icon="bi:eye-fill"></iconify-icon></a>
                             <a href="#" data-bs-toggle="modal" data-bs-target="#eliminarUsuario-@item.IdChecklist" data-original-title="Eliminar"><iconify-icon icon="bi:trash3-fill"></iconify-icon></a>
+                            <a href="#" id="generatePdfLink" data-id="@item.IdChecklist">
+                                <iconify-icon icon="bxs:file-pdf"></iconify-icon>
+                            </a>
                         </td>
                     </tr>
                     <!-- Modal -->
@@ -315,4 +318,40 @@
             </tbody>
         </table>
     </div>
+    @section Scripts {
+
+        <script>
+            $(document).on('click', '#generatePdfLink', function (e) {
+                e.preventDefault();
+                var id = $(this).data('id');
+                generatePdf(id);
+            });
+
+            function generatePdf(id) {
+                // Realiza una solicitud AJAX para obtener los datos necesarios
+                $.ajax({
+                    url: '/Checklist/ReportePDF?id=' + id,
+                    method: 'GET',
+                    success: function (data) {
+                        // Llama a la función para generar el PDF con los datos obtenidos
+                        generatePdfFromData(data, id);
+                    },
+                    error: function (error) {
+                        console.error('Error al obtener los datos:', error);
+                    }
+                });
+            }
+
+            function generatePdfFromData(data, id) {
+                // Crea un elemento temporal para contener los datos de la vista
+                var tempDiv = document.createElement('div');
+                tempDiv.innerHTML = data;
+
+                // Llama a html2pdf para generar el PDF
+                html2pdf(tempDiv, {                    
+                    filename: 'Checklist ' + id + '.pdf',
+                });
+            }
+        </script>
+    }
 </body>
