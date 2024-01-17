@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using ServicioMontacargas.Auths;
 using ServicioMontacargas.Data;
 using ServicioMontacargas.Models;
 
@@ -18,7 +19,7 @@ namespace ServicioMontacargas.Controllers
         {
             _context = context;
         }
-
+        [AutorizacionAdmin]
         public async Task<IActionResult> Index()
         {
             var servicioMontacargasContext = _context.ChecklistModel
@@ -27,7 +28,7 @@ namespace ServicioMontacargas.Controllers
 
             return View(await servicioMontacargasContext.ToListAsync());
         }
-        
+        [AutorizacionAdmin]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.ChecklistModel == null)
@@ -47,7 +48,7 @@ namespace ServicioMontacargas.Controllers
 
             return View(checklistModel);
         }
-
+        [AutorizacionTecnicoMntcAd]
         public IActionResult Create()
         {
             var montacargasList = _context.MontacargasModel
@@ -100,8 +101,8 @@ namespace ServicioMontacargas.Controllers
                 {
                     _context.Add(checklistModel);
                     await _context.SaveChangesAsync();
-                    TempData["ExitoChecklist"] = "Creación exitosa";
-                    return RedirectToAction(nameof(Index));
+                    TempData["ExitoChecklist"] = "Creacion Exitosa";
+                    return RedirectToAction(nameof(Create));
                 }
             }
             else
@@ -114,8 +115,8 @@ namespace ServicioMontacargas.Controllers
             TempData["FailChecklist"] = "La creacion no pudo ser completada";
             return View(checklistModel);
         }
-        
 
+        [AutorizacionAdmin]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.ChecklistModel == null)
@@ -240,7 +241,6 @@ namespace ServicioMontacargas.Controllers
             return View(checklistModel);
         }
 
-
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.ChecklistModel == null)
@@ -258,7 +258,7 @@ namespace ServicioMontacargas.Controllers
 
             return View(checklistModel);
         }
-
+        [AutorizacionAdmin]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.ChecklistModel == null)
@@ -279,7 +279,7 @@ namespace ServicioMontacargas.Controllers
         {
             return (_context.ChecklistModel?.Any(e => e.IdChecklist == id)).GetValueOrDefault();
         }
-
+        [AutorizacionAdmin]
         public async Task<IActionResult> ReportePDF(int? id)
         {
             if (id == null || _context.ChecklistModel == null)
