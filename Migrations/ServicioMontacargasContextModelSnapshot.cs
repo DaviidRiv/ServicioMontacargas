@@ -126,6 +126,9 @@ namespace ServicioMontacargas.Migrations
                     b.Property<string>("NivelLiquidoFrenos")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("NumeroEconomicoMontacargas")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Observaciones")
                         .HasColumnType("nvarchar(max)");
 
@@ -157,6 +160,9 @@ namespace ServicioMontacargas.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("horometro")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("nombreJacsa")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("nombreOperador")

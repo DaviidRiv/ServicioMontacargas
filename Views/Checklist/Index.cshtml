@@ -182,7 +182,7 @@
                         </td>
                         <td>
                             <a asp-controller="Montacarga" asp-action="Details" asp-route-id="@item.IdMontacargas">
-                                @Html.DisplayFor(modelItem => item.Montacargas.NumeroEconomico)
+                                @Html.DisplayFor(modelItem => item.NumeroEconomicoMontacargas)
                             </a>
                         </td>
                         <td>
@@ -348,7 +348,8 @@
                 tempDiv.innerHTML = data;
 
                 // Llama a html2pdf para generar el PDF
-                html2pdf(tempDiv, {                    
+                html2pdf(tempDiv, {
+                    margin: 5,
                     filename: 'Checklist ' + id + '.pdf',
                 });
             }

@@ -11,6 +11,8 @@ namespace ServicioMontacargas.Models
         public int IdChecklist { get; set; }
         [DisplayName("Nombre del Operador")]
         public string? nombreOperador { get; set; }
+        [DisplayName("Nombre del Entregante")]
+        public string? nombreJacsa { get; set; }
 
         [ForeignKey("Clientes")]
         [DisplayName("Empresa")]
@@ -23,6 +25,9 @@ namespace ServicioMontacargas.Models
         [DisplayName("Montacargas")]
         public int IdMontacargas { get; set; }
         public MontacargasModel? Montacargas { get; set; }
+
+        [DisplayName("Montacargas")]
+        public string? NumeroEconomicoMontacargas { get; set; }
 
         [DisplayName("Horometro")]
         public string? horometro { get; set; }
@@ -102,7 +107,7 @@ namespace ServicioMontacargas.Models
         [DisplayName("Evidencia 2")]
         public byte[]? EvidenciaImagen2 { get; set; }
         [DisplayName("Evidencia 2")]
-        public string? EvidenciaImagen2Base64 { get; set; }        
+        public string? EvidenciaImagen2Base64 { get; set; }
 
     }
 }

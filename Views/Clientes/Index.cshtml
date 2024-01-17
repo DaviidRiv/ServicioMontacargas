@@ -54,7 +54,9 @@
                             @Html.DisplayFor(modelItem => item.FechaRegistro)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Ubicacion)
+                            <a href="@item.Ubicacion" target="_blank">
+                                <iconify-icon icon="carbon:location-filled"></iconify-icon>
+                            </a>
                         </td>
                         <td>
                             <a asp-action="Edit" asp-route-id="@item.IdClientes"><iconify-icon icon="bi:pencil-square"></iconify-icon></a>

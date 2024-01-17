@@ -15,41 +15,38 @@
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-6">
-                <a style="border: none;">
-                    <img src="~/img/LogoJacasa.jpeg" width="350" height="110" />
-                </a>
-            </div>
-            <div class="col-md-6">
-                <a style="border: none; color: darkblue;">
-                    <h3 style="text-align:center">Montacargas de San Luis S.A. de C.V.</h3>
-                    <h4 style="text-align:center">Las Vegas 235 San Luis Potosi, S.L.P.</h4>
-                    <h4 style="text-align:center">Tel 444 168 1000</h4>
-                </a>
-            </div>
-        </div>
-    </div>
+    <table style="width: 100%; border: solid 1px;">
+        <tr>
+            <td style="border: none;">
+                <img src="~/img/LogoJacasa.jpeg" width="280" height="110" />
+            </td>
+            <td style="border: none; color: darkblue;">
+                <h3 style="text-align:center">Montacargas de San Luis S.A. de C.V.</h3>
+                <h4 style="text-align:center">Las Vegas 235 San Luis Potosi, S.L.P.</h4>
+                <h4 style="text-align:center">Tel 444 168 1000</h4>
+            </td>
+        </tr>
+    </table>
+    <table style="width: 100%; border: none;">
+        <tr>
+            <td style="border: none; vertical-align: top; line-height: 1; font-size:15px; ">
+                <h4 style="text-align:left; text-decoration: underline;">Formato Checklist</h4>
+                <strong style="font-size:20px;"><p style="text-align:left;">Cliente: @Model.Clientes.Nombre</p></strong>
+                <p style="text-align:left;">MONTACARGAS</p>
+                <p style="text-align:left;">Modelo: @Model.Montacargas.Modelo</p>
+                <p style="text-align:left;">Serie: @Model.Montacargas.NumeroSerie</p>
+                <p style="text-align:left;">No Económico: @Model.Montacargas.NumeroEconomico</p>
+            </td>
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-6">
-                <h3><u>Formato Checklist</u></h3>
-                <p><b>Cliente: @Model.Clientes.Nombre</b></p>
-                <p>MONTACARGAS</p>
-                <p>Modelo: @Model.Montacargas.Modelo</p>
-                <p>Serie: @Model.Montacargas.NumeroSerie</p>
-                <p>No. Economico: @Model.Montacargas.NumeroEconomico</p>
-            </div>
-            <div class="col-md-6">
-                <br /><br /><br />
-                <p>Fecha: <u>@Model.fecha</u></p><br /><br />
+            <td style="border: none; text-align:left; font-size:15px;">
+                <br /><br />
+                <p>Fecha de Entrega: <u>@Model.fecha</u></p>
+                <br />
                 <p>Horometro: <u>@Model.horometro</u></p>
-            </div>
-        </div>
-    </div>
-
+            </td>
+        </tr>
+    </table>
+    <hr />
     <div class="container-fluid">
         <table style="width: 100%; border: none;">
             <tr>
@@ -237,6 +234,7 @@
                             <br />
                             <br />
                             <dd>
+                                @Html.DisplayFor(model => model.nombreJacsa)
                                 <hr>
                             </dd>
                             <dt>
@@ -262,6 +260,7 @@
                                 }
                             }
                             <dt>
+                                <strong>@Html.DisplayFor(model => model.nombreOperador)</strong><br />
                                 <strong>@Html.DisplayFor(model => model.Clientes.Nombre)</strong>
                             </dt>
                         </dl>

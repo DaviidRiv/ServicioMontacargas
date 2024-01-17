@@ -63,7 +63,6 @@ namespace ServicioMontacargas.Controllers
             return View();
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ChecklistModel checklistModel)
@@ -89,18 +88,33 @@ namespace ServicioMontacargas.Controllers
                     checklistModel.EvidenciaImagen2Base64 = Convert.ToBase64String(checklistModel.EvidenciaImagen2);
                 }
             }
-            if (ModelState.IsValid)
+
+            // Obtener Montacargas correspondiente al número económico
+            var montacargas = _context.MontacargasModel.FirstOrDefault(m => m.NumeroEconomico == checklistModel.NumeroEconomicoMontacargas);
+
+            if (montacargas != null)
             {
-                _context.Add(checklistModel);
-                await _context.SaveChangesAsync();
-                TempData["ExitoChecklist"] = "Creacion exitosa";
-                return RedirectToAction(nameof(Index));
+                checklistModel.Montacargas = montacargas;
+
+                if (ModelState.IsValid)
+                {
+                    _context.Add(checklistModel);
+                    await _context.SaveChangesAsync();
+                    TempData["ExitoChecklist"] = "Creación exitosa";
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            else
+            {
+                // Mostrar mensaje de error si el Montacargas no existe
+                ModelState.AddModelError("NumeroEconomicoMontacargas", "El número económico del montacargas no existe.");
             }
             ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "DisplayInfoMntCrg", checklistModel.IdMontacargas);
             ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "DisplayInfoCl", checklistModel.IdClientes);
             TempData["FailChecklist"] = "La creacion no pudo ser completada";
             return View(checklistModel);
         }
+        
 
         public async Task<IActionResult> Edit(int? id)
         {
@@ -130,7 +144,38 @@ namespace ServicioMontacargas.Controllers
                 return NotFound();
             }
 
-            var existingEntrega = await _context.ChecklistModel.FindAsync(id);
+            var existingChecklist = await _context.ChecklistModel.FindAsync(id);
+
+            // Verificar si se proporciona un nuevo número económico de montacargas
+            if (!string.IsNullOrWhiteSpace(checklistModel.NumeroEconomicoMontacargas))
+            {
+                // Obtener Montacargas correspondiente al número económico
+                var montacargas = _context.MontacargasModel.FirstOrDefault(m => m.NumeroEconomico == checklistModel.NumeroEconomicoMontacargas);
+
+                if (montacargas != null)
+                {
+                    // Asignar el Montacargas al modelo
+                    checklistModel.Montacargas = montacargas;
+
+                    // Asegurarse de que el IdMontacargas en el modelo tenga el valor correcto
+                    checklistModel.IdMontacargas = montacargas.IdMontacargas;
+                }
+                else
+                {
+                    // Mostrar mensaje de error o tomar alguna acción
+                    ModelState.AddModelError("NumeroEconomicoMontacargas", "El número económico del montacargas no existe.");
+                    // Puedes regresar a la vista sin intentar guardar los cambios
+                    return View(checklistModel);
+                }
+            }
+            else
+            {
+                // Si no se proporciona un nuevo número económico, mantener el existente
+                checklistModel.Montacargas = existingChecklist.Montacargas;
+                // Asegurarse de que el IdMontacargas en el modelo tenga el valor correcto
+                checklistModel.IdMontacargas = existingChecklist.Montacargas.IdMontacargas;
+            }
+
 
             // Verificar si se proporciona una nueva imagen1
             if (checklistModel.EvidenciaImagen1File != null)
@@ -145,8 +190,8 @@ namespace ServicioMontacargas.Controllers
             else
             {
                 // Si no se proporciona una nueva imagen1, mantener la existente
-                checklistModel.EvidenciaImagen1 = existingEntrega.EvidenciaImagen1;
-                checklistModel.EvidenciaImagen1Base64 = existingEntrega.EvidenciaImagen1Base64;
+                checklistModel.EvidenciaImagen1 = existingChecklist.EvidenciaImagen1;
+                checklistModel.EvidenciaImagen1Base64 = existingChecklist.EvidenciaImagen1Base64;
             }
 
             // Verificar si se proporciona una nueva imagen2
@@ -162,12 +207,12 @@ namespace ServicioMontacargas.Controllers
             else
             {
                 // Si no se proporciona una nueva imagen2, mantener la existente
-                checklistModel.EvidenciaImagen2 = existingEntrega.EvidenciaImagen2;
-                checklistModel.EvidenciaImagen2Base64 = existingEntrega.EvidenciaImagen2Base64;
+                checklistModel.EvidenciaImagen2 = existingChecklist.EvidenciaImagen2;
+                checklistModel.EvidenciaImagen2Base64 = existingChecklist.EvidenciaImagen2Base64;
             }
 
-            // Actualiza solo los campos necesarios (propiedades escalares)
-            _context.Entry(existingEntrega).CurrentValues.SetValues(checklistModel);
+            // Actualizar solo los campos necesarios (propiedades escalares)
+            _context.Entry(existingChecklist).CurrentValues.SetValues(checklistModel);
 
             if (ModelState.IsValid)
             {
@@ -188,11 +233,13 @@ namespace ServicioMontacargas.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "DisplayInfoMntCrg", checklistModel.IdMontacargas);
+
+            ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "DisplayInfoMntCrg", checklistModel.Montacargas?.IdMontacargas);
             ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "DisplayInfoCl", checklistModel.IdClientes);
 
             return View(checklistModel);
         }
+
 
         public async Task<IActionResult> Delete(int? id)
         {
