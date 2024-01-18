@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets\\css\\Datatables.css"
     },
     {
+      "Id": "C:\\Users\\david\\Desktop\\RomeoTec\\ServicioMontacargas\\wwwroot\\css\\escritorio.css",
+      "PackagePath": "staticwebassets\\css\\escritorio.css"
+    },
+    {
       "Id": "C:\\Users\\david\\Desktop\\RomeoTec\\ServicioMontacargas\\wwwroot\\css\\login.css",
       "PackagePath": "staticwebassets\\css\\login.css"
     },

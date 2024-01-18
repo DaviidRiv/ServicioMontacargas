@@ -1,5 +1,4 @@
-﻿﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -8,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ServicioMontacargas.styles.css" asp-append-version="true" />
+
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <link href='https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css' rel='stylesheet'>
@@ -41,143 +41,185 @@
         </div>
     </nav>
 
-    <div class="container-fluid">
-        <div class="row flex-nowrap">
-            <div id="sidebar" class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                    <a href="#" id="menu-toggle" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                        <span class="fs-5 d-none d-sm-inline">Menu</span>
-                    </a>
+    @{
+        var rol = Context.Session.GetString("RolUser");
 
-                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                        <li class="nav-item">
-                            <a asp-controller="Home" asp-action="Index" class="nav-link align-middle px-0">
-                                <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Inicio</span>
+        @if (rol == "Administrador")
+        {
+            <div class="container-fluid">
+                <div class="row flex-nowrap">
+                    <div id="sidebar" class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+                        <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                            <a href="#" id="menu-toggle" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                                <span class="fs-5 d-none d-sm-inline">Menu</span>
                             </a>
-                        </li>
-                        <li>
-                            <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                                <iconify-icon class="fs-2 align-bottom" icon="mdi:forklift"></iconify-icon><span class="ms-1 d-none d-sm-inline">Montacargas</span>
-                            </a>
-                            <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
-                                <li class="w-100">
-                                    <a asp-controller="Montacarga" asp-action="Index" class="nav-link px-0">-<span class="d-none d-sm-inline"></span>Catálogo Montacarga</a>
+
+                            <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                                <li class="nav-item">
+                                    <a asp-controller="Home" asp-action="Index" class="nav-link align-middle px-0">
+                                        <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Inicio</span>
+                                    </a>
                                 </li>
                                 <li>
-                                    <a asp-controller="EntregaMntCrg" asp-action="Index" class="nav-link px-0">-<span class="d-none d-sm-inline"></span>Entrega y Recolección</a>
+                                    <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+                                        <iconify-icon class="fs-2 align-bottom" icon="mdi:forklift"></iconify-icon><span class="ms-1 d-none d-sm-inline">Montacargas</span>
+                                    </a>
+                                    <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                                        <li class="w-100">
+                                            <a asp-controller="Montacarga" asp-action="Index" class="nav-link px-0">-<span class="d-none d-sm-inline"></span>Catálogo Montacarga</a>
+                                        </li>
+                                        <li>
+                                            <a asp-controller="EntregaMntCrg" asp-action="Index" class="nav-link px-0">-<span class="d-none d-sm-inline"></span>Entrega y Recolección</a>
+                                        </li>
+                                        <li>
+                                            <a asp-controller="Checklist" asp-action="Index" class="nav-link px-0">-<span class="d-none d-sm-inline"></span>CheckList</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="nav-link px-0">-<span class="d-none d-sm-inline"></span>Correctivo Preventivo</a>
+                                        </li>
+                                    </ul>
                                 </li>
                                 <li>
-                                    <a asp-controller="Checklist" asp-action="Index" class="nav-link px-0">-<span class="d-none d-sm-inline"></span>CheckList</a>
+                                    <a asp-controller="Clientes" asp-action="Index" class="nav-link px-0 align-middle">
+                                        <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Clientes</span>
+                                    </a>
                                 </li>
-                                <li>
-                                    <a href="#" class="nav-link px-0">-<span class="d-none d-sm-inline"></span>Correctivo Preventivo</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a asp-controller="Clientes" asp-action="Index" class="nav-link px-0 align-middle">
-                                <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Clientes</span>
-                            </a>
-                        </li>
-                        @*<li>
-                            <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                                <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Bootstrap</span>
-                            </a>
-                            <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
-                                <li class="w-100">
-                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 1</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2</a>
-                                </li>
-                            </ul>
-                        </li>*@
-                       @* <li>
-                            <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                                <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Products</span>
-                            </a>
-                            <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
-                                <li class="w-100">
-                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 1</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 2</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 3</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 4</a>
-                                </li>
-                            </ul>
-                        </li>*@
-                        <li>
-                            <a asp-controller="Usuarios" asp-action="Index" class="nav-link px-0 align-middle">
-                                <iconify-icon class="fs-3 align-bottom" icon="bi:people-fill"></iconify-icon><span class="ms-1 d-none d-sm-inline">Usuarios</span>
-                            </a>
-                        </li>
-                    </ul>
-                    <hr>
-                    <div class="dropdown pb-4">
-                        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="~/img/profile.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
-                            <span class="d-none d-sm-inline mx-1">Opciones</span>
+                                @*<li>
+                        <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+                        <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Bootstrap</span>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                            <li><a class="dropdown-item" asp-controller="Login" asp-action="LogOut">Salir</a></li>
+                        <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
+                        <li class="w-100">
+                        <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 1</a>
+                        </li>
+                        <li>
+                        <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2</a>
+                        </li>
                         </ul>
+                        </li>*@
+                                @* <li>
+                        <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                        <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Products</span>
+                        </a>
+                        <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
+                        <li class="w-100">
+                        <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 1</a>
+                        </li>
+                        <li>
+                        <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 2</a>
+                        </li>
+                        <li>
+                        <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 3</a>
+                        </li>
+                        <li>
+                        <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 4</a>
+                        </li>
+                        </ul>
+                        </li>*@
+                                <li>
+                                    <a asp-controller="Usuarios" asp-action="Index" class="nav-link px-0 align-middle">
+                                        <iconify-icon class="fs-3 align-bottom" icon="bi:people-fill"></iconify-icon><span class="ms-1 d-none d-sm-inline">Usuarios</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <hr>
+                            <div class="dropdown pb-4">
+                                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="~/img/profile.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                                    <span class="d-none d-sm-inline mx-1">Opciones</span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                                    <li><a class="dropdown-item" asp-controller="Login" asp-action="LogOut">Salir</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-sm">
+                        <main role="main" class="pb-3 col-sm-10">
+                            @RenderBody()
+                        </main>
                     </div>
                 </div>
             </div>
-            <div class="container-sm">
-                <main role="main" class="pb-3 col-sm-10">
-                    @RenderBody()
-                </main>
-                <script src="~/lib/jquery/dist/jquery.min.js"></script>
-                <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-                <script src="~/js/site.js" asp-append-version="true"></script>
-                <script src="~/js/datatables.js" asp-append-version="true"></script>
+        }
+        else if (rol == "Técnico" || rol == "Montacarguista" || rol == "Operador Grua")
+        {
+            <div class="container-fluid">
+                <div class="row flex-nowrap">
+                    <div id="sidebar" class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+                        <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                            <a href="#" id="menu-toggle" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                                <span class="fs-5 d-none d-sm-inline">Menu</span>
+                            </a>
 
-                <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-
-                @*SCRIPTS DE BOTONES*@
-                <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
-
-                @*excel*@
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-                <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
-
-                @*pdf*@
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-
-                @*imprimir*@
-                <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
-
-                @*filter columns*@
-                <script src="https://cdn.datatables.net/fixedheader/3.2.2/js/dataTables.fixedHeader.min.js"></script>
-
-                @*visibility columns*@
-                <script src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
-                <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
-
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.0/html2pdf.bundle.js"></script>
-
-                @await RenderSectionAsync("Scripts", required: false)
+                            <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                                <li class="nav-item">
+                                    <a asp-controller="Home" asp-action="Modulos" class="nav-link align-middle px-0">
+                                        <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Inicio</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <hr>
+                            <div class="dropdown pb-4">
+                                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="~/img/profile.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                                    <span class="d-none d-sm-inline mx-1">Opciones</span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                                    <li><a class="dropdown-item" asp-controller="Login" asp-action="LogOut">Salir</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-sm">
+                        <main role="main" class="pb-3 col-sm-10">
+                            @RenderBody()
+                        </main>
+                    </div>
+                </div>
             </div>
-
-        </div>
-    </div>
+        }
+    }
 
 
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - ServicioMontacargas - JACSA @*- <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>*@
+        <div class="container" style="text-align:right;">
+            &copy; 2023 - ServicioMontacargas - JACSA
         </div>
     </footer>
 
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/datatables.js" asp-append-version="true"></script>
 
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+
+    @*SCRIPTS DE BOTONES*@
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+
+    @*excel*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+
+    @*pdf*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+
+    @*imprimir*@
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+
+    @*filter columns*@
+    <script src="https://cdn.datatables.net/fixedheader/3.2.2/js/dataTables.fixedHeader.min.js"></script>
+
+    @*visibility columns*@
+    <script src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.0/html2pdf.bundle.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

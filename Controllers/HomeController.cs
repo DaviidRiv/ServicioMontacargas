@@ -18,7 +18,10 @@ namespace ServicioMontacargas.Controllers
         {
             return View();
         }
-
+        public IActionResult Modulos()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();

@@ -1,0 +1,19 @@
+﻿/* Estilos generales para las cards */
+.card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+    /* Efecto de cambio de color al pasar el ratón sobre la card */
+    .card:hover {
+        background-color: #000; /* Cambiar a tu color de gris claro deseado */
+    }
+
+
+/* Ajustar el diseño para pantallas más grandes (aparecer una al lado de la otra) */
+@media (min-width: 768px) {
+    .card {
+        display: inline-block;
+        margin-right: 10px; /* Espacio entre las cards */
+    }
+}

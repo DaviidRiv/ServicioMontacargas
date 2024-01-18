@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "UgdlCyR5KRNfE63/aUfS53TvEDwaYx/8k2qIf12RMrw=",
+  "Hash": "DXLa8IvTfaGZch9Y7rGev9N/JnruG0lhphqqRULmzFk=",
   "Source": "ServicioMontacargas",
   "BasePath": "_content/ServicioMontacargas",
   "Mode": "Default",
@@ -66,6 +66,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\Datatables.css"
+    },
+    {
+      "Identity": "C:\\Users\\david\\Desktop\\RomeoTec\\ServicioMontacargas\\wwwroot\\css\\escritorio.css",
+      "SourceId": "ServicioMontacargas",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\david\\Desktop\\RomeoTec\\ServicioMontacargas\\wwwroot\\",
+      "BasePath": "_content/ServicioMontacargas",
+      "RelativePath": "css/escritorio.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\escritorio.css"
     },
     {
       "Identity": "C:\\Users\\david\\Desktop\\RomeoTec\\ServicioMontacargas\\wwwroot\\css\\login.css",

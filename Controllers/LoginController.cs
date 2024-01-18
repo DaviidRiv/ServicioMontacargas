@@ -45,7 +45,11 @@ namespace ServicioMontacargas.Controllers
                 HttpContext.Session.SetString("ApellidoP", usuario.ApellidoP);
                 HttpContext.Session.SetString("ApellidoM", usuario.ApellidoM);
                 HttpContext.Session.SetString("RolUser", usuario.rolUser);
-                return RedirectToAction("Index", "Home");
+                if(usuario.rolUser == "Administrador")
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                return RedirectToAction("Modulos", "Home");
             }
             else
             {

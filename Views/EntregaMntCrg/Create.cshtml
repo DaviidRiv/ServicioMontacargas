@@ -447,10 +447,24 @@
 </form>
 
 
-<div>
-    <br />
-    <a asp-action="Index"><iconify-icon icon="bi:arrow-left-circle-fill"></iconify-icon> Regresar</a>
-</div>
+@{
+    var rol = Context.Session.GetString("RolUser");
+
+    @if (rol == "Administrador")
+    {
+        <div>
+            <br />
+            <a asp-action="Index"><iconify-icon icon="bi:arrow-left-circle-fill"></iconify-icon> Regresar</a>
+        </div>
+    }
+    else
+    {
+        <div>
+            <br />
+            <a asp-controller="Home" asp-action="Modulos"><iconify-icon icon="bi:arrow-left-circle-fill"></iconify-icon> Regresar</a>
+        </div>
+    }
+}
 
 @section Scripts {
     @{

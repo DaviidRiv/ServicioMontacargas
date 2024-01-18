@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "Modulos";
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/escritorio.css" asp-append-version="true" />
+</head>
+<body>
+    @{
+        var rol = Context.Session.GetString("RolUser");
+
+        @if (rol == "Técnico" || rol == "Montacarguista")
+        {
+            <div class="card text-dark bg-light mb-3 text-center" style="max-width: 18rem; margin: 20px;">
+                <div class="card-header">Checklist</div>
+                <div class="card-body text-center">
+                    <h5 class="card-title">Agregar Nuevo Checklist <i class="bi bi-arrow-up-right"></i></h5>
+                    <a asp-controller="Checklist" asp-action="Create" class="btn btn-primary">Ir</a>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="card text-dark bg-light mb-3 text-center" style="max-width: 18rem; margin: 20px;">
+                <div class="card-header">Entrega Montacargas</div>
+                <div class="card-body text-center">
+                    <h5 class="card-title">Generar Nueva Entrega <i class="bi bi-arrow-up-right"></i></h5>
+                    <a asp-controller="EntregaMntCrg" asp-action="Create" class="btn btn-primary">Ir</a>
+                </div>
+            </div>
+            <div class="card text-dark bg-light mb-3 text-center" style="max-width: 18rem; margin: 20px;">
+                <div class="card-header">Recolectar Montacargas</div>
+                <div class="card-body text-center">
+                    <h5 class="card-title">Generar Nueva Recolecta <i class="bi bi-arrow-up-right"></i></h5>
+                    <button class="btn btn-primary" onclick="solicitarId()">Ir</button>
+                </div>
+            </div>
+        }
+    }
+    <script>
+        function solicitarId() {
+            var idIngresado = prompt("Por favor, ingrese el ID:");
+
+            if (idIngresado !== null && idIngresado !== "") {
+                // Redirigir a la vista EntregaMntCrg con el ID ingresado
+                window.location.href = `/EntregaMntCrg/Entrega?id=${idIngresado}`;
+            }
+        }
+    </script>
+</body>
+</html>
