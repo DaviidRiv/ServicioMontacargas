@@ -50,30 +50,15 @@
                 <span asp-validation-for="HorometroRecoleccion" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="idMontacargas" class="control-label"></label>
-
-                @if (ViewBag.MontacargasOptions != null)
-                {
-                    <select asp-for="idMontacargas" class="form-select" required>
-                        <option value="" selected disabled>Selecciona un montacarga</option>
-
-                        @foreach (var option in ViewBag.MontacargasOptions)
-                        {
-                            <option value=@option.Value>@option.Text</option>
-                        }
-                    </select>
-                }
-                else
-                {
-                    <p class="text-danger">Error: No se pudieron cargar las opciones de montacargas.</p>
-                }
-
-                <span asp-validation-for="idMontacargas" class="text-danger"></span>
+                <label asp-for="IdMontacargas" class="control-label"></label>
+                <select asp-for="IdMontacargas" class="form-select" asp-items="@ViewBag.IdMontacargas" required>
+                    <option value="" selected disabled>Selecciona un montacarga</option>
+                </select>
+                <span asp-validation-for="IdMontacargas" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="NivelAceiteMotor" class="control-label"></label>
                 <select asp-for="NivelAceiteMotor" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Bien">Bien</option>
                     <option value="Bajo">Bajo</option>
                     <option value="N/A">N/A</option>
@@ -83,7 +68,6 @@
             <div class="form-group">
                 <label asp-for="NivelAnticongelante" class="control-label"></label>
                 <select asp-for="NivelAnticongelante" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Bien">Bien</option>
                     <option value="Bajo">Bajo</option>
                     <option value="N/A">N/A</option>
@@ -93,7 +77,6 @@
             <div class="form-group">
                 <label asp-for="NivelAceiteHidraulico" class="control-label"></label>
                 <select asp-for="NivelAceiteHidraulico" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Bien">Bien</option>
                     <option value="Bajo">Bajo</option>
                     <option value="N/A">N/A</option>
@@ -103,7 +86,6 @@
             <div class="form-group">
                 <label asp-for="NivelLiquidoFrenos" class="control-label"></label>
                 <select asp-for="NivelLiquidoFrenos" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Bien">Bien</option>
                     <option value="Bajo">Bajo</option>
                     <option value="N/A">N/A</option>
@@ -113,7 +95,6 @@
             <div class="form-group">
                 <label asp-for="AceiteDiferencial" class="control-label"></label>
                 <select asp-for="AceiteDiferencial" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Bien">Bien</option>
                     <option value="Bajo">Bajo</option>
                     <option value="N/A">N/A</option>
@@ -123,7 +104,6 @@
             <div class="form-group">
                 <label asp-for="TanqueGasSoportes" class="control-label"></label>
                 <select asp-for="TanqueGasSoportes" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Buen estado">Buen estado</option>
                     <option value="Mal estado">Mal estado</option>
                     <option value="N/A">N/A</option>
@@ -133,7 +113,6 @@
             <div class="form-group">
                 <label asp-for="FrenoEstacionamiento" class="control-label"></label>
                 <select asp-for="FrenoEstacionamiento" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Buen estado">Buen estado</option>
                     <option value="Mal estado">Mal estado</option>
                     <option value="N/A">N/A</option>
@@ -143,7 +122,6 @@
             <div class="form-group">
                 <label asp-for="FugaSistemaGas" class="control-label"></label>
                 <select asp-for="FugaSistemaGas" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Sin fuga">Sin fuga</option>
                     <option value="Con fuga">Con fuga</option>
                     <option value="N/A">N/A</option>
@@ -153,7 +131,6 @@
             <div class="form-group">
                 <label asp-for="ElementoAire" class="control-label"></label>
                 <select asp-for="ElementoAire" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Buen estado">Buen estado</option>
                     <option value="Mal estado">Mal estado</option>
                     <option value="N/A">N/A</option>
@@ -163,7 +140,6 @@
             <div class="form-group">
                 <label asp-for="DistanciaFrenado" class="control-label"></label>
                 <select asp-for="DistanciaFrenado" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Bien">Bien</option>
                     <option value="Mal">Mal</option>
                     <option value="N/A">N/A</option>
@@ -173,21 +149,19 @@
             <div class="form-group">
                 <label asp-for="CapacidadCarga" class="control-label"></label>
                 <select asp-for="CapacidadCarga" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Buen estado">Buen estado</option>
                     <option value="Mal estado">Mal estado</option>
                     <option value="N/A">N/A</option>
                 </select>
                 <span asp-validation-for="CapacidadCarga" class="text-danger"></span>
-            </div>                       
+            </div>
         </div>
 
         <div class="col-md-4">
-            
+
             <div class="form-group">
                 <label asp-for="RespaldoCarga" class="control-label"></label>
                 <select asp-for="RespaldoCarga" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Buen estado">Buen estado</option>
                     <option value="Mal estado">Mal estado</option>
                     <option value="N/A">N/A</option>
@@ -197,7 +171,6 @@
             <div class="form-group">
                 <label asp-for="Horquillas" class="control-label"></label>
                 <select asp-for="Horquillas" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Buen estado">Buen estado</option>
                     <option value="Mal estado">Mal estado</option>
                     <option value="N/A">N/A</option>
@@ -207,7 +180,6 @@
             <div class="form-group">
                 <label asp-for="Tablero" class="control-label"></label>
                 <select asp-for="Tablero" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Sin alertas">Sin alertas</option>
                     <option value="Prende testigo">Prende testigo</option>
                     <option value="N/A">N/A</option>
@@ -217,7 +189,6 @@
             <div class="form-group">
                 <label asp-for="PinturaGeneral" class="control-label"></label>
                 <select asp-for="PinturaGeneral" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Bien">Bien</option>
                     <option value="Regular">Regular</option>
                     <option value="Mal">Mal</option>
@@ -227,7 +198,6 @@
             <div class="form-group">
                 <label asp-for="CubiertaPiston" class="control-label"></label>
                 <select asp-for="CubiertaPiston" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Buen estado">Buen estado</option>
                     <option value="Mal estado">Mal estado</option>
                     <option value="N/A">N/A</option>
@@ -237,7 +207,6 @@
             <div class="form-group">
                 <label asp-for="LlantasDireccion" class="control-label"></label>
                 <select asp-for="LlantasDireccion" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Buen estado">Buen estado</option>
                     <option value="Desgaste normal">Desgaste normal</option>
                     <option value="Malas condiciones">Malas condiciones</option>
@@ -247,7 +216,6 @@
             <div class="form-group">
                 <label asp-for="LlantasTraccion" class="control-label"></label>
                 <select asp-for="LlantasTraccion" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Buen estado">Buen estado</option>
                     <option value="Desgaste normal">Desgaste normal</option>
                     <option value="Malas condiciones">Malas condiciones</option>
@@ -257,7 +225,6 @@
             <div class="form-group">
                 <label asp-for="BateriaTerminales" class="control-label"></label>
                 <select asp-for="BateriaTerminales" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Buen estado">Buen estado</option>
                     <option value="Mal estado">Mal estado</option>
                     <option value="N/A">N/A</option>
@@ -267,7 +234,6 @@
             <div class="form-group">
                 <label asp-for="LimpiezaGeneral" class="control-label"></label>
                 <select asp-for="LimpiezaGeneral" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Buen estado">Buen estado</option>
                     <option value="Requiere limpieza">Requiere limpieza</option>
                     <option value="N/A">N/A</option>
@@ -277,7 +243,6 @@
             <div class="form-group">
                 <label asp-for="SistemaArranque" class="control-label"></label>
                 <select asp-for="SistemaArranque" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Buenas condiciones">Buenas condiciones</option>
                     <option value="Malas condiciones">Malas condiciones</option>
                     <option value="N/A">N/A</option>
@@ -287,7 +252,6 @@
             <div class="form-group">
                 <label asp-for="LucesTrabajo" class="control-label"></label>
                 <select asp-for="LucesTrabajo" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Funcionan">Funcionan</option>
                     <option value="No funcionan">No funcionan</option>
                     <option value="N/A">N/A</option>
@@ -297,7 +261,6 @@
             <div class="form-group">
                 <label asp-for="LucesTraseras" class="control-label"></label>
                 <select asp-for="LucesTraseras" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Funcionan">Funcionan</option>
                     <option value="No funcionan">No funcionan</option>
                     <option value="N/A">N/A</option>
@@ -307,7 +270,6 @@
             <div class="form-group">
                 <label asp-for="Torreta" class="control-label"></label>
                 <select asp-for="Torreta" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Funcionan">Funcionan</option>
                     <option value="No funciona">No funciona</option>
                     <option value="N/A">N/A</option>
@@ -317,7 +279,6 @@
             <div class="form-group">
                 <label asp-for="AlarmaReversa" class="control-label"></label>
                 <select asp-for="AlarmaReversa" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Funcionan">Funcionan</option>
                     <option value="No funciona">No funciona</option>
                     <option value="N/A">N/A</option>
@@ -327,17 +288,15 @@
             <div class="form-group">
                 <label asp-for="Claxon" class="control-label"></label>
                 <select asp-for="Claxon" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Funcionan">Funcionan</option>
                     <option value="No funciona">No funciona</option>
                     <option value="N/A">N/A</option>
                 </select>
                 <span asp-validation-for="Claxon" class="text-danger"></span>
-            </div>          
+            </div>
             <div class="form-group">
                 <label asp-for="Extintor" class="control-label"></label>
                 <select asp-for="Extintor" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Buen estado y vigente">Buen estado y vigente</option>
                     <option value="Buen estado y no esta vigente">Buen estado y no esta vigente</option>
                     <option value="Mal estado, no tiene o no esta vigente">Mal estado, no tiene o no esta vigente</option>
@@ -346,11 +305,10 @@
             </div>
         </div>
 
-        <div class="col-md-4">                       
+        <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="Espejos" class="control-label"></label>
                 <select asp-for="Espejos" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Buen estado">Buen estado</option>
                     <option value="Mal estado">Mal estado</option>
                     <option value="N/A">N/A</option>
@@ -360,7 +318,6 @@
             <div class="form-group">
                 <label asp-for="CinturonSeguridad" class="control-label"></label>
                 <select asp-for="CinturonSeguridad" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Buen estado">Buen estado</option>
                     <option value="Mal estado">Mal estado</option>
                     <option value="N/A">N/A</option>
@@ -370,7 +327,6 @@
             <div class="form-group">
                 <label asp-for="Asiento" class="control-label"></label>
                 <select asp-for="Asiento" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Buen estado">Buen estado</option>
                     <option value="Mal estado">Mal estado</option>
                     <option value="N/A">N/A</option>
@@ -380,7 +336,6 @@
             <div class="form-group">
                 <label asp-for="FaroProximidad" class="control-label"></label>
                 <select asp-for="FaroProximidad" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Buen estado">Buen estado</option>
                     <option value="Mal estado">Mal estado</option>
                     <option value="N/A">N/A</option>
@@ -390,7 +345,6 @@
             <div class="form-group">
                 <label asp-for="Llave" class="control-label"></label>
                 <select asp-for="Llave" class="form-select" required>
-                    <option value="" selected disabled>--Selecciona una opcion--</option>
                     <option value="Si">Si</option>
                     <option value="No">No</option>
                 </select>
@@ -417,10 +371,10 @@
                 <div>
                     <canvas id="signatureCanvas" width="400" height="200" required></canvas>
                     <button type="button" onclick="clearSignature()">Borrar Firma</button>
-                    <input type="hidden" asp-for="FirmaCliente" id="hiddenFirmaCliente" required/>
+                    <input type="hidden" asp-for="FirmaCliente" id="hiddenFirmaCliente" required />
                     <span asp-validation-for="FirmaCliente" class="text-danger"></span>
                 </div>
-            </div>     
+            </div>
             <div class="form-group">
                 <label asp-for="EvidenciaImagen1" class="control-label"></label>
                 <input type="file" name="EvidenciaImagen1File" class="form-control" />
@@ -436,14 +390,14 @@
                 <input asp-for="NombreJacsa" class="form-control" required />
                 <span asp-validation-for="NombreJacsa" class="text-danger"></span>
             </div>
-        </div>         
+        </div>
         <center>
             <div class="form-group">
                 <br />
                 <input type="submit" value="Agregar" class="btn btn-success" />
             </div>
-        </center>        
-    </div>    
+        </center>
+    </div>
 </form>
 
 

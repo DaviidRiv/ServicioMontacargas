@@ -26,10 +26,13 @@ namespace ServicioMontacargas.Models
         [DisplayName("Horometro de Recolección")]
         public int? HorometroRecoleccion { get; set; }
 
+
         // Datos principales del inventario
-        public MontacargasModel? Montacarga { get; set; }
+        [ForeignKey("Montacargas")]
         [DisplayName("Montacargas")]
-        public int idMontacargas { get; set; }
+        public int IdMontacargas { get; set; }
+        public MontacargasModel? Montacargas { get; set; }
+
 
         // Campos del formato de entrega
         [DisplayName("Aceite del Motor")]
@@ -130,15 +133,6 @@ namespace ServicioMontacargas.Models
         public byte[]? EvidenciaRImagen2 { get; set; }
         [DisplayName("Evidencia Recolección 2")]
         public string? EvidenciaRImagen2Base64 { get; set; }
-
-        //PDF
-        [NotMapped]
-        public string? MarcaMontacargas { get; set; }
-        [NotMapped]
-        public string? ModeloMontacargas { get; set; }
-        [NotMapped]
-        public string? NumeroSerieMontacargas { get; set; }
-        [NotMapped]
-        public string? NumeroEconomicoMontacargas { get; set; }
+        
     }
 }

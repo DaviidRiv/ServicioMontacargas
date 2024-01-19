@@ -15,22 +15,14 @@ namespace ServicioMontacargas.Data
         }
 
         public DbSet<ServicioMontacargas.Models.MontacargasModel> MontacargasModel { get; set; } = default!;
+
         public DbSet<ServicioMontacargas.Models.EntregaMntCrgModel>? EntregaMntCrgModel { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            // Configuración de relaciones u otras configuraciones de tu modelo
-
-            modelBuilder.Entity<EntregaMntCrgModel>()
-                .HasOne(e => e.Montacarga)
-                .WithMany()
-                .HasForeignKey(e => e.idMontacargas); // Asegúrate de que esta es la clave correcta
-        }
 
         public DbSet<ServicioMontacargas.Models.UsuariosModel>? UsuariosModel { get; set; }
 
         public DbSet<ServicioMontacargas.Models.ClientesModel>? ClientesModel { get; set; }
 
         public DbSet<ServicioMontacargas.Models.ChecklistModel>? ChecklistModel { get; set; }
+
     }
 }

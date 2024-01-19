@@ -1,17 +1,22 @@
-﻿@model IEnumerable<ServicioMontacargas.Models.EntregaMntCrgModel>
+﻿@model IEnumerable<ServicioMontacargas.Models.EntregaMontacargaViewModel>
 
 @{
     ViewData["Title"] = "Lista Entrega Montacargas";
 }
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+</head>
 
-<h1>Lista de Entregas de Montacargas</h1>
-
-<p>
-    <div class="d-flex justify-content">
-        <a class="btn btn-primary" asp-controller="EntregaMntCrg" asp-action="Create">Generar Entrega</a>
-    </div>
-</p>
 <body>
+    <h1>Lista de Entregas de Montacargas</h1>
+
+    <p>
+        <div class="d-flex justify-content">
+            <a class="btn btn-primary" asp-controller="EntregaMntCrg" asp-action="Create">Generar Entrega</a>
+        </div>
+    </p>
     <div class="table-responsive-sm">
         <table class="table table-striped table-hover" id="tb_entrega" style="width:100%">
             <thead class="table-dark">
@@ -153,32 +158,19 @@
                             @Html.DisplayFor(modelItem => item.IdEntregaMntCrg)
                         </td>
                         <td>
-                            @item.FechaEntrega.ToString("dd-MM-yyyy")
+                            @item.FechaEntrega
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.HorometroEntrega)
                         </td>
-                        @{
-                            string? fechaFormateada;
-                            if (@item.FechaRecoleccion.HasValue)
-                            {
-                                DateTime fecha = @item.FechaRecoleccion.Value;
-                                fechaFormateada = fecha.ToString("dd-MM-yyyy");
-
-                            }
-                            else
-                            {
-                                fechaFormateada = null;
-                            }
-                        }
                         <td>
-                            @fechaFormateada
+                            @item.FechaRecoleccion
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.HorometroRecoleccion)
                         </td>
                         <td>
-                            <a asp-controller="Montacarga" asp-action="Details" asp-route-id="@item.idMontacargas">@Html.DisplayFor(modelItem => item.Montacarga.NumeroEconomico)</a>
+                            <a asp-controller="Montacarga" asp-action="Details" asp-route-id="@item.IdMontacargas">@Html.DisplayFor(modelItem => item.Montacargas.NumeroEconomico)</a>
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.NivelAceiteMotor)

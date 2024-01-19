@@ -108,67 +108,6 @@
     });
 }); 
 
-//EntregaMontacarga
-$(document).ready(function () {
-
-    $('#tb_entrega').DataTable({
-        //________________ SEGUNDO ____________
-        language: {
-            url: "https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
-        },
-        //________________ TERCERO ____________
-        columnDefs: [
-            {
-                targets: 0,
-                visible: true
-            }
-        ],
-        scrollX: true, // Habilitar scroll horizontal
-        //_______________ CUARTO ______________
-        dom: 'BfrtipC',
-        buttons: [
-            //'excel',
-            {
-                extend: 'excelHtml5',
-                text: 'Excel',
-                filename: 'Entrega Montacarga',
-                title: 'Entrega Montacarga',
-                exportOptions: {
-                    columns: ':not(:last-child)' // Excluir la última columna
-                },
-                className: 'btn-exportar-excel',
-            },
-            //'pdf',
-            {
-                extend: 'pdfHtml5',
-                text: 'PDF',
-                filename: 'Entrega Montacarga',
-                title: 'Entrega Montacarga',
-                exportOptions: {
-                    columns: ':not(:last-child)' // Excluir la última columna
-                },
-                className: 'btn-exportar-pdf',
-            },
-            //'print'
-            {
-                extend: 'print',
-                title: 'Entrega Montacarga',
-                className: 'btn-exportar-print'
-
-            },
-            {
-                extend: 'colvis',
-                text: 'Columnas',
-                className: 'btn-colvis',
-                collectionLayout: 'fixed three-column'
-            },
-            //extra
-            'pageLength'
-        ],
-        //______________ QUINTO _______________
-    });
-});
-
 //CheckList
 $(document).ready(function () {
     $('#tb_checklist').DataTable({
@@ -215,6 +154,64 @@ $(document).ready(function () {
                 className: 'btn-colvis',
                 collectionLayout: 'fixed three-column'
             },
+            'pageLength'
+        ],
+    });
+});
+//EntregaMontacarga
+$(document).ready(function () {
+
+    $('#tb_entrega').DataTable({
+        //________________ SEGUNDO ____________
+        language: {
+            url: "https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
+        },
+        //________________ TERCERO ____________
+        columnDefs: [
+            {
+                targets: 0,
+                visible: true
+            }
+        ],
+        scrollX: true, // Habilitar scroll horizontal
+        dom: 'BfrtipC',
+        buttons: [
+            //'excel',
+            {
+                extend: 'excelHtml5',
+                text: 'Excel',
+                filename: 'Entrega Montacarga',
+                title: 'Entrega Montacarga',
+                exportOptions: {
+                    columns: ':not(:last-child)' // Excluir la última columna
+                },
+                className: 'btn-exportar-excel',
+            },
+            //'pdf',
+            {
+                extend: 'pdfHtml5',
+                text: 'PDF',
+                filename: 'Entrega Montacarga',
+                title: 'Entrega Montacarga',
+                exportOptions: {
+                    columns: ':not(:last-child)' // Excluir la última columna
+                },
+                className: 'btn-exportar-pdf',
+            },
+            //'print'
+            {
+                extend: 'print',
+                title: 'Entrega Montacarga',
+                className: 'btn-exportar-print'
+
+            },
+            {
+                extend: 'colvis',
+                text: 'Columnas',
+                className: 'btn-colvis',
+                collectionLayout: 'fixed three-column'
+            },
+            //extra
             'pageLength'
         ],
     });

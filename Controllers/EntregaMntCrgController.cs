@@ -1,17 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using ServicioMontacargas.Auths;
 using ServicioMontacargas.Data;
 using ServicioMontacargas.Models;
-using ServicioMontacargas.Auths;
-using iText.Kernel.Pdf;
-using iText.Layout;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using iText.Html2pdf;
-using System.IO;
-using iText.Layout.Element;
-using iText.Layout.Properties;
-using Microsoft.AspNetCore.Mvc.ViewEngines;
+
 
 namespace ServicioMontacargas.Controllers
 {
@@ -28,7 +25,53 @@ namespace ServicioMontacargas.Controllers
         public async Task<IActionResult> Index()
         {
             var servicioMontacargasContext = _context.EntregaMntCrgModel
-                .Include(c => c.Montacarga);
+                .Include(e => e.Montacargas)
+                .Select(e => new EntregaMontacargaViewModel
+                {
+                    IdEntregaMntCrg = e.IdEntregaMntCrg,
+                    FechaEntrega = e.FechaEntrega,
+                    HorometroEntrega = e.HorometroEntrega,
+                    FechaRecoleccion = e.FechaRecoleccion,
+                    HorometroRecoleccion = e.HorometroRecoleccion,
+                    IdMontacargas = e.IdMontacargas,
+                    Montacargas = e.Montacargas,
+                    NivelAceiteMotor = e.NivelAceiteMotor,
+                    NivelAnticongelante = e.NivelAnticongelante,
+                    NivelAceiteHidraulico = e.NivelAceiteHidraulico,
+                    NivelLiquidoFrenos = e.NivelLiquidoFrenos,
+                    AceiteDiferencial = e.AceiteDiferencial,
+                    TanqueGasSoportes = e.TanqueGasSoportes,
+                    FrenoEstacionamiento = e.FrenoEstacionamiento,
+                    FugaSistemaGas = e.FugaSistemaGas,
+                    ElementoAire = e.ElementoAire,
+                    DistanciaFrenado = e.DistanciaFrenado,
+                    CapacidadCarga = e.CapacidadCarga,
+                    RespaldoCarga = e.RespaldoCarga,
+                    Horquillas = e.Horquillas,
+                    Tablero = e.Tablero,
+                    PinturaGeneral = e.PinturaGeneral,
+                    CubiertaPiston = e.CubiertaPiston,
+                    LlantasDireccion = e.LlantasDireccion,
+                    LlantasTraccion = e.LlantasTraccion,
+                    BateriaTerminales = e.BateriaTerminales,
+                    LimpiezaGeneral = e.LimpiezaGeneral,
+                    SistemaArranque = e.SistemaArranque,
+                    LucesTrabajo = e.LucesTrabajo,
+                    LucesTraseras = e.LucesTraseras,
+                    Torreta = e.Torreta,
+                    AlarmaReversa = e.AlarmaReversa,
+                    Claxon = e.Claxon,
+                    Extintor = e.Extintor,
+                    Espejos = e.Espejos,
+                    CinturonSeguridad = e.CinturonSeguridad,
+                    Asiento = e.Asiento,
+                    FaroProximidad = e.FaroProximidad,
+                    Observaciones = e.Observaciones,
+                    Llave = e.Llave,
+                    NombreCliente = e.NombreCliente,
+                    EmpresaCliente = e.EmpresaCliente,
+                    NombreJacsa = e.NombreJacsa
+                });
 
             return View(await servicioMontacargasContext.ToListAsync());
         }
@@ -42,7 +85,9 @@ namespace ServicioMontacargas.Controllers
             }
 
             var entregaMntCrgModel = await _context.EntregaMntCrgModel
+                .Include(c => c.Montacargas)
                 .FirstOrDefaultAsync(m => m.IdEntregaMntCrg == id);
+
             if (entregaMntCrgModel == null)
             {
                 return NotFound();
@@ -68,7 +113,11 @@ namespace ServicioMontacargas.Controllers
         [AutorizacionOperadorG]
         public IActionResult Create()
         {
-            ViewBag.MontacargasOptions = ObtenerMontacargasOptions();
+            var montacargasList = _context.MontacargasModel
+                .Select(m => new { m.IdMontacargas, DisplayInfoMntCrg = $"{m.NumeroEconomico} - {m.Marca} - {m.Modelo} - {m.NumeroSerie}" })
+                .ToList();
+
+            ViewData["IdMontacargas"] = new SelectList(montacargasList, "IdMontacargas", "DisplayInfoMntCrg");
             return View(new EntregaMntCrgModel());
         }
 
@@ -107,7 +156,7 @@ namespace ServicioMontacargas.Controllers
                 return RedirectToAction(nameof(Create));
             }
 
-            ViewBag.MontacargasOptions = ObtenerMontacargasOptions();
+            ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "DisplayInfoMntCrg", entregaMntCrgModel.IdMontacargas);
             TempData["FailEntrega"] = "La creacion no pudo ser completada";
             return View(entregaMntCrgModel);
         }
@@ -125,7 +174,7 @@ namespace ServicioMontacargas.Controllers
             {
                 return NotFound();
             }
-            ViewBag.MontacargasOptions = ObtenerMontacargasOptions();
+            ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "DisplayInfoMntCrg", entregaMntCrgModel.IdMontacargas);
             return View(entregaMntCrgModel);
         }
         [AutorizacionOperadorG]
@@ -141,7 +190,7 @@ namespace ServicioMontacargas.Controllers
             {
                 return NotFound();
             }
-            ViewBag.MontacargasOptions = ObtenerMontacargasOptions();
+            ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "DisplayInfoMntCrg", entregaMntCrgModel.IdMontacargas);
             return View(entregaMntCrgModel);
         }
 
@@ -295,7 +344,7 @@ namespace ServicioMontacargas.Controllers
                 return RedirectToAction(nameof(Entrega), new { id = entregaMntCrgModel.IdEntregaMntCrg });
             }
 
-            ViewBag.MontacargasOptions = ObtenerMontacargasOptions();
+            ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "DisplayInfoMntCrg", entregaMntCrgModel.IdMontacargas);
             TempData["FailRecoleccion"] = "La recoleccion no pudo ser completada";
             return View(entregaMntCrgModel);
         }
@@ -348,39 +397,13 @@ namespace ServicioMontacargas.Controllers
             }
 
             var entregaMntCrgModel = await _context.EntregaMntCrgModel
-                .Include(e => e.Montacarga)
+                .Include(e => e.Montacargas)
                 .FirstOrDefaultAsync(m => m.IdEntregaMntCrg == id);
 
             if (entregaMntCrgModel == null)
             {
                 return NotFound();
             }
-
-            // Obtén el IdMontacargas de la entidad principal
-            var idMontacargas = entregaMntCrgModel.idMontacargas;
-
-            // Realiza una segunda consulta para obtener el MontacargasModel
-            var montacargasModel = await _context.MontacargasModel
-                .FirstOrDefaultAsync(m => m.IdMontacargas == idMontacargas);
-
-            if (montacargasModel == null)
-            {
-                return NotFound();
-            }
-
-            // Almacena los datos en ViewBag
-            entregaMntCrgModel.MarcaMontacargas = montacargasModel.Marca;
-            entregaMntCrgModel.ModeloMontacargas = montacargasModel.Modelo;
-            entregaMntCrgModel.NumeroSerieMontacargas = montacargasModel.NumeroSerie;
-            entregaMntCrgModel.NumeroEconomicoMontacargas = montacargasModel.NumeroEconomico;
-
-            //return new ViewAsPdf("ViewReportePDF", entregaMntCrgModel)
-            //{
-            //    FileName = $"Entrega Equipo en Renta {entregaMntCrgModel.IdEntregaMntCrg}.pdf",
-            //    PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
-            //    PageSize = Rotativa.AspNetCore.Options.Size.A4,
-            //    CustomSwitches = $"--footer-center \"Folio {entregaMntCrgModel.IdEntregaMntCrg} - Página [page]\" --footer-font-size 10",
-            //};
 
             return View(entregaMntCrgModel);
         }

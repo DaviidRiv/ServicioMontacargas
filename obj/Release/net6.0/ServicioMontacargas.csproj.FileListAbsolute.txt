@@ -1,3 +1,11 @@
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\ServicioMontacargas.csproj.AssemblyReference.cache
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\ServicioMontacargas.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\ServicioMontacargas.AssemblyInfoInputs.cache
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\ServicioMontacargas.AssemblyInfo.cs
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\ServicioMontacargas.csproj.CoreCompileInputs.cache
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\ServicioMontacargas.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\ServicioMontacargas.RazorAssemblyInfo.cache
+C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\ServicioMontacargas.RazorAssemblyInfo.cs
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\appsettings.Development.json
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\appsettings.json
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\ServicioMontacargas.staticwebassets.runtime.json
@@ -244,14 +252,6 @@ C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\runtimes\
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\bin\Release\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
-C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\ServicioMontacargas.csproj.AssemblyReference.cache
-C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\ServicioMontacargas.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\ServicioMontacargas.AssemblyInfoInputs.cache
-C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\ServicioMontacargas.AssemblyInfo.cs
-C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\ServicioMontacargas.csproj.CoreCompileInputs.cache
-C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\ServicioMontacargas.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\ServicioMontacargas.RazorAssemblyInfo.cache
-C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\ServicioMontacargas.RazorAssemblyInfo.cs
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\staticwebassets\msbuild.ServicioMontacargas.Microsoft.AspNetCore.StaticWebAssets.props
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\staticwebassets\msbuild.build.ServicioMontacargas.props
 C:\Users\david\Desktop\RomeoTec\ServicioMontacargas\obj\Release\net6.0\staticwebassets\msbuild.buildMultiTargeting.ServicioMontacargas.props
