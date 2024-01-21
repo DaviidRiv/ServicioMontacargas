@@ -95,36 +95,6 @@ namespace ServicioMontacargas.Controllers
 
             return View(entregaMntCrgModel);
         }
-        public IActionResult GetImage(int id, int imageNumber)
-        {
-            var entregaMntCrgModel = _context.EntregaMntCrgModel.FirstOrDefault(e => e.IdEntregaMntCrg == id);
-
-            if (entregaMntCrgModel == null)
-            {
-                return NotFound();
-            }
-
-            byte[] imageData = null;
-
-            // Determina qué imagen obtener según el número proporcionado
-            if (imageNumber == 1 && entregaMntCrgModel.EvidenciaImagen1 != null)
-            {
-                imageData = entregaMntCrgModel.EvidenciaImagen1;
-            }
-            else if (imageNumber == 2 && entregaMntCrgModel.EvidenciaImagen2 != null)
-            {
-                imageData = entregaMntCrgModel.EvidenciaImagen2;
-            }
-            else
-            {
-                return NotFound(); // No se encontró la imagen solicitada
-            }
-
-            // Devuelve la imagen como un archivo con el tipo de contenido adecuado
-            return File(imageData, "image/jpeg"); // Ajusta el tipo de contenido según el formato de tus imágenes
-        }
-
-
 
         private List<SelectListItem> ObtenerMontacargasOptions()
         {

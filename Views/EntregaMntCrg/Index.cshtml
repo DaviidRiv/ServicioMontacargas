@@ -317,13 +317,6 @@
     @section Scripts {
 
         <script>
-            $(document).ready(function () {
-                $('img[data-src]').each(function () {
-                    var img = $(this);
-                    img.attr('src', img.data('src'));
-                });
-            });
-
             $(document).on('click', '#generatePdfLink', function (e) {
                 e.preventDefault();
                 var id = $(this).data('id');
