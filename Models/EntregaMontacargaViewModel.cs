@@ -55,6 +55,16 @@ namespace ServicioMontacargas.Models
         public string? NombreCliente { get; set; }
         public string? EmpresaCliente { get; set; }
         public string? NombreJacsa { get; set; }
+
+        public string? EvidenciaImagen1Base64 { get; set; }
+        public string? EvidenciaImagen2Base64 { get; set; }
+
+        // Propiedades adicionales para imágenes asincrónicas
+        public string? EvidenciaImagen1Base64Async { get; set; }
+        public string? EvidenciaImagen2Base64Async { get; set; }
+
+        public string? EvidenciaRImagen1Base64 { get; set; }
+        public string? EvidenciaRImagen2Base64 { get; set; }
     }
 
 

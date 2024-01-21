@@ -313,9 +313,17 @@
             </tbody>
         </table>
     </div>
+
     @section Scripts {
 
         <script>
+            $(document).ready(function () {
+                $('img[data-src]').each(function () {
+                    var img = $(this);
+                    img.attr('src', img.data('src'));
+                });
+            });
+
             $(document).on('click', '#generatePdfLink', function (e) {
                 e.preventDefault();
                 var id = $(this).data('id');
@@ -345,10 +353,11 @@
                 // Llama a html2pdf para generar el PDF
                 html2pdf(tempDiv, {
                     margin: 5,
-                    filename: 'Entrega Equipo en Renta ' + id + '.pdf',                    
+                    filename: 'Entrega Equipo en Renta ' + id + '.pdf',
                 });
-            }                        
+            }
         </script>
+
     }
 </body>
 

@@ -37,6 +37,10 @@
       "PackagePath": "staticwebassets\\img\\profile.png"
     },
     {
+      "Id": "C:\\Users\\david\\Desktop\\RomeoTec\\ServicioMontacargas\\wwwroot\\js\\ImagesAsync.js",
+      "PackagePath": "staticwebassets\\js\\ImagesAsync.js"
+    },
+    {
       "Id": "C:\\Users\\david\\Desktop\\RomeoTec\\ServicioMontacargas\\wwwroot\\js\\datatables.js",
       "PackagePath": "staticwebassets\\js\\datatables.js"
     },

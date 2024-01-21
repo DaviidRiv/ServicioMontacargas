@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "d5pnZXzO5vZDqJW3CCXWK0YtqUNurpALuVgsssw0rDw=",
+  "Hash": "sP12BhfLEvaiQZ4ch+cQI2dnW60Hf2jFCxm5V/oBuB8=",
   "Source": "ServicioMontacargas",
   "BasePath": "_content/ServicioMontacargas",
   "Mode": "Default",
@@ -202,6 +202,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\datatables.js"
+    },
+    {
+      "Identity": "C:\\Users\\david\\Desktop\\RomeoTec\\ServicioMontacargas\\wwwroot\\js\\ImagesAsync.js",
+      "SourceId": "ServicioMontacargas",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\david\\Desktop\\RomeoTec\\ServicioMontacargas\\wwwroot\\",
+      "BasePath": "_content/ServicioMontacargas",
+      "RelativePath": "js/ImagesAsync.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\ImagesAsync.js"
     },
     {
       "Identity": "C:\\Users\\david\\Desktop\\RomeoTec\\ServicioMontacargas\\wwwroot\\js\\navbar.js",
