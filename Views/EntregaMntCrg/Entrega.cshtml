@@ -30,19 +30,33 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="FechaEntrega" class="control-label"></label>
-                <input type="text" asp-for="FechaEntrega" class="form-control text-muted" readonly/>
+                <input type="text" asp-for="FechaEntrega" class="form-control text-muted" readonly />
                 <span asp-validation-for="FechaEntrega" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="HorometroEntrega" class="control-label"></label>
-                <input asp-for="HorometroEntrega" class="form-control text-muted" readonly/>
+                <input asp-for="HorometroEntrega" class="form-control text-muted" readonly />
                 <span asp-validation-for="HorometroEntrega" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="FechaRecoleccion" class="control-label"></label>
-                <input type="datetime-local" name="FechaRecoleccion" value="@Model.FechaRecoleccion" class="form-control text-muted" required/>
-                <span asp-validation-for="FechaRecoleccion" class="text-danger"></span>
-            </div>
+
+            @{
+                @if (Model.FechaRecoleccion == null)
+                {
+                    <div class="form-group">
+                        <label asp-for="FechaRecoleccion" class="control-label"></label>
+                        <input type="datetime-local" name="FechaRecoleccion" class="form-control text-muted" required />
+                        <span asp-validation-for="FechaRecoleccion" class="text-danger"></span>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group">
+                        <label asp-for="FechaRecoleccion" class="control-label"></label>
+                        <input type="text" asp-for="FechaRecoleccion" class="form-control text-muted" readonly />
+                        <span asp-validation-for="FechaRecoleccion" class="text-danger"></span>
+                    </div>
+                }
+            }
             <div class="form-group">
                 <label asp-for="HorometroRecoleccion" class="control-label"></label>
                 <input asp-for="HorometroRecoleccion" class="form-control text-muted" required />
@@ -91,7 +105,7 @@
             <div class="form-group">
                 <input type="hidden" asp-for="DistanciaFrenado" class="form-control text-muted" />
                 <span asp-validation-for="DistanciaFrenado" class="text-danger"></span>
-            </div>            
+            </div>
         </div>
 
         <div class="col-md-4">
@@ -178,7 +192,7 @@
             </div>
         </div>
 
-        <div class="col-md-4"> 
+        <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="EvidenciaRImagen1" class="control-label"></label>
                 <input type="file" name="EvidenciaRImagen1File" class="form-control" />
@@ -221,7 +235,7 @@
             <div class="form-group">
                 <input type="hidden" asp-for="Llave" class="form-control text-muted" />
                 <span asp-validation-for="Llave" class="text-danger"></span>
-            </div>            
+            </div>
             <div class="form-group">
                 <div>
                     <input type="hidden" asp-for="FirmaCliente" id="hiddenFirmaCliente" />

@@ -1,7 +1,7 @@
 ﻿@model ServicioMontacargas.Models.ChecklistModel
 
 @{
-    ViewData["Title"] = "Editar Checklist";
+    ViewData["Title"] = "Editar Revisión";
 }
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature-pad.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js"></script>
 </head>
-<h1>Editar Checklist @Model.IdChecklist</h1>
+<h1>Editar Revisión @Model.IdChecklist</h1>
 <hr />
 <form asp-action="Edit" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>

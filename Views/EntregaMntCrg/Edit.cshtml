@@ -22,7 +22,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="FechaEntrega" class="control-label"></label>
-                <input type="datetime-local" name="FechaEntrega" class="form-control text-muted" />
+                <input type="text" asp-for="FechaEntrega" class="form-control text-muted" readonly/>
                 <span asp-validation-for="FechaEntrega" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -32,7 +32,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="FechaRecoleccion" class="control-label"></label>
-                <input type="datetime-local" name="FechaRecoleccion" class="form-control text-muted" />
+                <input asp-for="FechaRecoleccion" class="form-control text-muted" readonly />
                 <span asp-validation-for="FechaRecoleccion" class="text-danger"></span>
             </div>
             <div class="form-group">

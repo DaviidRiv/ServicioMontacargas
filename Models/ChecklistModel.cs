@@ -11,7 +11,7 @@ namespace ServicioMontacargas.Models
         public int IdChecklist { get; set; }
         [DisplayName("Nombre del Operador")]
         public string? nombreOperador { get; set; }
-        [DisplayName("Nombre del Entregante")]
+        [DisplayName("Responsable de la Revisión")]
         public string? nombreJacsa { get; set; }
 
         [ForeignKey("Clientes")]
