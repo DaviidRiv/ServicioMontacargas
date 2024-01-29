@@ -24,5 +24,7 @@ namespace ServicioMontacargas.Data
 
         public DbSet<ServicioMontacargas.Models.ChecklistModel>? ChecklistModel { get; set; }
 
+        public DbSet<ServicioMontacargas.Models.AlmacenModel>? AlmacenModel { get; set; }
+
     }
 }
