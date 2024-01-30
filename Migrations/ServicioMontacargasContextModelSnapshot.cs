@@ -490,10 +490,15 @@ namespace ServicioMontacargas.Migrations
                     b.Property<string>("FirmaRecibio")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("IdAlmacen")
+                        .HasColumnType("int");
+
                     b.Property<int?>("IdMontacargas")
                         .HasColumnType("int");
 
                     b.HasKey("IdSalidaA");
+
+                    b.HasIndex("IdAlmacen");
 
                     b.HasIndex("IdMontacargas");
 
@@ -575,9 +580,15 @@ namespace ServicioMontacargas.Migrations
 
             modelBuilder.Entity("ServicioMontacargas.Models.SalidaModel", b =>
                 {
+                    b.HasOne("ServicioMontacargas.Models.MontacargasModel", "Almacen")
+                        .WithMany()
+                        .HasForeignKey("IdAlmacen");
+
                     b.HasOne("ServicioMontacargas.Models.MontacargasModel", "Montacargas")
                         .WithMany()
                         .HasForeignKey("IdMontacargas");
+
+                    b.Navigation("Almacen");
 
                     b.Navigation("Montacargas");
                 });

@@ -16,6 +16,11 @@ namespace ServicioMontacargas.Models
         public int? IdMontacargas { get; set; }
         public MontacargasModel? Montacargas { get; set; }
 
+        [ForeignKey("Almacen")]
+        [DisplayName("Almacen")]
+        public int? IdAlmacen { get; set; }
+        public AlmacenModel? Almacen { get; set; }
+
         public List<SalidaItem>? SalidaItems { get; set; }
 
         public int? Cantidad { get; set; }
