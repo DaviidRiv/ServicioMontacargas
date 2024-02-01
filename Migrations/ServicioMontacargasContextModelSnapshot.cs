@@ -455,6 +455,9 @@ namespace ServicioMontacargas.Migrations
                     b.Property<int>("IdAlmacen")
                         .HasColumnType("int");
 
+                    b.Property<int>("IdSalidaA")
+                        .HasColumnType("int");
+
                     b.Property<int?>("SalidaModelIdSalidaA")
                         .HasColumnType("int");
 
@@ -474,9 +477,6 @@ namespace ServicioMontacargas.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdSalidaA"), 1L, 1);
-
-                    b.Property<int?>("Cantidad")
-                        .HasColumnType("int");
 
                     b.Property<string>("Cliente")
                         .HasColumnType("nvarchar(max)");
@@ -580,7 +580,7 @@ namespace ServicioMontacargas.Migrations
 
             modelBuilder.Entity("ServicioMontacargas.Models.SalidaModel", b =>
                 {
-                    b.HasOne("ServicioMontacargas.Models.MontacargasModel", "Almacen")
+                    b.HasOne("ServicioMontacargas.Models.AlmacenModel", "Almacen")
                         .WithMany()
                         .HasForeignKey("IdAlmacen");
 

@@ -21,9 +21,8 @@ namespace ServicioMontacargas.Models
         public int? IdAlmacen { get; set; }
         public AlmacenModel? Almacen { get; set; }
 
-        public List<SalidaItem>? SalidaItems { get; set; }
+        public List<SalidaItem> SalidaItems { get; set; } = new List<SalidaItem>();
 
-        public int? Cantidad { get; set; }
         public string? FirmaRecibio { get; set; }
         public string? FirmaEntrego { get; set; }
 
@@ -38,7 +37,15 @@ namespace ServicioMontacargas.Models
         [ForeignKey("Almacen")]
         public int IdAlmacen { get; set; }
         public AlmacenModel? Almacen { get; set; }
-
         public int Cantidad { get; set; }
+        public int IdSalidaA { get; set; }
     }
+
+    public class SelectedProductModel
+    {
+        public string? Product { get; set; }
+        public int Quantity { get; set; }
+        public int idAlmacen { get; set; }
+    }
+
 }

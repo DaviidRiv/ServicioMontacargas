@@ -11,6 +11,19 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature-pad.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        #selectedProductsTable {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+            #selectedProductsTable th, #selectedProductsTable td {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+    </style>
 </head>
 <body>
     <h1>Nueva Salida</h1>
@@ -41,9 +54,9 @@
                     <span asp-validation-for="IdMontacargas" class="text-danger"></span>
                 </div>
                 @*<div class="form-group">
-                    <label asp-for="IdAlmacen" class="control-label"></label>
-                    <select asp-for="IdAlmacen" class="form-select" asp-items="ViewBag.IdAlmacen" required></select>
-                    <span asp-validation-for="IdAlmacen" class="text-danger"></span>
+                <label asp-for="IdAlmacen" class="control-label"></label>
+                <select asp-for="IdAlmacen" class="form-select" asp-items="ViewBag.IdAlmacen" required></select>
+                <span asp-validation-for="IdAlmacen" class="text-danger"></span>
                 </div>*@
                 <div class="form-group">
                     <label asp-for="IdAlmacen" class="control-label"></label>
@@ -52,12 +65,17 @@
                     </select>
                     <span asp-validation-for="IdAlmacen" class="text-danger"></span>
                 </div>
-
-                <div class="form-group">
-                    <label asp-for="Cantidad" class="control-label"></label>
-                    <input asp-for="Cantidad" class="form-control" />
-                    <span asp-validation-for="Cantidad" class="text-danger"></span>
-                </div>
+                <table id="selectedProductsTable">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Aquí se agregarán las filas dinámicamente -->
+                    </tbody>
+                </table>
                 <div class="form-group">
                     <label asp-for="FirmaRecibio" class="control-label"></label>
                     <div>
@@ -75,8 +93,10 @@
                         <input type="hidden" asp-for="FirmaEntrego" id="hiddenFirmaEntrego" required />
                         <span asp-validation-for="FirmaEntrego" class="text-danger"></span>
                     </div>
-                </div>      
-                <div class="form-group"><br />
+                </div>
+                <input type="hidden" id="selectedProducts" name="selectedProducts" />
+                <div class="form-group">
+                    <br />
                     <input type="submit" value="Create" class="btn btn-success" />
                 </div>
             </form>
@@ -144,8 +164,43 @@
                 });
             });
         </script>
+        <script>
+            $(document).ready(function () {
+                $('#js-select2').on('select2:select', function (e) {
+                    var selectedProduct = e.params.data;
+                    var cantidad = prompt('Ingrese la cantidad para ' + selectedProduct.text, 1);
+
+                    if (cantidad && cantidad > 0) {
+                        var selectedProductsTable = $('#selectedProductsTable tbody');
+                        selectedProductsTable.append('<tr><td>' + selectedProduct.text + '</td><td>' + cantidad + '</td></tr>');
+
+                        updateSelectedProducts();
+                    }
+                });
+            });
+
+            function updateSelectedProducts() {
+                var selectedProducts = [];
+
+                $('#selectedProductsTable tbody tr').each(function () {
+                    var cells = $(this).find('td');
+                    var productInfo = cells.eq(0).text().split(' - '); // Separar el texto en partes
+                    var product = productInfo[1]; // Obtener el nombre del producto
+                    var quantity = cells.eq(1).text();
+                    var idAlmacen = parseInt(productInfo[0]); // Obtener el IdAlmacen como número
+
+                    selectedProducts.push({
+                        product: product,
+                        quantity: quantity,
+                        idAlmacen: idAlmacen // Agregar el IdAlmacen correspondiente al producto
+                    });
+                });
+
+                $('#selectedProducts').val(JSON.stringify(selectedProducts));
+            }
+        </script>
+
+
     }
 </body>
 </html>
-
-

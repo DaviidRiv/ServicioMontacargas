@@ -27,6 +27,7 @@ namespace ServicioMontacargas.Data
         public DbSet<ServicioMontacargas.Models.AlmacenModel>? AlmacenModel { get; set; }
 
         public DbSet<ServicioMontacargas.Models.SalidaModel>? SalidaModel { get; set; }
+        public DbSet<ServicioMontacargas.Models.SalidaItem>? SalidaItem { get; set; }
 
 
     }
