@@ -24,9 +24,17 @@ namespace ServicioMontacargas.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var servicioMontacargasContext = _context.SalidaModel.Include(s => s.Montacargas).Include(a => a.Almacen);
-            return View(await servicioMontacargasContext.ToListAsync());
+            var servicioMontacargasContext = _context.SalidaModel
+                .Include(s => s.Montacargas)
+                .Include(s => s.Almacen)
+                .Include(s => s.SalidaItems)
+                    .ThenInclude(si => si.Almacen) // Incluir datos relacionados para SalidaItems y Almacen
+                .ToList();
+
+            return View(servicioMontacargasContext);
         }
+
+
 
         public async Task<IActionResult> Details(int? id)
         {
@@ -38,6 +46,8 @@ namespace ServicioMontacargas.Controllers
             var salidaModel = await _context.SalidaModel
                 .Include(s => s.Montacargas)
                 .Include(a => a.Almacen)
+                .Include(s => s.SalidaItems)
+                    .ThenInclude(si => si.Almacen)
                 .FirstOrDefaultAsync(m => m.IdSalidaA == id);
             if (salidaModel == null)
             {
@@ -53,7 +63,7 @@ namespace ServicioMontacargas.Controllers
                .Select(m => new { m.IdAlmacen, DisplayInfoAlmacen = $"{m.Producto} - {m.Nombre}" })
                .ToList();
 
-            ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "NumeroEconomico");
+            ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "DisplayInfoMntCrg");
             ViewData["IdAlmacen"] = new SelectList(almacenList, "IdAlmacen", "DisplayInfoAlmacen");
             return View();
         }
@@ -112,7 +122,7 @@ namespace ServicioMontacargas.Controllers
                 }
 
                 // Resto del código para manejar ModelState.IsValid == false
-                ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "NumeroEconomico", salidaModel.IdMontacargas);
+                ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "DisplayInfoMntCrg", salidaModel.IdMontacargas);
                 ViewData["IdAlmacen"] = new SelectList(_context.AlmacenModel, "IdAlmacen", "Producto", salidaModel.IdAlmacen);
                 return View(salidaModel);
             }
@@ -136,24 +146,30 @@ namespace ServicioMontacargas.Controllers
             var almacenList = _context.AlmacenModel
                .Select(m => new { m.IdAlmacen, DisplayInfoAlmacen = $"{m.Producto} - {m.Nombre}" })
                .ToList();
+
             if (id == null || _context.SalidaModel == null)
             {
                 return NotFound();
             }
 
-            var salidaModel = await _context.SalidaModel.FindAsync(id);
+            var salidaModel = await _context.SalidaModel
+                .Include(s => s.Montacargas)
+                .Include(a => a.Almacen)
+                .Include(s => s.SalidaItems)
+                    .ThenInclude(si => si.Almacen)
+                .FirstOrDefaultAsync(m => m.IdSalidaA == id);
             if (salidaModel == null)
             {
                 return NotFound();
             }
-            ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "IdMontacargas", salidaModel.IdMontacargas);
+            ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "DisplayInfoMntCrg", salidaModel.IdMontacargas);
             ViewData["IdAlmacen"] = new SelectList(almacenList, "IdAlmacen", "DisplayInfoAlmacen", salidaModel.IdAlmacen);
             return View(salidaModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdSalidaA,Cliente,Fecha,IdMontacargas,IdAlmacen,FirmaRecibio,FirmaEntrego")] SalidaModel salidaModel)
+        public async Task<IActionResult> Edit(int id, [Bind("IdSalidaA,Cliente,Fecha,IdMontacargas,IdAlmacen,FirmaRecibio,FirmaEntrego")] SalidaModel salidaModel, string selectedProducts)
         {
             var almacenList = _context.AlmacenModel
                .Select(m => new { m.IdAlmacen, DisplayInfoAlmacen = $"{m.Producto} - {m.Nombre}" })
@@ -164,11 +180,69 @@ namespace ServicioMontacargas.Controllers
                 return NotFound();
             }
 
+            // Obtener el SalidaModel de la base de datos incluyendo los SalidaItems relacionados
+            var existingSalidaModel = await _context.SalidaModel
+                .Include(s => s.SalidaItems)
+                .FirstOrDefaultAsync(s => s.IdSalidaA == id);
+
+            if (existingSalidaModel == null)
+            {
+                return NotFound();
+            }
+
+            if (!string.IsNullOrEmpty(selectedProducts))
+            {
+                List<SelectedProductModel> selectedProductsList = JsonConvert.DeserializeObject<List<SelectedProductModel>>(selectedProducts);
+
+                // Verificar si los IdAlmacen existen en la base de datos
+                var existingAlmacenIds = _context.AlmacenModel.Select(a => a.IdAlmacen).ToList();
+                var invalidAlmacenIds = selectedProductsList.Where(p => !existingAlmacenIds.Contains(p.idAlmacen)).Select(p => p.idAlmacen).ToList();
+
+                if (invalidAlmacenIds.Any())
+                {
+                    // Manejar el caso en que hay IdAlmacen inválidos
+                    // Puedes lanzar una excepción, redirigir a una página de error, o realizar cualquier otra acción apropiada.
+                    // Por ejemplo, podrías mostrar un mensaje de error en la vista.
+                    ModelState.AddModelError("IdAlmacen", $"Los siguientes IdAlmacen no son válidos: {string.Join(", ", invalidAlmacenIds)}");
+                    // Vuelve a cargar la vista con los datos actuales
+                    return View(existingSalidaModel);
+                }
+
+                // Actualizar cantidades y manejar adición/eliminación de SalidaItems
+                foreach (var selectedProduct in selectedProductsList)
+                {
+                    var existingSalidaItem = existingSalidaModel.SalidaItems.FirstOrDefault(si => si.IdAlmacen == selectedProduct.idAlmacen);
+
+                    if (existingSalidaItem != null)
+                    {
+                        // Actualizar la cantidad existente
+                        existingSalidaItem.Cantidad = selectedProduct.Quantity;
+                    }
+                    else
+                    {
+                        // Agregar nuevo SalidaItem
+                        existingSalidaModel.SalidaItems.Add(new SalidaItem
+                        {
+                            IdAlmacen = selectedProduct.idAlmacen,
+                            Cantidad = selectedProduct.Quantity
+                        });
+                    }
+                }
+
+                // Eliminar SalidaItems que se quitaron
+                var removedSalidaItems = existingSalidaModel.SalidaItems.Where(si => !selectedProductsList.Any(sp => sp.idAlmacen == si.IdAlmacen)).ToList();
+                foreach (var removedSalidaItem in removedSalidaItems)
+                {
+                    existingSalidaModel.SalidaItems.Remove(removedSalidaItem);
+                }
+            }
+
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(salidaModel);
+                    // Actualizar el SalidaModel existente en lugar de agregarlo nuevamente
+                    _context.Update(existingSalidaModel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -182,13 +256,29 @@ namespace ServicioMontacargas.Controllers
                         throw;
                     }
                 }
+                catch (DbUpdateException ex)
+                {
+                    // Capturar la excepción específica
+                    if (ex.InnerException is SqlException sqlException && sqlException.Number == 544)
+                    {
+                        // Continuar con la redirección si es el error relacionado con IDENTITY_INSERT
+                        return RedirectToAction(nameof(Index));
+                    }
+
+                    // Re-lanzar la excepción si no es la esperada
+                    throw;
+                }
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "IdMontacargas", salidaModel.IdMontacargas);
-            ViewData["IdAlmacen"] = new SelectList(almacenList, "IdAlmacen", "DisplayInfoAlmacen", salidaModel.IdAlmacen);
 
-            return View(salidaModel);
+            ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "DisplayInfoMntCrg", existingSalidaModel.IdMontacargas);
+            ViewData["IdAlmacen"] = new SelectList(almacenList, "IdAlmacen", "DisplayInfoAlmacen", existingSalidaModel.IdAlmacen);
+            TempData["FailEditSalida"] = "La edición no pudo ser completada";
+            return View(existingSalidaModel);
         }
+
+
 
         // GET: Salida/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -212,23 +302,45 @@ namespace ServicioMontacargas.Controllers
 
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.SalidaModel == null)
-            {
-                return Problem("Entity set 'ServicioMontacargasContext.SalidaModel'  is null.");
-            }
             var salidaModel = await _context.SalidaModel.FindAsync(id);
-            if (salidaModel != null)
+
+            if (salidaModel == null)
             {
-                _context.SalidaModel.Remove(salidaModel);
+                return NotFound();
             }
 
+            _context.SalidaModel.Remove(salidaModel);
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
+
 
         private bool SalidaModelExists(int id)
         {
             return (_context.SalidaModel?.Any(e => e.IdSalidaA == id)).GetValueOrDefault();
+        }
+
+        public async Task<IActionResult> SalidaPDF(int? id)
+        {
+            if (id == null || _context.SalidaModel == null)
+            {
+                return NotFound();
+            }
+
+            var salidaModel = await _context.SalidaModel
+                .Include(s => s.Montacargas)
+                .Include(a => a.Almacen)
+                .Include(s => s.SalidaItems)
+                    .ThenInclude(si => si.Almacen)
+                .FirstOrDefaultAsync(m => m.IdSalidaA == id);
+
+            if (salidaModel == null)
+            {
+                return NotFound();
+            }
+
+            return View(salidaModel);
         }
     }
 }

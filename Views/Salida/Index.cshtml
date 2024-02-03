@@ -55,16 +55,27 @@
                             @Html.DisplayFor(modelItem => item.Fecha)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Montacargas.NumeroEconomico)
+                            <a asp-controller="Montacarga" asp-action="Details" asp-route-id="@item.Montacargas.IdMontacargas">
+                                @Html.DisplayFor(modelItem => item.Montacargas.NumeroEconomico)
+                            </a>
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Almacen.Producto)
+                            <ul>
+                                @foreach (var salidaItem in item.SalidaItems)
+                                {
+                                    <li>@($"{salidaItem.Almacen?.Producto} - Cantidad: {salidaItem.Cantidad} {salidaItem.Almacen?.Medida}")</li>
+                                }
+                            </ul>
                         </td>
+
                         <td>
                             <a asp-action="Edit" asp-route-id="@item.IdSalidaA"><iconify-icon icon="bi:pencil-square"></iconify-icon></a>
                             <a asp-action="Details" asp-route-id="@item.IdSalidaA"><iconify-icon icon="bi:eye-fill"></iconify-icon></a>
                             <a href="#" data-bs-toggle="modal" data-bs-target="#eliminarUsuario-@item.IdSalidaA" data-original-title="Eliminar">
                                 <iconify-icon icon="bi:trash3-fill"></iconify-icon>
+                            </a>
+                            <a href="#" id="generatePdfLink" data-id="@item.IdSalidaA">
+                                <iconify-icon icon="bxs:file-pdf"></iconify-icon>
                             </a>
                         </td>
                     </tr>
@@ -89,5 +100,43 @@
                 }
             </tbody>
         </table>
+        @section Scripts {
+
+            <script>
+                $(document).on('click', '#generatePdfLink', function (e) {
+                    e.preventDefault();
+                    var id = $(this).data('id');
+                    generatePdf(id);
+                });
+
+                function generatePdf(id) {
+                    // Realiza una solicitud AJAX para obtener los datos necesarios
+                    $.ajax({
+                        url: '/Salida/SalidaPDF?id=' + id,
+                        method: 'GET',
+                        success: function (data) {
+                            // Llama a la función para generar el PDF con los datos obtenidos
+                            generatePdfFromData(data, id);
+                        },
+                        error: function (error) {
+                            console.error('Error al obtener los datos:', error);
+                        }
+                    });
+                }
+
+                function generatePdfFromData(data, id) {
+                    // Crea un elemento temporal para contener los datos de la vista
+                    var tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = data;
+
+                    // Llama a html2pdf para generar el PDF
+                    html2pdf(tempDiv, {
+                        margin: 5,
+                        filename: 'Salida de Almacen ' + id + '.pdf',
+                    });
+                }
+            </script>
+
+        }
 </body>
 </html>

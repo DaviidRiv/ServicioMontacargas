@@ -458,7 +458,7 @@ namespace ServicioMontacargas.Migrations
                     b.Property<int>("IdSalidaA")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SalidaModelIdSalidaA")
+                    b.Property<int>("SalidaModelIdSalidaA")
                         .HasColumnType("int");
 
                     b.HasKey("IdSalidaItem");
@@ -571,11 +571,15 @@ namespace ServicioMontacargas.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ServicioMontacargas.Models.SalidaModel", null)
+                    b.HasOne("ServicioMontacargas.Models.SalidaModel", "SalidaModel")
                         .WithMany("SalidaItems")
-                        .HasForeignKey("SalidaModelIdSalidaA");
+                        .HasForeignKey("SalidaModelIdSalidaA")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Almacen");
+
+                    b.Navigation("SalidaModel");
                 });
 
             modelBuilder.Entity("ServicioMontacargas.Models.SalidaModel", b =>

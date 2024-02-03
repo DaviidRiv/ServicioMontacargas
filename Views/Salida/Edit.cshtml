@@ -1,22 +1,44 @@
 ﻿@model ServicioMontacargas.Models.SalidaModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Salida";
 }
 <html>
 <head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"]</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature-pad.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        #selectedProductsTable {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+            #selectedProductsTable th, #selectedProductsTable td {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+    </style>
 </head>
 <body>
-    <h1>Edit</h1>
-
-    <h4>SalidaModel</h4>
+    <h1>Editar Salida - @Model.FolioSalida</h1>
+    @if (TempData["FailEditSalida"] != null)
+    {
+        <div class="alert alert-danger">@TempData["FailEditSalida"]</div>
+    }
     <hr />
     <div class="row">
         <div class="col-md-4">
             <form asp-action="Edit">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="IdSalidaA" />
+                <input type="hidden" name="id" value="@Model.IdSalidaA" />
+
                 <div class="form-group">
                     <label asp-for="Cliente" class="control-label"></label>
                     <input asp-for="Cliente" class="form-control" />
@@ -24,7 +46,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="Fecha" class="control-label"></label>
-                    <input asp-for="Fecha" class="form-control" />
+                    <input type="datetime-local" asp-for="Fecha" class="form-control" />
                     <span asp-validation-for="Fecha" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -35,35 +57,94 @@
                 <div class="form-group">
                     <label asp-for="IdAlmacen" class="control-label"></label>
                     <select asp-for="IdAlmacen" class="form-select" id="js-select2" asp-items="ViewBag.IdAlmacen" required>
-                        <option value="" selected disabled></option>
                     </select>
                     <span asp-validation-for="IdAlmacen" class="text-danger"></span>
                 </div>
+                <table id="selectedProductsTable">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var salidaItem in Model.SalidaItems)
+                        {
+                            <tr>
+                                <td data-idAlmacen="@salidaItem.IdAlmacen">@($"{salidaItem.IdAlmacen}-{salidaItem.Almacen?.Producto} - {salidaItem.Almacen?.Nombre} - {salidaItem.Almacen?.Medida}")</td>
+                                <td><input type="number" class="form-control" value="@salidaItem.Cantidad" onchange="updateSelectedProducts()"></td>
+                                <td><button type="button" class="btn btn-danger btn-sm" onclick="removeProduct(this)">Quitar</button></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
                 <div class="form-group">
                     <label asp-for="FirmaRecibio" class="control-label"></label>
-                    <input asp-for="FirmaRecibio" class="form-control" />
+                    <div>
+                        <canvas id="signatureCanvas" width="400" height="200" required></canvas>
+                        <button type="button" onclick="clearSignature()">Borrar Firma</button>
+                        <input type="hidden" asp-for="FirmaRecibio" id="hiddenFirmaRecibio" required />
+                        <span asp-validation-for="FirmaRecibio" class="text-danger"></span>
+                    </div>
                     <span asp-validation-for="FirmaRecibio" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="FirmaEntrego" class="control-label"></label>
-                    <input asp-for="FirmaEntrego" class="form-control" />
-                    <span asp-validation-for="FirmaEntrego" class="text-danger"></span>
+                    <div>
+                        <canvas id="signatureCanvas2" width="400" height="200" required></canvas>
+                        <button type="button" onclick="clearSignature2()">Borrar Firma</button>
+                        <input type="hidden" asp-for="FirmaEntrego" id="hiddenFirmaEntrego" required />
+                        <span asp-validation-for="FirmaEntrego" class="text-danger"></span>
+                    </div>
                 </div>
+                <input type="hidden" id="selectedProducts" name="selectedProducts" />
                 <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <br />
+                    <input type="submit" value="Guardar" class="btn btn-success" />
                 </div>
             </form>
         </div>
     </div>
 
     <div>
-        <a asp-action="Index">Back to List</a>
+        <br />
+        <a asp-action="Index"><iconify-icon icon="bi:arrow-left-circle-fill"></iconify-icon> Regresar</a>
     </div>
 
     @section Scripts {
         @{
             await Html.RenderPartialAsync("_ValidationScriptsPartial");
         }
+        <script>
+            var canvas = new SignaturePad(document.getElementById('signatureCanvas'), {
+                backgroundColor: 'rgb(255, 255, 255)',
+                penColor: 'rgb(0, 0, 0)'
+            });
+
+            var canvas2 = new SignaturePad(document.getElementById('signatureCanvas2'), {
+                backgroundColor: 'rgb(255, 255, 255)',
+                penColor: 'rgb(0, 0, 0)'
+            });
+
+            function clearSignature() {
+                canvas.clear();
+                document.getElementById('hiddenFirmaRecibio').value = '';
+            }
+
+            function clearSignature2() {
+                canvas2.clear();
+                document.getElementById('hiddenFirmaEntrego').value = '';
+            }
+
+            canvas.onEnd = function () {
+                document.getElementById('hiddenFirmaRecibio').value = canvas.toDataURL();
+            };
+
+            canvas2.onEnd = function () {
+                document.getElementById('hiddenFirmaEntrego').value = canvas2.toDataURL();
+            };
+        </script>
         <!-- Actualiza las referencias de select2 y jQuery -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -86,6 +167,88 @@
                     }
                 });
             });
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('#js-select2').on('select2:select', function (e) {
+                    var selectedProduct = e.params.data;
+                    var cantidad = prompt('Ingrese la cantidad para ' + selectedProduct.text, 1);
+
+                    if (cantidad && cantidad > 0) {
+                        var selectedProductsTable = $('#selectedProductsTable tbody');
+                        var row = '<tr>' +
+                            '<td data-idAlmacen="' + selectedProduct.id + '">' + selectedProduct.text + '</td>' +
+                            '<td><input type="number" class="form-control" value="' + cantidad + '" onchange="updateSelectedProducts()"></td>' +
+                            '<td><button type="button" class="btn btn-danger btn-sm" onclick="removeProduct(this)">Quitar</button></td>' +
+                            '</tr>';
+                        selectedProductsTable.append(row);
+
+                        updateSelectedProducts();
+                    }
+                });
+            });
+
+            function removeProduct(button) {
+                var row = $(button).closest('tr');
+                row.remove();
+
+                updateSelectedProducts();
+            }
+
+            function updateSelectedProducts() {
+                var selectedProducts = [];
+
+                $('#selectedProductsTable tbody tr').each(function () {
+                    var cells = $(this).find('td');
+                    var productInfo = cells.eq(0).text().split(' - ');
+                    var product = productInfo[1];
+                    var quantity = cells.eq(1).find('input').val();
+                    var idAlmacen = parseInt(productInfo[0]);
+
+                    selectedProducts.push({
+                        product: product,
+                        quantity: quantity,
+                        idAlmacen: idAlmacen
+                    });
+                });
+
+                console.log(JSON.stringify(selectedProducts)); // Agrega este console.log
+
+                $('#selectedProducts').val(JSON.stringify(selectedProducts));
+            }
+
+        </script>
+        <script>
+            $(document).ready(function () {
+                // Función para inicializar la tabla y la cadena JSON al cargar la página
+                function initializeProducts() {
+                    var selectedProducts = [];
+
+                    $('#selectedProductsTable tbody tr').each(function () {
+                        var cells = $(this).find('td');
+                        var productInfo = cells.eq(0).text().split(' - ');
+                        var product = productInfo[1];
+                        var quantity = cells.eq(1).find('input').val();
+                        var idAlmacen = parseInt(productInfo[0]);
+
+                        selectedProducts.push({
+                            product: product,
+                            quantity: quantity,
+                            idAlmacen: idAlmacen
+                        });
+                    });
+
+                    // Imprimir la cadena JSON en la consola para verificar
+                    console.log(JSON.stringify(selectedProducts));
+
+                    // Asignar la cadena JSON al campo oculto
+                    $('#selectedProducts').val(JSON.stringify(selectedProducts));
+                }
+
+                // Llamar a la función de inicialización al cargar la página
+                initializeProducts();
+            });
+
         </script>
     }
 </body>

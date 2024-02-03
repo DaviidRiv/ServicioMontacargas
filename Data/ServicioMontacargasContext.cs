@@ -28,7 +28,14 @@ namespace ServicioMontacargas.Data
 
         public DbSet<ServicioMontacargas.Models.SalidaModel>? SalidaModel { get; set; }
         public DbSet<ServicioMontacargas.Models.SalidaItem>? SalidaItem { get; set; }
-
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ServicioMontacargas.Models.SalidaModel>()
+                .HasMany(sm => sm.SalidaItems)
+                .WithOne(si => si.SalidaModel)
+                .HasForeignKey(si => si.SalidaModelIdSalidaA)
+                .OnDelete(DeleteBehavior.Cascade);
+        }
 
     }
 }

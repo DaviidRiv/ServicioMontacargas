@@ -1,0 +1,122 @@
+﻿@model ServicioMontacargas.Models.SalidaModel
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8" />
+    <title>ViewReportePDF</title>
+</head>
+<body>
+    <table style="width: 100%; border: none;">
+        <tr>
+            <td>
+                <div style="color: darkblue;">
+                    <h4 style="text-align:left; font-size:16px;">Montacargas de San Luis S.A. de C.V.</h4>
+                    <h5 style="text-align:left; font-size:14px;">Las Vegas No. 235 Col. Tepeyac C.P. 78384 </h5>
+                    <h5 style="text-align:left; font-size:14px;">San Luis Potosi, S.L.P.</h5>
+                    <h5 style="text-align:left; font-size:14px;">Tel 444 166 1000</h5>
+                </div>
+            </td>
+
+            <td>
+                <h4 style="text-align:right; font-size:16px;">Salida de Almacen: <strong>@Model.FolioSalida</strong></h4>
+            </td>
+        </tr>
+    </table>
+    <div>
+        <table style="width: 100%; border: none;">
+            <tr>
+                <td>
+                    <h3 style="text-align:left; font-size:18px;">Cliente: <u>@Model.Cliente</u></h3>
+                </td>
+
+                <td>
+                    <h3 style="text-align:right; font-size:18px;">Fecha: <u>@Model.Fecha</u></h3>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+    <table style="width: 100%; border: solid 3px;">
+        <thead>
+            <tr>
+                <th style="border: solid 1px;">Cantidad</th>
+                <th style="border: solid 1px;">No. Parte</th>
+                <th style="border: solid 1px;">Descripción</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var salidaItem in Model.SalidaItems)
+            {
+                <tr>
+                    <td style="border: solid 1px;">@($"{salidaItem.Cantidad} {salidaItem.Almacen?.Medida}")</td>
+                    <td style="border: solid 1px;">@($"{salidaItem.Almacen?.Producto}")</td>
+                    <td style="border: solid 1px;">@($"{salidaItem.Almacen?.Nombre}")</td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+    <table style="width: 100%; border: none;">
+        <tr>
+            <td style="text-align:left; align-content:start;">
+                Marca: @Model.Montacargas?.Marca<br />
+                Modelo: @Model.Montacargas?.Modelo<br />
+                Serie: @Model.Montacargas?.NumeroSerie<br />
+                No. Económico: @Model.Montacargas?.NumeroEconomico<br />
+            </td>
+
+            <td style="text-align:center">
+                <dl>
+                    @{
+                        <br />
+                        @if (Model.FirmaEntrego != null)
+                        {
+                            <dd style="border: 1px solid black; padding: 2px;">
+                                <img src="@Html.DisplayFor(model => model.FirmaEntrego)" alt="Firma Entrego" width="130" height="90" />
+                            </dd>
+                        }
+                        else
+                        {
+                            <dd style="border: 1px solid black; padding: 2px;">
+                                Sin Firma
+                            </dd>
+                        }
+                    }
+                    <dt>
+                        <strong>Entregó</strong>
+                    </dt>
+                </dl>
+
+            </td>
+            <td style="text-align:center">
+                <dl>
+                    @{
+                        <br />
+                        @if (Model.FirmaRecibio != null)
+                        {
+                            <dd style="border: 1px solid black; padding: 2px;">
+                                <img src="@Html.DisplayFor(model => model.FirmaRecibio)" alt="Firma Recibio" width="130" height="90" />
+                            </dd>
+                        }
+                        else
+                        {
+                            <dd style="border: 1px solid black; padding: 2px;">
+                                Sin Firma
+                            </dd>
+                        }
+                    }
+                    <dt>
+                        <strong>Recibió</strong>
+                    </dt>
+                </dl>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

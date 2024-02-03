@@ -23,10 +23,13 @@ namespace ServicioMontacargas.Models
 
         public List<SalidaItem> SalidaItems { get; set; } = new List<SalidaItem>();
 
+        [DisplayName("Firma de quien Recibió")]
         public string? FirmaRecibio { get; set; }
+        [DisplayName("Firma de quien Entregó")]
         public string? FirmaEntrego { get; set; }
 
-        public string FolioSalida => $"SC{IdSalidaA}-{Montacargas?.NumeroEconomico}-{Fecha?.ToString()}";
+        public string FolioSalida => $"SC{(IdSalidaA < 10 ? $"0{IdSalidaA}" : IdSalidaA.ToString())}-{Montacargas?.NumeroEconomico}-{Fecha?.ToString()}";
+
     }
 
     public class SalidaItem
@@ -39,6 +42,9 @@ namespace ServicioMontacargas.Models
         public AlmacenModel? Almacen { get; set; }
         public int Cantidad { get; set; }
         public int IdSalidaA { get; set; }
+
+        public int SalidaModelIdSalidaA { get; set; }
+        public SalidaModel? SalidaModel { get; set; }
     }
 
     public class SelectedProductModel

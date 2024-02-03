@@ -26,7 +26,7 @@
     </style>
 </head>
 <body>
-    <h1>Nueva Salida</h1>
+    <h1>Nueva Salida de Almacen</h1>
     @if (TempData.ContainsKey("FailSalida"))
     {
         <script>
@@ -53,11 +53,6 @@
                     <select asp-for="IdMontacargas" class="form-select" asp-items="ViewBag.IdMontacargas" required></select>
                     <span asp-validation-for="IdMontacargas" class="text-danger"></span>
                 </div>
-                @*<div class="form-group">
-                <label asp-for="IdAlmacen" class="control-label"></label>
-                <select asp-for="IdAlmacen" class="form-select" asp-items="ViewBag.IdAlmacen" required></select>
-                <span asp-validation-for="IdAlmacen" class="text-danger"></span>
-                </div>*@
                 <div class="form-group">
                     <label asp-for="IdAlmacen" class="control-label"></label>
                     <select asp-for="IdAlmacen" class="form-select" id="js-select2" asp-items="ViewBag.IdAlmacen" required>
@@ -70,6 +65,7 @@
                         <tr>
                             <th>Producto</th>
                             <th>Cantidad</th>
+                            <th>Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -172,35 +168,45 @@
 
                     if (cantidad && cantidad > 0) {
                         var selectedProductsTable = $('#selectedProductsTable tbody');
-                        selectedProductsTable.append('<tr><td>' + selectedProduct.text + '</td><td>' + cantidad + '</td></tr>');
+                        var row = '<tr>' +
+                            '<td data-idAlmacen="' + selectedProduct.id + '">' + selectedProduct.text + '</td>' +
+                            '<td><input type="number" class="form-control" value="' + cantidad + '" onchange="updateSelectedProducts()"></td>' +
+                            '<td><button type="button" class="btn btn-danger btn-sm" onclick="removeProduct(this)">Quitar</button></td>' +
+                            '</tr>';
+                        selectedProductsTable.append(row);
 
                         updateSelectedProducts();
                     }
                 });
             });
 
+            function removeProduct(button) {
+                var row = $(button).closest('tr');
+                row.remove();
+
+                updateSelectedProducts();
+            }
+
             function updateSelectedProducts() {
                 var selectedProducts = [];
 
                 $('#selectedProductsTable tbody tr').each(function () {
                     var cells = $(this).find('td');
-                    var productInfo = cells.eq(0).text().split(' - '); // Separar el texto en partes
-                    var product = productInfo[1]; // Obtener el nombre del producto
-                    var quantity = cells.eq(1).text();
-                    var idAlmacen = parseInt(productInfo[0]); // Obtener el IdAlmacen como número
+                    var productInfo = cells.eq(0).text().split(' - ');
+                    var product = productInfo[1];
+                    var quantity = cells.eq(1).find('input').val(); // Obtener el valor del input en lugar del texto
+                    var idAlmacen = parseInt(productInfo[0]);
 
                     selectedProducts.push({
                         product: product,
                         quantity: quantity,
-                        idAlmacen: idAlmacen // Agregar el IdAlmacen correspondiente al producto
+                        idAlmacen: idAlmacen
                     });
                 });
 
                 $('#selectedProducts').val(JSON.stringify(selectedProducts));
             }
         </script>
-
-
     }
 </body>
 </html>
