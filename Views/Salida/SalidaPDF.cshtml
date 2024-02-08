@@ -32,7 +32,7 @@
         <table style="width: 100%; border: none;">
             <tr>
                 <td>
-                    <h3 style="text-align:left; font-size:18px;">Cliente: <u>@Model.Cliente</u></h3>
+                    <h3 style="text-align:left; font-size:18px;">Cliente: <u>@Model.Clientes.Nombre</u></h3>
                 </td>
 
                 <td>
@@ -90,6 +90,7 @@
                     }
                     <dt>
                         <strong>Entregó</strong>
+                        <p>@Model.NombreEntrego</p>
                     </dt>
                 </dl>
 
@@ -113,6 +114,7 @@
                     }
                     <dt>
                         <strong>Recibió</strong>
+                        <p>@Model.NombreRecibio</p>
                     </dt>
                 </dl>
             </td>

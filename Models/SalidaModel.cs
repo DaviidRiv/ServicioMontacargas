@@ -8,7 +8,12 @@ namespace ServicioMontacargas.Models
 
         [Key]
         public int IdSalidaA { get; set; }
-        public string? Cliente { get; set; }
+
+        [ForeignKey("Clientes")]
+        [DisplayName("Clientes")]
+        public int? IdClientes { get; set; }
+        public ClientesModel? Clientes { get; set; }
+
         public string? Fecha { get; set; }
 
         [ForeignKey("Montacargas")]
@@ -25,8 +30,12 @@ namespace ServicioMontacargas.Models
 
         [DisplayName("Firma de quien Recibió")]
         public string? FirmaRecibio { get; set; }
+        [DisplayName("Nombre de quien Recibió")]
+        public string? NombreRecibio { get; set; }
         [DisplayName("Firma de quien Entregó")]
         public string? FirmaEntrego { get; set; }
+        [DisplayName("Nombre de quien Entregó")]
+        public string? NombreEntrego { get; set; }
 
         public string FolioSalida => $"SC{(IdSalidaA < 10 ? $"0{IdSalidaA}" : IdSalidaA.ToString())}-{Montacargas?.NumeroEconomico}-{Fecha?.ToString()}";
 

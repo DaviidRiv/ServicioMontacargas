@@ -25,7 +25,7 @@
                         Folio
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Cliente)
+                        @Html.DisplayNameFor(model => model.IdClientes)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Fecha)
@@ -34,8 +34,14 @@
                         @Html.DisplayNameFor(model => model.Montacargas)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Almacen)
+                        @Html.DisplayNameFor(model => model.NombreEntrego)
                     </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NombreRecibio)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Almacen)
+                    </th>                    
                     <th>
                         Opciones
                     </th>
@@ -49,7 +55,7 @@
                             @Html.DisplayFor(modelItem => item.FolioSalida)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Cliente)
+                            @Html.DisplayFor(modelItem => item.Clientes.Nombre)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Fecha)
@@ -60,10 +66,16 @@
                             </a>
                         </td>
                         <td>
+                            @Html.DisplayFor(modelItem => item.NombreEntrego)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NombreRecibio)
+                        </td>
+                        <td>
                             <ul>
                                 @foreach (var salidaItem in item.SalidaItems)
                                 {
-                                    <li>@($"{salidaItem.Almacen?.Producto} - Cantidad: {salidaItem.Cantidad} {salidaItem.Almacen?.Medida}")</li>
+                                    <li>@($"{salidaItem.Almacen?.Nombre} - {salidaItem.Cantidad} {salidaItem.Almacen?.Medida}")</li>
                                 }
                             </ul>
                         </td>

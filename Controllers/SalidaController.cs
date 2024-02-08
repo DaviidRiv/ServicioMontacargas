@@ -26,6 +26,7 @@ namespace ServicioMontacargas.Controllers
         {
             var servicioMontacargasContext = _context.SalidaModel
                 .Include(s => s.Montacargas)
+                .Include(s => s.Clientes)
                 .Include(s => s.Almacen)
                 .Include(s => s.SalidaItems)
                     .ThenInclude(si => si.Almacen) // Incluir datos relacionados para SalidaItems y Almacen
@@ -45,6 +46,7 @@ namespace ServicioMontacargas.Controllers
 
             var salidaModel = await _context.SalidaModel
                 .Include(s => s.Montacargas)
+                .Include(s => s.Clientes)
                 .Include(a => a.Almacen)
                 .Include(s => s.SalidaItems)
                     .ThenInclude(si => si.Almacen)
@@ -59,13 +61,47 @@ namespace ServicioMontacargas.Controllers
 
         public IActionResult Create()
         {
+            // Obtener el ID del cliente JACSA si está presente en la base de datos
+            var clienteJacsa = _context.ClientesModel.FirstOrDefault(c => c.Nombre == "JACSA");
+
+            // Establecer el valor predeterminado en el ID del cliente JACSA si se encontró
+            var defaultClienteId = clienteJacsa != null ? clienteJacsa.IdClientes : 0;
+
             var almacenList = _context.AlmacenModel
                .Select(m => new { m.IdAlmacen, DisplayInfoAlmacen = $"{m.Producto} - {m.Nombre}" })
                .ToList();
 
             ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "DisplayInfoMntCrg");
             ViewData["IdAlmacen"] = new SelectList(almacenList, "IdAlmacen", "DisplayInfoAlmacen");
+            ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "Nombre", defaultClienteId);
+            ViewBag.Admins = GetAdmins();
+            ViewBag.Operadores = GetOperadores();
+
             return View();
+        }
+
+        [HttpGet]
+        public List<string> GetAdmins()
+        {
+            // Obtener los nombres de los usuarios administradores
+            var adminNames = _context.UsuariosModel
+                .Where(m => m.rolUser == "Administrador")
+                .Select(u => $"{u.Nombre} {u.ApellidoP} {u.ApellidoM}")
+                .ToList();
+
+            return adminNames;
+        }
+
+        [HttpGet]
+        public List<string> GetOperadores()
+        {
+            // Obtener los nombres de los usuarios administradores
+            var adminNames = _context.UsuariosModel
+                .Where(m => m.rolUser == "Técnico" || m.rolUser == "Operador Grua")
+                .Select(u => $"{u.Nombre} {u.ApellidoP} {u.ApellidoM}")
+                .ToList();
+
+            return adminNames;
         }
 
         [HttpGet]
@@ -81,7 +117,7 @@ namespace ServicioMontacargas.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdSalidaA,Cliente,Fecha,IdMontacargas,IdAlmacen,FirmaRecibio,FirmaEntrego")] SalidaModel salidaModel, string selectedProducts)
+        public async Task<IActionResult> Create([Bind("IdSalidaA,IdClientes,Fecha,IdMontacargas,IdAlmacen,FirmaRecibio,FirmaEntrego,NombreRecibio,NombreEntrego")] SalidaModel salidaModel, string selectedProducts)
         {
 
             try
@@ -124,6 +160,10 @@ namespace ServicioMontacargas.Controllers
                 // Resto del código para manejar ModelState.IsValid == false
                 ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "DisplayInfoMntCrg", salidaModel.IdMontacargas);
                 ViewData["IdAlmacen"] = new SelectList(_context.AlmacenModel, "IdAlmacen", "Producto", salidaModel.IdAlmacen);
+                ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "Nombre");
+                ViewBag.Admins = GetAdmins();
+                ViewBag.Operadores = GetOperadores();
+
                 return View(salidaModel);
             }
             catch (DbUpdateException ex)
@@ -155,6 +195,7 @@ namespace ServicioMontacargas.Controllers
             var salidaModel = await _context.SalidaModel
                 .Include(s => s.Montacargas)
                 .Include(a => a.Almacen)
+                .Include(s => s.Clientes)
                 .Include(s => s.SalidaItems)
                     .ThenInclude(si => si.Almacen)
                 .FirstOrDefaultAsync(m => m.IdSalidaA == id);
@@ -164,12 +205,16 @@ namespace ServicioMontacargas.Controllers
             }
             ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "DisplayInfoMntCrg", salidaModel.IdMontacargas);
             ViewData["IdAlmacen"] = new SelectList(almacenList, "IdAlmacen", "DisplayInfoAlmacen", salidaModel.IdAlmacen);
+            ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "Nombre");
+            ViewBag.Admins = GetAdmins();
+            ViewBag.Operadores = GetOperadores();
+
             return View(salidaModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdSalidaA,Cliente,Fecha,IdMontacargas,IdAlmacen,FirmaRecibio,FirmaEntrego")] SalidaModel salidaModel, string selectedProducts)
+        public async Task<IActionResult> Edit(int id, [Bind("IdSalidaA,IdClientes,Fecha,IdMontacargas,IdAlmacen,FirmaRecibio,FirmaEntrego,NombreRecibio,NombreEntrego")] SalidaModel salidaModel, string selectedProducts)
         {
             var almacenList = _context.AlmacenModel
                .Select(m => new { m.IdAlmacen, DisplayInfoAlmacen = $"{m.Producto} - {m.Nombre}" })
@@ -274,6 +319,10 @@ namespace ServicioMontacargas.Controllers
 
             ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "DisplayInfoMntCrg", existingSalidaModel.IdMontacargas);
             ViewData["IdAlmacen"] = new SelectList(almacenList, "IdAlmacen", "DisplayInfoAlmacen", existingSalidaModel.IdAlmacen);
+            ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "Nombre");
+            ViewBag.Admins = GetAdmins();
+            ViewBag.Operadores = GetOperadores();
+
             TempData["FailEditSalida"] = "La edición no pudo ser completada";
             return View(existingSalidaModel);
         }
@@ -291,6 +340,7 @@ namespace ServicioMontacargas.Controllers
             var salidaModel = await _context.SalidaModel
                 .Include(s => s.Montacargas)
                 .Include(a => a.Almacen)
+                .Include(s => s.Clientes)
                 .FirstOrDefaultAsync(m => m.IdSalidaA == id);
             if (salidaModel == null)
             {
@@ -331,6 +381,7 @@ namespace ServicioMontacargas.Controllers
             var salidaModel = await _context.SalidaModel
                 .Include(s => s.Montacargas)
                 .Include(a => a.Almacen)
+                .Include(s => s.Clientes)
                 .Include(s => s.SalidaItems)
                     .ThenInclude(si => si.Almacen)
                 .FirstOrDefaultAsync(m => m.IdSalidaA == id);

@@ -478,9 +478,6 @@ namespace ServicioMontacargas.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdSalidaA"), 1L, 1);
 
-                    b.Property<string>("Cliente")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Fecha")
                         .HasColumnType("nvarchar(max)");
 
@@ -493,12 +490,23 @@ namespace ServicioMontacargas.Migrations
                     b.Property<int?>("IdAlmacen")
                         .HasColumnType("int");
 
+                    b.Property<int?>("IdClientes")
+                        .HasColumnType("int");
+
                     b.Property<int?>("IdMontacargas")
                         .HasColumnType("int");
+
+                    b.Property<string>("NombreEntrego")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NombreRecibio")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IdSalidaA");
 
                     b.HasIndex("IdAlmacen");
+
+                    b.HasIndex("IdClientes");
 
                     b.HasIndex("IdMontacargas");
 
@@ -588,11 +596,17 @@ namespace ServicioMontacargas.Migrations
                         .WithMany()
                         .HasForeignKey("IdAlmacen");
 
+                    b.HasOne("ServicioMontacargas.Models.ClientesModel", "Clientes")
+                        .WithMany()
+                        .HasForeignKey("IdClientes");
+
                     b.HasOne("ServicioMontacargas.Models.MontacargasModel", "Montacargas")
                         .WithMany()
                         .HasForeignKey("IdMontacargas");
 
                     b.Navigation("Almacen");
+
+                    b.Navigation("Clientes");
 
                     b.Navigation("Montacargas");
                 });

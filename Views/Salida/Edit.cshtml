@@ -40,9 +40,9 @@
                 <input type="hidden" name="id" value="@Model.IdSalidaA" />
 
                 <div class="form-group">
-                    <label asp-for="Cliente" class="control-label"></label>
-                    <input asp-for="Cliente" class="form-control" />
-                    <span asp-validation-for="Cliente" class="text-danger"></span>
+                    <label asp-for="IdClientes" class="control-label"></label>
+                    <select asp-for="IdClientes" class="form-select" asp-items="ViewBag.IdClientes" required></select>
+                    <span asp-validation-for="IdClientes" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Fecha" class="control-label"></label>
@@ -79,6 +79,24 @@
                         }
                     </tbody>
                 </table>
+                @if (ViewBag.Operadores != null)
+                {
+                    <div class="form-group">
+                        <label asp-for="NombreRecibio" class="control-label"></label>
+                        <select asp-for="NombreRecibio" class="form-select" required>
+                            @foreach (var operadorName in ViewBag.Operadores)
+                            {
+                                <option value="@operadorName">@operadorName</option>
+                            }
+                        </select>
+
+                        <span asp-validation-for="NombreRecibio" class="text-danger"></span>
+                    </div>
+                }
+                else
+                {
+                    <p>No se encontraron operadores.</p>
+                }
                 <div class="form-group">
                     <label asp-for="FirmaRecibio" class="control-label"></label>
                     <div>
@@ -89,6 +107,24 @@
                     </div>
                     <span asp-validation-for="FirmaRecibio" class="text-danger"></span>
                 </div>
+                @if (ViewBag.Admins != null)
+                {
+                    <div class="form-group">
+                        <label asp-for="NombreEntrego" class="control-label"></label>
+                        <select asp-for="NombreEntrego" class="form-select" required>
+                            @foreach (var adminName in ViewBag.Admins)
+                            {
+                                <option value="@adminName">@adminName</option>
+                            }
+                        </select>
+
+                        <span asp-validation-for="NombreEntrego" class="text-danger"></span>
+                    </div>
+                }
+                else
+                {
+                    <p>No se encontraron administradores.</p>
+                }
                 <div class="form-group">
                     <label asp-for="FirmaEntrego" class="control-label"></label>
                     <div>
