@@ -18,7 +18,7 @@
         </div>
     </p>
     <div class="table-responsive-sm">
-        <table class="table table-striped table-hover" id="tb_monta" style="width:100%">
+        <table class="table table-striped table-hover" id="tb_salida" style="width:100%">
             <thead class="table-dark">
                 <tr>
                     <th>
@@ -41,7 +41,7 @@
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Almacen)
-                    </th>                    
+                    </th>
                     <th>
                         Opciones
                     </th>
@@ -72,13 +72,14 @@
                             @Html.DisplayFor(modelItem => item.NombreRecibio)
                         </td>
                         <td>
-                            <ul>
-                                @foreach (var salidaItem in item.SalidaItems)
-                                {
-                                    <li>@($"{salidaItem.Almacen?.Nombre} - {salidaItem.Cantidad} {salidaItem.Almacen?.Medida}")</li>
-                                }
-                            </ul>
+                            @foreach (var salidaItem in item.SalidaItems)
+                            {
+                                <div style="text-align:left;">
+                                    ● @($"{salidaItem.Almacen?.Nombre} - {salidaItem.Cantidad} {salidaItem.Almacen?.Medida}")
+                                </div>
+                            }
                         </td>
+
 
                         <td>
                             <a asp-action="Edit" asp-route-id="@item.IdSalidaA"><iconify-icon icon="bi:pencil-square"></iconify-icon></a>

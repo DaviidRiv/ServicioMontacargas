@@ -49,7 +49,14 @@ namespace ServicioMontacargas.Controllers
                 {
                     return RedirectToAction("Index", "Home");
                 }
-                return RedirectToAction("Modulos", "Home");
+                else if (usuario.rolUser == "Técnico" || usuario.rolUser == "Operador Grua" || usuario.rolUser == "Montacarguista")
+                {
+                    return RedirectToAction("Modulos", "Home");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
             else
             {

@@ -97,7 +97,7 @@ namespace ServicioMontacargas.Controllers
         {
             // Obtener los nombres de los usuarios administradores
             var adminNames = _context.UsuariosModel
-                .Where(m => m.rolUser == "Técnico" || m.rolUser == "Operador Grua")
+                .Where(m => m.rolUser == "Técnico" || m.rolUser == "Operador Grua" || m.rolUser == "Publico")
                 .Select(u => $"{u.Nombre} {u.ApellidoP} {u.ApellidoM}")
                 .ToList();
 
