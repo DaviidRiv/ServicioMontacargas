@@ -76,20 +76,25 @@
                 {
                     <div class="form-group">
                         <label asp-for="NombreRecibio" class="control-label"></label>
-                        <select asp-for="NombreRecibio" class="form-select" required>
+                        <select asp-for="NombreRecibio" class="form-select" id="operadorSelect" required>
+                            <option value="" selected disabled>Seleccionar operador...</option>
                             @foreach (var operadorName in ViewBag.Operadores)
                             {
                                 <option value="@operadorName">@operadorName</option>
                             }
+                            <option value="otro">Venta al Público</option>
                         </select>
-
-                        <span asp-validation-for="NombreRecibio" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" id="otroOperadorContainer" style="display: none;">
+                        <label asp-for="NombreRecibio" class="control-label"></label>
+                        <input type="text" id="otroOperador" name="otroOperador" class="form-control" placeholder="Ingrese el nombre" />
                     </div>
                 }
                 else
                 {
                     <p>No se encontraron operadores.</p>
                 }
+
                 <div class="form-group">
                     <label asp-for="FirmaRecibio" class="control-label"></label>
                     <div>
@@ -242,6 +247,20 @@
 
                 $('#selectedProducts').val(JSON.stringify(selectedProducts));
             }
+        </script>
+        <script>
+            // Función para mostrar u ocultar el campo de entrada según la selección del usuario
+            document.getElementById('operadorSelect').addEventListener('change', function () {
+                var otroInputContainer = document.getElementById('otroOperadorContainer');
+
+                if (this.value === 'otro') {
+                    otroInputContainer.style.display = 'block';
+                    document.getElementById('otroOperador').setAttribute('required', 'required');
+                } else {
+                    otroInputContainer.style.display = 'none';
+                    document.getElementById('otroOperador').removeAttribute('required');
+                }
+            });
         </script>
     }
 </body>
