@@ -36,6 +36,7 @@ namespace ServicioMontacargas.Data
                 .HasForeignKey(si => si.SalidaModelIdSalidaA)
                 .OnDelete(DeleteBehavior.Cascade);
         }
+        public DbSet<ServicioMontacargas.Models.ProcesosCorrectivoModel>? ProcesosCorrectivoModel { get; set; }
 
     }
 }

@@ -117,7 +117,7 @@ namespace ServicioMontacargas.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdSalidaA,IdClientes,Fecha,IdMontacargas,IdAlmacen,FirmaRecibio,FirmaEntrego,NombreRecibio,NombreEntrego")] SalidaModel salidaModel, string selectedProducts, string otroOperador)
+        public async Task<IActionResult> Create([Bind("IdSalidaA,IdClientes,Fecha,IdMontacargas,IdAlmacen,FirmaRecibio,FirmaEntrego,NombreRecibio,NombreEntrego")] SalidaModel salidaModel, string selectedProducts, string? otroOperador)
         {
 
             try
@@ -219,7 +219,7 @@ namespace ServicioMontacargas.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdSalidaA,IdClientes,Fecha,IdMontacargas,IdAlmacen,FirmaRecibio,FirmaEntrego,NombreRecibio,NombreEntrego")] SalidaModel salidaModel, string selectedProducts, string otroOperador)
+        public async Task<IActionResult> Edit(int id, [Bind("IdSalidaA,IdClientes,Fecha,IdMontacargas,IdAlmacen,FirmaRecibio,FirmaEntrego,NombreRecibio,NombreEntrego")] SalidaModel salidaModel, string selectedProducts, string? otroOperador)
         {
             var almacenList = _context.AlmacenModel
                .Select(m => new { m.IdAlmacen, DisplayInfoAlmacen = $"{m.Producto} - {m.Nombre}" })
@@ -290,6 +290,10 @@ namespace ServicioMontacargas.Controllers
             if (salidaModel.NombreRecibio == "otro")
             {
                 existingSalidaModel.NombreRecibio = otroOperador;
+            }
+            else
+            {
+                existingSalidaModel.NombreRecibio = salidaModel.NombreRecibio;
             }
 
             if (ModelState.IsValid)

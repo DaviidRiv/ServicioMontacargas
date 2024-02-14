@@ -17,7 +17,7 @@ namespace ServicioMontacargas.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.26")
+                .HasAnnotation("ProductVersion", "6.0.27")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -441,6 +441,22 @@ namespace ServicioMontacargas.Migrations
                     b.ToTable("MontacargasModel");
                 });
 
+            modelBuilder.Entity("ServicioMontacargas.Models.ProcesosCorrectivoModel", b =>
+                {
+                    b.Property<int>("ComponenteId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ComponenteId"), 1L, 1);
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ComponenteId");
+
+                    b.ToTable("ProcesosCorrectivoModel");
+                });
+
             modelBuilder.Entity("ServicioMontacargas.Models.SalidaItem", b =>
                 {
                     b.Property<int>("IdSalidaItem")
@@ -511,6 +527,27 @@ namespace ServicioMontacargas.Migrations
                     b.HasIndex("IdMontacargas");
 
                     b.ToTable("SalidaModel");
+                });
+
+            modelBuilder.Entity("ServicioMontacargas.Models.Tarea", b =>
+                {
+                    b.Property<int>("TareaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TareaId"), 1L, 1);
+
+                    b.Property<int>("ComponenteId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TareaId");
+
+                    b.HasIndex("ComponenteId");
+
+                    b.ToTable("Tarea");
                 });
 
             modelBuilder.Entity("ServicioMontacargas.Models.UsuariosModel", b =>
@@ -609,6 +646,22 @@ namespace ServicioMontacargas.Migrations
                     b.Navigation("Clientes");
 
                     b.Navigation("Montacargas");
+                });
+
+            modelBuilder.Entity("ServicioMontacargas.Models.Tarea", b =>
+                {
+                    b.HasOne("ServicioMontacargas.Models.ProcesosCorrectivoModel", "Componente")
+                        .WithMany("Tareas")
+                        .HasForeignKey("ComponenteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Componente");
+                });
+
+            modelBuilder.Entity("ServicioMontacargas.Models.ProcesosCorrectivoModel", b =>
+                {
+                    b.Navigation("Tareas");
                 });
 
             modelBuilder.Entity("ServicioMontacargas.Models.SalidaModel", b =>
