@@ -12,24 +12,40 @@
 <table class="table">
     <thead>
         <tr>
+            <th>Folio</th>
             <th>
                 @Html.DisplayNameFor(model => model.Nombre)
             </th>
-            <th></th>
+            <th>Tareas</th>
+            <th>
+                Opciones
+            </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ComponenteId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ComponenteId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ComponenteId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ComponenteId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    <ul>
+                        @foreach (var tarea in item.Tareas)
+                        {
+                            <li>@tarea.Descripcion</li>
+                        }
+                    </ul>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ComponenteId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ComponenteId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ComponenteId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

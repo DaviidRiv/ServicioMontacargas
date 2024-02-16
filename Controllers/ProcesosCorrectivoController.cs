@@ -19,13 +19,15 @@ namespace ServicioMontacargas.Controllers
             _context = context;
         }
 
-        // GET: ProcesosCorrectivo
         public async Task<IActionResult> Index()
         {
-              return _context.ProcesosCorrectivoModel != null ? 
-                          View(await _context.ProcesosCorrectivoModel.ToListAsync()) :
-                          Problem("Entity set 'ServicioMontacargasContext.ProcesosCorrectivoModel'  is null.");
+            var procesosConTareas = await _context.ProcesosCorrectivoModel
+                                                .Include(p => p.Tareas) // Cargar las tareas asociadas a cada proceso
+                                                .ToListAsync();
+
+            return View(procesosConTareas);
         }
+
 
         public async Task<IActionResult> Details(int? id)
         {
@@ -55,16 +57,25 @@ namespace ServicioMontacargas.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ComponenteId,Nombre")] ProcesosCorrectivoModel procesosCorrectivoModel)
+        public async Task<IActionResult> Create([Bind("ComponenteId,Nombre,Tareas")] ProcesosCorrectivoModel procesosCorrectivoModel)
         {
             if (ModelState.IsValid)
             {
+                // Agregar las tareas al modelo ProcesosCorrectivoModel
+                foreach (var tarea in procesosCorrectivoModel.Tareas)
+                {
+                    tarea.ComponenteId = procesosCorrectivoModel.ComponenteId;
+                    _context.Add(tarea);
+                }
+
+                // Agregar el modelo ProcesosCorrectivoModel y guardar los cambios
                 _context.Add(procesosCorrectivoModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(procesosCorrectivoModel);
         }
+
 
         public async Task<IActionResult> Edit(int? id)
         {

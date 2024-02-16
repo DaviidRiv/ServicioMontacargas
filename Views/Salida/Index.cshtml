@@ -40,8 +40,11 @@
                         @Html.DisplayNameFor(model => model.NombreRecibio)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Almacen)
+                        Producto
                     </th>
+                    <th>Nombre</th>
+                    <th>Cantidad</th>
+                    <th>Unidad</th>
                     <th>
                         Opciones
                     </th>
@@ -75,7 +78,31 @@
                             @foreach (var salidaItem in item.SalidaItems)
                             {
                                 <div style="text-align:left;">
-                                    ● @($"{salidaItem.Almacen?.Nombre} - {salidaItem.Cantidad} {salidaItem.Almacen?.Medida}")
+                                    @($"{salidaItem.Almacen?.Producto}")
+                                </div>
+                            }
+                        </td>
+                        <td>
+                            @foreach (var salidaItem in item.SalidaItems)
+                            {
+                                <div style="text-align:left;">
+                                    @($"{salidaItem.Almacen?.Nombre}")
+                                </div>
+                            }
+                        </td>
+                        <td>
+                            @foreach (var salidaItem in item.SalidaItems)
+                            {
+                                <div style="text-align:left;">
+                                    @($"{salidaItem.Cantidad}")
+                                </div>
+                            }
+                        </td>
+                        <td>
+                            @foreach (var salidaItem in item.SalidaItems)
+                            {
+                                <div style="text-align:left;">
+                                    @($"{salidaItem.Almacen?.Medida}")
                                 </div>
                             }
                         </td>
