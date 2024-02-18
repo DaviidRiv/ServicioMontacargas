@@ -37,6 +37,7 @@ namespace ServicioMontacargas.Controllers
             }
 
             var procesosCorrectivoModel = await _context.ProcesosCorrectivoModel
+                .Include(t => t.Tareas)
                 .FirstOrDefaultAsync(m => m.ComponenteId == id);
             if (procesosCorrectivoModel == null)
             {
@@ -79,22 +80,26 @@ namespace ServicioMontacargas.Controllers
 
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.ProcesosCorrectivoModel == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var procesosCorrectivoModel = await _context.ProcesosCorrectivoModel.FindAsync(id);
+            var procesosCorrectivoModel = await _context.ProcesosCorrectivoModel
+                .Include(p => p.Tareas) // Cargar las tareas asociadas al componente
+                .FirstOrDefaultAsync(p => p.ComponenteId == id);
+
             if (procesosCorrectivoModel == null)
             {
                 return NotFound();
             }
+
             return View(procesosCorrectivoModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ComponenteId,Nombre")] ProcesosCorrectivoModel procesosCorrectivoModel)
+        public async Task<IActionResult> Edit(int id, ProcesosCorrectivoModel procesosCorrectivoModel)
         {
             if (id != procesosCorrectivoModel.ComponenteId)
             {
@@ -105,7 +110,47 @@ namespace ServicioMontacargas.Controllers
             {
                 try
                 {
-                    _context.Update(procesosCorrectivoModel);
+                    var existingProceso = await _context.ProcesosCorrectivoModel
+                        .Include(pc => pc.Tareas)
+                        .FirstOrDefaultAsync(pc => pc.ComponenteId == id);
+
+                    if (existingProceso == null)
+                    {
+                        return NotFound();
+                    }
+
+                    existingProceso.Nombre = procesosCorrectivoModel.Nombre;
+
+                    if (procesosCorrectivoModel.Tareas != null)
+                    {
+                        // Eliminar las tareas que no se envían en el modelo
+                        foreach (var tarea in existingProceso.Tareas.ToList())
+                        {
+                            if (!procesosCorrectivoModel.Tareas.Any(t => t.TareaId == tarea.TareaId))
+                            {
+                                existingProceso.Tareas.Remove(tarea);
+                                _context.Tarea.Remove(tarea);
+                            }
+                        }
+
+                        // Agregar nuevas tareas
+                        foreach (var tarea in procesosCorrectivoModel.Tareas)
+                        {
+                            if (tarea.TareaId == 0)
+                            {
+                                existingProceso.Tareas.Add(tarea);
+                            }
+                            else
+                            {
+                                var existingTarea = existingProceso.Tareas.FirstOrDefault(t => t.TareaId == tarea.TareaId);
+                                if (existingTarea != null)
+                                {
+                                    existingTarea.Descripcion = tarea.Descripcion;
+                                }
+                            }
+                        }
+                    }
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -152,14 +197,14 @@ namespace ServicioMontacargas.Controllers
             {
                 _context.ProcesosCorrectivoModel.Remove(procesosCorrectivoModel);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ProcesosCorrectivoModelExists(int id)
         {
-          return (_context.ProcesosCorrectivoModel?.Any(e => e.ComponenteId == id)).GetValueOrDefault();
+            return (_context.ProcesosCorrectivoModel?.Any(e => e.ComponenteId == id)).GetValueOrDefault();
         }
     }
 }

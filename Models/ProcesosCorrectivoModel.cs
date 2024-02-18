@@ -13,6 +13,7 @@ namespace ServicioMontacargas.Models
         }
         [Key]
         public int ComponenteId { get; set; }
+        [DisplayName("Componente")]
         public string? Nombre { get; set; }
         public List<Tarea>? Tareas { get; set; }
     }

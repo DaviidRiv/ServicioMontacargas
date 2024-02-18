@@ -37,6 +37,7 @@ namespace ServicioMontacargas.Data
                 .OnDelete(DeleteBehavior.Cascade);
         }
         public DbSet<ServicioMontacargas.Models.ProcesosCorrectivoModel>? ProcesosCorrectivoModel { get; set; }
+        public DbSet<ServicioMontacargas.Models.Tarea>? Tarea { get; set; }
 
     }
 }
