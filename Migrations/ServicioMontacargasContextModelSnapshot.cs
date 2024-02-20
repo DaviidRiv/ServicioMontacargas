@@ -529,6 +529,41 @@ namespace ServicioMontacargas.Migrations
                     b.ToTable("SalidaModel");
                 });
 
+            modelBuilder.Entity("ServicioMontacargas.Models.ServicioCorrectivoModel", b =>
+                {
+                    b.Property<int>("idServicioC")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idServicioC"), 1L, 1);
+
+                    b.Property<int>("ComponenteId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FechaE")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FechaR")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IdSalidaA")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Refacciones")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ServicioD")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("idServicioC");
+
+                    b.HasIndex("ComponenteId");
+
+                    b.HasIndex("IdSalidaA");
+
+                    b.ToTable("ServicioCorrectivoModel");
+                });
+
             modelBuilder.Entity("ServicioMontacargas.Models.Tarea", b =>
                 {
                     b.Property<int>("TareaId")
@@ -646,6 +681,25 @@ namespace ServicioMontacargas.Migrations
                     b.Navigation("Clientes");
 
                     b.Navigation("Montacargas");
+                });
+
+            modelBuilder.Entity("ServicioMontacargas.Models.ServicioCorrectivoModel", b =>
+                {
+                    b.HasOne("ServicioMontacargas.Models.ProcesosCorrectivoModel", "Tareas")
+                        .WithMany()
+                        .HasForeignKey("ComponenteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ServicioMontacargas.Models.SalidaModel", "Salidas")
+                        .WithMany()
+                        .HasForeignKey("IdSalidaA")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Salidas");
+
+                    b.Navigation("Tareas");
                 });
 
             modelBuilder.Entity("ServicioMontacargas.Models.Tarea", b =>
