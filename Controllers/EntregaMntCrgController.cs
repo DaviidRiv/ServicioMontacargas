@@ -203,40 +203,67 @@ namespace ServicioMontacargas.Controllers
                 return NotFound();
             }
 
-            // Obtener la entidad existente desde la base de datos
-            var existingEntrega = await _context.EntregaMntCrgModel
-                                                .FirstOrDefaultAsync(e => e.IdEntregaMntCrg == id);
+            var existingEntrega = await _context.EntregaMntCrgModel.FindAsync(id);
 
             if (existingEntrega == null)
             {
                 return NotFound();
             }
 
-            // Actualizar las propiedades de la entidad con los nuevos valores
-            existingEntrega.EvidenciaImagen1File = entregaMntCrgModel.EvidenciaImagen1File;
-            existingEntrega.EvidenciaImagen2File = entregaMntCrgModel.EvidenciaImagen2File;
-            // ... (actualizar otras propiedades)
+            // Guardar los valores de las imágenes entrega antes de llamar a SetValues
+            byte[] existingEvidenciaImagen1 = existingEntrega.EvidenciaImagen1;
+            string existingEvidenciaImagen1Base64 = existingEntrega.EvidenciaImagen1Base64;
+            byte[] existingEvidenciaImagen2 = existingEntrega.EvidenciaImagen2;
+            string existingEvidenciaImagen2Base64 = existingEntrega.EvidenciaImagen2Base64;
 
-            // Actualizar las imágenes solo si se proporcionan nuevos archivos
+            // Guardar los valores de las imágenes recoleccion antes de llamar a SetValues
+            byte[] existingEvidenciaRImagen1 = existingEntrega.EvidenciaRImagen1;
+            string existingEvidenciaRImagen1Base64 = existingEntrega.EvidenciaRImagen1Base64;
+            byte[] existingEvidenciaRImagen2 = existingEntrega.EvidenciaRImagen2;
+            string existingEvidenciaRImagen2Base64 = existingEntrega.EvidenciaRImagen2Base64;
+
             if (entregaMntCrgModel.EvidenciaImagen1File != null)
             {
+                // Convierte IFormFile a byte[]
                 using (MemoryStream ms = new MemoryStream())
                 {
                     await entregaMntCrgModel.EvidenciaImagen1File.CopyToAsync(ms);
-                    existingEntrega.EvidenciaImagen1 = ms.ToArray();
-                    existingEntrega.EvidenciaImagen1Base64 = Convert.ToBase64String(existingEntrega.EvidenciaImagen1);
+                    entregaMntCrgModel.EvidenciaImagen1 = ms.ToArray();
+                    entregaMntCrgModel.EvidenciaImagen1Base64 = Convert.ToBase64String(entregaMntCrgModel.EvidenciaImagen1);
                 }
+            }
+            else
+            {
+                // Si no se proporciona un nuevo archivo, mantener el valor existente
+                entregaMntCrgModel.EvidenciaImagen1 = existingEvidenciaImagen1;
+                entregaMntCrgModel.EvidenciaImagen1Base64 = existingEvidenciaImagen1Base64;
             }
 
             if (entregaMntCrgModel.EvidenciaImagen2File != null)
             {
+                // Convierte IFormFile a byte[]
                 using (MemoryStream ms = new MemoryStream())
                 {
                     await entregaMntCrgModel.EvidenciaImagen2File.CopyToAsync(ms);
-                    existingEntrega.EvidenciaImagen2 = ms.ToArray();
-                    existingEntrega.EvidenciaImagen2Base64 = Convert.ToBase64String(existingEntrega.EvidenciaImagen2);
+                    entregaMntCrgModel.EvidenciaImagen2 = ms.ToArray();
+                    entregaMntCrgModel.EvidenciaImagen2Base64 = Convert.ToBase64String(entregaMntCrgModel.EvidenciaImagen2);
                 }
             }
+            else
+            {
+                // Si no se proporciona un nuevo archivo, mantener el valor existente
+                entregaMntCrgModel.EvidenciaImagen2 = existingEvidenciaImagen2;
+                entregaMntCrgModel.EvidenciaImagen2Base64 = existingEvidenciaImagen2Base64;
+            }
+
+            // Conservar los valores existentes para EvidenciaRImagen1 y EvidenciaRImagen2
+            entregaMntCrgModel.EvidenciaRImagen1 = existingEvidenciaRImagen1;
+            entregaMntCrgModel.EvidenciaRImagen1Base64 = existingEvidenciaRImagen1Base64;
+            entregaMntCrgModel.EvidenciaRImagen2 = existingEvidenciaRImagen2;
+            entregaMntCrgModel.EvidenciaRImagen2Base64 = existingEvidenciaRImagen2Base64;
+
+            // Actualiza solo los campos necesarios (propiedades escalares)
+            _context.Entry(existingEntrega).CurrentValues.SetValues(entregaMntCrgModel);
 
             if (ModelState.IsValid)
             {
@@ -256,6 +283,10 @@ namespace ServicioMontacargas.Controllers
                         throw;
                     }
                 }
+                catch (Exception ex)
+                {
+                    throw;
+                }
 
                 return RedirectToAction(nameof(Index));
             }
@@ -274,6 +305,26 @@ namespace ServicioMontacargas.Controllers
                 return NotFound();
             }
 
+            // Carga la entrega actual desde la base de datos
+            var existingEntrega = await _context.EntregaMntCrgModel.FindAsync(id);
+            if (existingEntrega == null)
+            {
+                return NotFound();
+            }
+
+            // Guardar los valores de las imágenes entrega antes de llamar a SetValues
+            byte[] existingEvidenciaImagen1 = existingEntrega.EvidenciaImagen1;
+            string existingEvidenciaImagen1Base64 = existingEntrega.EvidenciaImagen1Base64;
+            byte[] existingEvidenciaImagen2 = existingEntrega.EvidenciaImagen2;
+            string existingEvidenciaImagen2Base64 = existingEntrega.EvidenciaImagen2Base64;
+
+            // Guardar los valores de las imágenes recoleccion antes de llamar a SetValues
+            byte[] existingEvidenciaRImagen1 = existingEntrega.EvidenciaRImagen1;
+            string existingEvidenciaRImagen1Base64 = existingEntrega.EvidenciaRImagen1Base64;
+            byte[] existingEvidenciaRImagen2 = existingEntrega.EvidenciaRImagen2;
+            string existingEvidenciaRImagen2Base64 = existingEntrega.EvidenciaRImagen2Base64;
+
+
             if (entregaMntCrgModel.EvidenciaRImagen1File != null)
             {
                 // Convierte IFormFile a byte[]
@@ -283,6 +334,12 @@ namespace ServicioMontacargas.Controllers
                     entregaMntCrgModel.EvidenciaRImagen1 = ms.ToArray();
                     entregaMntCrgModel.EvidenciaRImagen1Base64 = Convert.ToBase64String(entregaMntCrgModel.EvidenciaRImagen1);
                 }
+            }
+            else
+            {
+                // Si no se proporciona un nuevo archivo, mantener el valor existente
+                entregaMntCrgModel.EvidenciaRImagen1 = existingEvidenciaRImagen1;
+                entregaMntCrgModel.EvidenciaRImagen1Base64 = existingEvidenciaRImagen1Base64;
             }
 
             if (entregaMntCrgModel.EvidenciaRImagen2File != null)
@@ -295,32 +352,21 @@ namespace ServicioMontacargas.Controllers
                     entregaMntCrgModel.EvidenciaRImagen2Base64 = Convert.ToBase64String(entregaMntCrgModel.EvidenciaRImagen2);
                 }
             }
-            // Carga la entrega actual desde la base de datos
-            var existingEntrega = await _context.EntregaMntCrgModel.FindAsync(id);
+            else
+            {
+                // Si no se proporciona un nuevo archivo, mantener el valor existente
+                entregaMntCrgModel.EvidenciaRImagen2 = existingEvidenciaRImagen2;
+                entregaMntCrgModel.EvidenciaRImagen2Base64 = existingEvidenciaRImagen2Base64;
+            }
+
+            // Conservar los valores existentes para EvidenciaImagen1 y EvidenciaImagen2
+            entregaMntCrgModel.EvidenciaImagen1 = existingEvidenciaImagen1;
+            entregaMntCrgModel.EvidenciaImagen1Base64 = existingEvidenciaImagen1Base64;
+            entregaMntCrgModel.EvidenciaImagen2 = existingEvidenciaImagen2;
+            entregaMntCrgModel.EvidenciaImagen2Base64 = existingEvidenciaImagen2Base64;
 
             // Actualiza solo los campos necesarios (propiedades escalares)
             _context.Entry(existingEntrega).CurrentValues.SetValues(entregaMntCrgModel);
-
-            // Actualiza las propiedades específicas de las imágenes si se proporcionan nuevas
-            if (entregaMntCrgModel.EvidenciaImagen1File != null)
-            {
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    await entregaMntCrgModel.EvidenciaImagen1File.CopyToAsync(ms);
-                    existingEntrega.EvidenciaImagen1 = ms.ToArray();
-                    existingEntrega.EvidenciaImagen1Base64 = Convert.ToBase64String(existingEntrega.EvidenciaImagen1);
-                }
-            }
-
-            if (entregaMntCrgModel.EvidenciaImagen2File != null)
-            {
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    await entregaMntCrgModel.EvidenciaImagen2File.CopyToAsync(ms);
-                    existingEntrega.EvidenciaImagen2 = ms.ToArray();
-                    existingEntrega.EvidenciaImagen2Base64 = Convert.ToBase64String(existingEntrega.EvidenciaImagen2);
-                }
-            }
 
             if (ModelState.IsValid)
             {
