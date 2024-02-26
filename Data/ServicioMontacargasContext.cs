@@ -38,7 +38,7 @@ namespace ServicioMontacargas.Data
         }
         public DbSet<ServicioMontacargas.Models.ProcesosCorrectivoModel>? ProcesosCorrectivoModel { get; set; }
         public DbSet<ServicioMontacargas.Models.Tarea>? Tarea { get; set; }
-        public DbSet<ServicioMontacargas.Models.ServicioCorrectivoModel>? ServicioCorrectivoModel { get; set; }
+        public DbSet<ServicioMontacargas.Models.ServicioCModel>? ServicioCModel { get; set; }
 
     }
 }

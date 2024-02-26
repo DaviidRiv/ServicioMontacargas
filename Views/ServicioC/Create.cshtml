@@ -1,0 +1,173 @@
+﻿@model ServicioMontacargas.Models.ServicioCModel
+
+@{
+    ViewData["Title"] = "Nuevo Servicio Correctivo";
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"]</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h1>Nuevo Servicio Correctivo</h1>
+    @if (TempData.ContainsKey("FailSC"))
+    {
+        <script>
+            alert("@TempData["FailSC"]");
+        </script>
+    }
+    <hr />
+    <div class="row">
+        <div class="col-md-9">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <select asp-for="TareaId" asp-items="@ViewBag.TareaId" style="display: none;"></select>
+
+                <div class="form-group">
+                    <label name="ComponenteId" class="control-label">Componente</label>
+                    <select name="ComponenteId" class="form-select" id="ComponenteId" asp-items="ViewBag.ComponenteId">
+                        <option value="" selected disabled>Componente.</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label name="ComponenteId" class="control-label">Tareas</label>
+                    <select name="ComponenteId" class="form-select" id="tarea-select" >
+                        <option value="" selected disabled>Selecciona un componente.</option>
+                    </select>
+                    <div style="text-align:right">
+                        <button type="button" id="agregar-tarea" class="btn btn-success">Agregar</button>
+                    </div>
+                    <span name="ComponenteId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="tareas-seleccionadas" class="control-label">Tareas Seleccionadas</label>
+                    <select id="tareas-seleccionadas" class="form-select" multiple >
+                    </select>
+                    <div style="text-align:right">
+                        <button type="button" id="quitar-tarea" class="btn btn-danger">Quitar</button>
+                    </div>
+                </div>
+
+                <input type="hidden" id="tareas-seleccionadas-hidden" name="TareasSeleccionadas" />
+
+                <div class="form-group">
+                    <label asp-for="IdSalidaA" class="control-label"></label>
+                    <select asp-for="IdSalidaA" class="form-select" asp-items="ViewBag.IdSalidaA" required>
+                        <option value="" selected disabled>--Selecciona una Salida de Almacen.--</option>
+                    </select>
+                    <span asp-validation-for="IdSalidaA" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FechaR" class="control-label"></label>
+                    <input type="datetime-local" asp-for="FechaR" class="form-control" required/>
+                    <span asp-validation-for="FechaR" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FechaE" class="control-label"></label>
+                    <input type="datetime-local" asp-for="FechaE" class="form-control" required/>
+                    <span asp-validation-for="FechaE" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Refacciones" class="control-label"></label>
+                    <select asp-for="Refacciones" class="form-select" required>
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                        <option value="N/A">N/A</option>
+                    </select>
+                    <span asp-validation-for="Refacciones" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ServicioD" class="control-label"></label>
+                    <select asp-for="ServicioD" class="form-select" required>
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                        <option value="N/A">N/A</option>
+                    </select>
+                    <span asp-validation-for="ServicioD" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Status" class="control-label"></label>
+                    <select asp-for="Status" class="form-select" required>
+                        <option value="Entrega">Entrega</option>
+                        <option value="Mantenimiento">Mantenimiento</option>
+                        <option value="Revision">Revision</option>
+                        <option value="Finalizado">Finalizado</option>
+                    </select>
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <br />
+                    <input type="submit" value="Crear" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <br />
+        <a asp-action="Index"><iconify-icon icon="bi:arrow-left-circle-fill"></iconify-icon> Regresar</a>
+    </div>
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+        <script>
+            $(document).ready(function () {
+                $('#agregar-tarea').click(function () {
+                    var tareaId = $('#tarea-select').val();
+                    var tareaTexto = $('#tarea-select option:selected').text();
+                    $('#tareas-seleccionadas').append($('<option>', {
+                        value: tareaId,
+                        text: tareaTexto
+                    }));
+                    actualizarTareasSeleccionadas();
+                });
+
+                $('#quitar-tarea').click(function () {
+                    $('#tareas-seleccionadas option:selected').remove();
+                    actualizarTareasSeleccionadas();
+                });
+
+                $('#ComponenteId').change(function () {
+                    var componenteId = $(this).val();
+
+                    $.ajax({
+                        url: '@Url.Action("GetTareasByComponenteId", "ServicioC")',
+                        type: 'GET',
+                        data: { componenteId: componenteId },
+                        success: function (data) {
+                            $('#tarea-select').empty();
+                            $.each(data, function (index, tarea) {
+                                $('#tarea-select').append($('<option>', {
+                                    value: tarea.value,
+                                    text: tarea.text
+                                }));
+                            });
+                            // Al actualizar las opciones de tareas, también actualizamos el campo oculto
+                            actualizarTareasSeleccionadas();
+                        }
+                    });
+                });
+            });
+
+            function actualizarTareasSeleccionadas() {
+                // Creamos un array para almacenar los valores de las tareas seleccionadas
+                var tareasSeleccionadas = [];
+                $('#tareas-seleccionadas option').each(function () {
+                    tareasSeleccionadas.push($(this).val());
+                });
+                // Actualizamos el campo oculto con los valores de las tareas seleccionadas
+                $('#tareas-seleccionadas-hidden').val(tareasSeleccionadas.join(','));
+            }
+
+        </script>
+    }
+</body>
+</html>

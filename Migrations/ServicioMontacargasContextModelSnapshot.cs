@@ -529,16 +529,13 @@ namespace ServicioMontacargas.Migrations
                     b.ToTable("SalidaModel");
                 });
 
-            modelBuilder.Entity("ServicioMontacargas.Models.ServicioCorrectivoModel", b =>
+            modelBuilder.Entity("ServicioMontacargas.Models.ServicioCModel", b =>
                 {
                     b.Property<int>("idServicioC")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idServicioC"), 1L, 1);
-
-                    b.Property<int>("ComponenteId")
-                        .HasColumnType("int");
 
                     b.Property<string>("FechaE")
                         .HasColumnType("nvarchar(max)");
@@ -555,13 +552,19 @@ namespace ServicioMontacargas.Migrations
                     b.Property<string>("ServicioD")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("idServicioC");
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("ComponenteId");
+                    b.Property<int>("TareaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("idServicioC");
 
                     b.HasIndex("IdSalidaA");
 
-                    b.ToTable("ServicioCorrectivoModel");
+                    b.HasIndex("TareaId");
+
+                    b.ToTable("ServicioCModel");
                 });
 
             modelBuilder.Entity("ServicioMontacargas.Models.Tarea", b =>
@@ -578,9 +581,14 @@ namespace ServicioMontacargas.Migrations
                     b.Property<string>("Descripcion")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ServicioCModelidServicioC")
+                        .HasColumnType("int");
+
                     b.HasKey("TareaId");
 
                     b.HasIndex("ComponenteId");
+
+                    b.HasIndex("ServicioCModelidServicioC");
 
                     b.ToTable("Tarea");
                 });
@@ -683,17 +691,17 @@ namespace ServicioMontacargas.Migrations
                     b.Navigation("Montacargas");
                 });
 
-            modelBuilder.Entity("ServicioMontacargas.Models.ServicioCorrectivoModel", b =>
+            modelBuilder.Entity("ServicioMontacargas.Models.ServicioCModel", b =>
                 {
-                    b.HasOne("ServicioMontacargas.Models.ProcesosCorrectivoModel", "Tareas")
-                        .WithMany()
-                        .HasForeignKey("ComponenteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ServicioMontacargas.Models.SalidaModel", "Salidas")
                         .WithMany()
                         .HasForeignKey("IdSalidaA")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ServicioMontacargas.Models.Tarea", "Tareas")
+                        .WithMany()
+                        .HasForeignKey("TareaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -710,6 +718,10 @@ namespace ServicioMontacargas.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ServicioMontacargas.Models.ServicioCModel", null)
+                        .WithMany("TareasSeleccionadas")
+                        .HasForeignKey("ServicioCModelidServicioC");
+
                     b.Navigation("Componente");
                 });
 
@@ -721,6 +733,11 @@ namespace ServicioMontacargas.Migrations
             modelBuilder.Entity("ServicioMontacargas.Models.SalidaModel", b =>
                 {
                     b.Navigation("SalidaItems");
+                });
+
+            modelBuilder.Entity("ServicioMontacargas.Models.ServicioCModel", b =>
+                {
+                    b.Navigation("TareasSeleccionadas");
                 });
 #pragma warning restore 612, 618
         }

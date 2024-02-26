@@ -1,0 +1,77 @@
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+namespace ServicioMontacargas.Migrations
+{
+    public partial class ServicioCCrud : Migration
+    {
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.AddColumn<int>(
+                name: "ServicioCModelidServicioC",
+                table: "Tarea",
+                type: "int",
+                nullable: true);
+
+            migrationBuilder.CreateTable(
+                name: "ServicioCModel",
+                columns: table => new
+                {
+                    idServicioC = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TareaId = table.Column<int>(type: "int", nullable: false),
+                    FechaR = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FechaE = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Refacciones = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ServicioD = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ServicioCModel", x => x.idServicioC);
+                    table.ForeignKey(
+                        name: "FK_ServicioCModel_Tarea_TareaId",
+                        column: x => x.TareaId,
+                        principalTable: "Tarea",
+                        principalColumn: "TareaId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tarea_ServicioCModelidServicioC",
+                table: "Tarea",
+                column: "ServicioCModelidServicioC");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ServicioCModel_TareaId",
+                table: "ServicioCModel",
+                column: "TareaId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Tarea_ServicioCModel_ServicioCModelidServicioC",
+                table: "Tarea",
+                column: "ServicioCModelidServicioC",
+                principalTable: "ServicioCModel",
+                principalColumn: "idServicioC");
+        }
+
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Tarea_ServicioCModel_ServicioCModelidServicioC",
+                table: "Tarea");
+
+            migrationBuilder.DropTable(
+                name: "ServicioCModel");
+
+            migrationBuilder.DropIndex(
+                name: "IX_Tarea_ServicioCModelidServicioC",
+                table: "Tarea");
+
+            migrationBuilder.DropColumn(
+                name: "ServicioCModelidServicioC",
+                table: "Tarea");
+        }
+    }
+}

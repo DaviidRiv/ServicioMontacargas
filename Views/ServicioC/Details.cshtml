@@ -1,0 +1,66 @@
+﻿@model ServicioMontacargas.Models.ServicioCModel
+
+@{
+    ViewData["Title"] = "Detalles Servicio C";
+}
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <div>
+        <h1>Detales Servicio Correctivo @Model.Salidas.FolioSalida</h1>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.TareasSeleccionadas)
+            </dt>
+            <dd class="col-sm-9">
+                <ul>
+                    @foreach (var tarea in Model.TareasSeleccionadas)
+                    {
+                        <li>@tarea.Descripcion</li>
+                    }
+                </ul>
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.FechaR)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.FechaR)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.FechaE)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.FechaE)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Refacciones)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Refacciones)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.ServicioD)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.ServicioD)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Status)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Status)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.IdSalidaA"><iconify-icon icon="bi:pencil-square"></iconify-icon> Editar</a> |
+        <a asp-action="Index"><iconify-icon icon="bi:arrow-left-circle-fill"></iconify-icon> Regresar</a>
+    </div>
+</body>
+
+
