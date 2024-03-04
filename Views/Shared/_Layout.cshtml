@@ -229,7 +229,7 @@
                                         <a class="list-group-item" type="button" asp-controller="ServicioC" asp-action="Index">
                                             <p>Servicio Correctivo</p>
                                         </a>
-                                        <a class="list-group-item" type="button" href="#">
+                                        <a class="list-group-item" type="button" asp-controller="ServicioP" asp-action="Index">
                                             <p>Servicio Preventivo</p>
                                         </a>
                                     </div>
@@ -272,12 +272,31 @@
                                 </h2>
                             </div>
                         }
-                        else if (rol == "Técnico" || rol == "Montacarguista" || rol == "Operador Grua")
+                        else if (rol == "Montacarguista" || rol == "Operador Grua")
                         {
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingOne">
                                     <a class="btn btn-menu" asp-controller="Home" asp-action="Modulos">
                                         <p>Inicio <i class="bi bi-house-fill"></i></p>
+                                    </a>
+                                </h2>
+                            </div>
+                        }
+                        else if (rol == "Técnico")
+                        {
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <a class="btn btn-menu" asp-controller="Home" asp-action="Modulos">
+                                        <p>Inicio <i class="bi bi-house-fill"></i></p>
+                                    </a>
+                                </h2>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <a class="btn btn-menu" asp-controller="ServicioC" asp-action="Index">
+                                        <p>
+                                            Servicio Correctivo <iconify-icon class="bi fs-5" icon="mdi:forklift"></iconify-icon>
+                                        </p>
                                     </a>
                                 </h2>
                             </div>
@@ -353,9 +372,9 @@
 
 
     @*<footer class="border-top footer text-muted">
-        <div class="container" style="text-align:right;">
-            &copy; 2023 - ServicioMontacargas - JACSA
-        </div>
+    <div class="container" style="text-align:right;">
+    &copy; 2023 - ServicioMontacargas - JACSA
+    </div>
     </footer>*@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

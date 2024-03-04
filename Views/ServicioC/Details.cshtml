@@ -26,6 +26,17 @@
                 </ul>
             </dd>
             <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Salidas.Almacen)
+            </dt>
+            <dd class="col-sm-9">
+                <ul>
+                    @foreach (var salidaItem in Model.Salidas.SalidaItems)
+                    {
+                        <li>@($"{salidaItem.Almacen?.Producto} - {salidaItem.Almacen?.Nombre} - {salidaItem.Cantidad} {salidaItem.Almacen?.Medida}")</li>
+                    }
+                </ul>
+            </dd>
+            <dt class="col-sm-3">
                 @Html.DisplayNameFor(model => model.FechaR)
             </dt>
             <dd class="col-sm-9">
@@ -58,7 +69,7 @@
         </dl>
     </div>
     <div>
-        <a asp-action="Edit" asp-route-id="@Model?.IdSalidaA"><iconify-icon icon="bi:pencil-square"></iconify-icon> Editar</a> |
+        <a asp-action="Edit" asp-route-id="@Model?.idServicioC"><iconify-icon icon="bi:pencil-square"></iconify-icon> Editar</a> |
         <a asp-action="Index"><iconify-icon icon="bi:arrow-left-circle-fill"></iconify-icon> Regresar</a>
     </div>
 </body>

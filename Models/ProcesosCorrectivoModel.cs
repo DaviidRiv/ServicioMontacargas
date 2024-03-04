@@ -23,6 +23,7 @@ namespace ServicioMontacargas.Models
         [Key]
         public int TareaId { get; set; }
         public string? Descripcion { get; set; }
+        public int? ServicioCModelidServicioC { get; set; }
         public int ComponenteId { get; set; }
         [ForeignKey("ComponenteId")]
         public ProcesosCorrectivoModel? Componente { get; set; }

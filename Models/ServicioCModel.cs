@@ -22,7 +22,7 @@ namespace ServicioMontacargas.Models
         [DisplayName("Tareas seleccionadas")]
         public List<Tarea>? TareasSeleccionadas { get; set; }
 
-        [DisplayName("Fecha Registro")]
+        [DisplayName("Fecha Recepción")]
         public string? FechaR { get; set; }
         [DisplayName("Fecha Entrega")]
         public string? FechaE { get; set; }

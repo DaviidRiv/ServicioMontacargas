@@ -1,0 +1,527 @@
+﻿@model IEnumerable<ServicioMontacargas.Models.ServicioPModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Clientes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Montacargas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NivelAceiteMotor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FiltroAceiteMotor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ElementosAire)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VálvulasPCV)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Limpieza)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fugas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CapuchoBujia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SelloCapBujia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tiempo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vaporizador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValvulaVacio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mezclador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RepuestoVaporizador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RepuestoMezclador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RespuestoValVacio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Selenoide)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Filtro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TanqueGas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MangueConex)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FugasSistema)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Alternador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BateriaTermi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Indicadores)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Anticongelante)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BandaV)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MangueraRS)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MangueraRI)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Radiador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ventilador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MotorA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bobina)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CablesB)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TapaD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RotorD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PastillaC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Distribuidor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SwitchE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EdoNivelA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FiltroT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FugasA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mangueras)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CablePedal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MangosDire)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Eslabon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PernosEslabon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Llantas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BirlosTurcas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EdoyNivelA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FugasSH)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NivelLiquidoF)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CilindroM)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ajuste)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Purgar)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FugasF)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FrenoEst)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AceiteDif)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Crucetas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LlantasTM)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LucesTrab)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PlafonAssy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Torreta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AlarmaReversa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Claxon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Extintor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Espejos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CinturonS)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RespaldoC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Horquillas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Asiento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Golpes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tablero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pintura)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CubiertaP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServicioLyE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirmaJ)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirmaC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cantidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NoParte)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comentarios)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Clientes.IdClientes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Montacargas.IdMontacargas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NivelAceiteMotor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FiltroAceiteMotor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ElementosAire)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VálvulasPCV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Limpieza)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fugas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CapuchoBujia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SelloCapBujia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tiempo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vaporizador)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ValvulaVacio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mezclador)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RepuestoVaporizador)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RepuestoMezclador)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RespuestoValVacio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Selenoide)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Filtro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TanqueGas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MangueConex)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FugasSistema)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Alternador)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BateriaTermi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Indicadores)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Anticongelante)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BandaV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MangueraRS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MangueraRI)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Radiador)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ventilador)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MotorA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bobina)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CablesB)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TapaD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RotorD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PastillaC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Distribuidor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SwitchE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EdoNivelA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FiltroT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FugasA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mangueras)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CablePedal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MangosDire)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Eslabon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PernosEslabon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Llantas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BirlosTurcas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EdoyNivelA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FugasSH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NivelLiquidoF)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CilindroM)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ajuste)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Purgar)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FugasF)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FrenoEst)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AceiteDif)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Crucetas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LlantasTM)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LucesTrab)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlafonAssy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Torreta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AlarmaReversa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Claxon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Extintor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Espejos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CinturonS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RespaldoC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Horquillas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Asiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Golpes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tablero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pintura)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CubiertaP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServicioLyE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirmaJ)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirmaC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cantidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoParte)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comentarios)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdServicioP">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdServicioP">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdServicioP">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

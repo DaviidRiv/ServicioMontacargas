@@ -1,0 +1,150 @@
+﻿@model ServicioMontacargas.Models.ServicioCModel;
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8" />
+    <title>ViewReportePDF</title>
+</head>
+<body>
+    <table style="width: 100%; border: solid 1px;">
+        <tr>
+            <td style="border: none;">
+                <img src="~/img/LogoJacasa.jpeg" width="280" height="110" />
+            </td>
+            <td style="border: none; color: darkblue;">
+                <h4 style="text-align:center">Montacargas de San Luis S.A. de C.V.</h4>
+                <h5 style="text-align:center">Las Vegas 235 San Luis Potosi, S.L.P.</h5>
+                <h5 style="text-align:center">Tel 444 166 1000</h5>
+            </td>
+        </tr>
+    </table>
+    <table style="width: 100%; border: none;">
+        <tr>
+            <td style="border: none; color: darkblue; text-align:center; vertical-align: top; line-height: 1; font-size:18px; width:50%;">
+                <br /><br />
+                <p><strong>Reporte de Servicio Correctivo</strong></p>
+            </td>
+            <td style="border: none; vertical-align: top; line-height: 1; font-size:18px; width:50%;">
+                <br /><br />
+                <a>Orden de Servicio No. </a> <a style="color: red;"> @Model.Salidas.FolioSalida </a>
+            </td>
+        </tr>
+    </table>
+    <table style="width: 100%; border: none;">
+        <tr>
+            <td style="border: none; vertical-align: top; line-height: 1; font-size:15px; width:50%; text-align:left">
+                <br /><br />
+                <p>Cliente : @Model.Salidas.Clientes.Nombre</p>
+            </td>
+            <td style="border: none; vertical-align: top; line-height: 1; font-size:15px; width:50%; text-align:left">
+                <br /><br />
+                <a>Fecha Salida: @Model.Salidas.Fecha</a>
+            </td>
+        </tr>
+    </table>
+    <table style="width: 100%; border: none;">
+        <tr>
+            <td style="border: none; vertical-align: top; line-height: 1; font-size:15px; width:50%; text-align:left">
+                <br /><br />
+                <p>Tareas Asignadas:</p>
+            </td>
+            <td style="border: none; vertical-align: top; line-height: 1; font-size:15px; width:50%; text-align:left">
+                <br /><br />
+                <a>
+                    <ul>
+                        @foreach (var tarea in Model.TareasSeleccionadas)
+                        {
+                            <li>@tarea.Descripcion</li>
+                        }
+                    </ul>
+                </a>
+            </td>
+        </tr>
+    </table>
+    <table style="width: 100%; border: none;">
+        <tr>
+            <td style="border: none; vertical-align: top; line-height: 1; font-size:15px; width:50%; text-align:left">
+                <br /><br />
+                <p>Refacciones Utilizadas:</p>
+            </td>
+            <td style="border: none; vertical-align: top; line-height: 1; font-size:15px; width:50%; text-align:left">
+                <br /><br />
+                <a>
+                    <ul>
+                        @if (Model.Salidas.SalidaItems != null)
+                        {
+                            @foreach (var salida in Model.Salidas.SalidaItems)
+                            {
+                                <li>@salida.Almacen?.Producto - @salida.Almacen?.Nombre - @salida.Cantidad @salida.Almacen?.Medida</li>
+                            }
+                        }
+                        else
+                        {
+                            <a>Sin Productos de Almacen</a>
+                        }
+
+                    </ul>
+                </a>
+            </td>
+        </tr>
+    </table>
+    <table style="width: 100%; border: none;">
+        <tr>
+            <td style="border: none; vertical-align: top; line-height: 1; font-size:15px; ">
+                <br /><br />
+                <p style="text-align:left;"><strong>DATOS DE MONTACARGAS</strong></p>
+                <p style="text-align:left;">Marca: @Model.Salidas.Montacargas.Marca</p>
+                <p style="text-align:left;">Modelo: @Model.Salidas.Montacargas.Modelo</p>
+                <p style="text-align:left;">Serie: @Model.Salidas.Montacargas.NumeroSerie</p>
+                <p style="text-align:left;">No Económico: @Model.Salidas.Montacargas.NumeroEconomico</p>
+                <p style="text-align:left;">Horometro: @Model.Salidas.Montacargas.Horometro</p>
+            </td>
+            <td style="border: none; vertical-align: top; line-height: 1; font-size:15px; width:50%;">
+                <br /><br />
+                <br /><br />
+                <p style="text-align:left;">Hora de Recepcion de Equipo: @Model.FechaR</p>
+                <p style="text-align:left;">Hora de Entrega de Equipo: @Model.FechaE</p>
+                <p style="text-align:left;">Entregan Refacciones Remplazadas : @Model.Refacciones</p>
+                <p style="text-align:left;">Servicio en el Domicilio del Cliente : @Model.ServicioD</p>
+            </td>
+        </tr>
+    </table>
+    <table style="width: 100%;">
+        <tr>
+            <td style="text-align: center; padding: 10px; width: 50%">
+                <dl>
+                    <br />
+                    <br />
+                    <br />
+                    <dd>
+                        @Html.DisplayFor(model => model.Salidas.NombreEntrego)
+                        <hr />
+                    </dd>
+                    <dd>
+                        <strong>MONTACARGAS DE SAN LUIS S.A. DE C.V.</strong>
+                    </dd>
+                </dl>
+            </td>
+            <td style="text-align: center; width: 50%; padding: 10px">
+                <dl>
+                    <br />
+                    <br />
+                    <br />
+                    <dd>
+                        @Html.DisplayFor(model => model.Salidas.Clientes.Nombre)
+                        <hr />
+                    </dd>
+                    <dd>
+                        <strong>Cliente</strong>
+                    </dd>
+                </dl>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

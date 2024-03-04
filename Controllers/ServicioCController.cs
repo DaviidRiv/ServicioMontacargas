@@ -38,9 +38,15 @@ namespace ServicioMontacargas.Controllers
 
             var servicioCModel = await _context.ServicioCModel
                 .Include(s => s.TareasSeleccionadas)
-                .Include(s => s.Salidas) 
+                .Include(s => s.Salidas)
                     .ThenInclude(salida => salida.Montacargas)
+                .Include(s => s.Salidas)
+                    .ThenInclude(cliente => cliente.Clientes)
+                .Include(s => s.Salidas)
+                    .ThenInclude(items => items.SalidaItems)
+                    .ThenInclude(almacen => almacen.Almacen)
                 .FirstOrDefaultAsync(m => m.idServicioC == id);
+
             if (servicioCModel == null)
             {
                 return NotFound();
@@ -107,7 +113,15 @@ namespace ServicioMontacargas.Controllers
             }
 
             ViewData["TareaId"] = new SelectList(_context.Tarea, "ComponenteId", "ComponenteId", servicioCModel.TareaId);
-            ViewData["TareaId"] = new SelectList(_context.Tarea, "IdSalidaA", "FolioSalida", servicioCModel.TareaId);
+            ViewData["ComponenteId"] = new SelectList(
+                                        _context.Tarea
+                                            .Select(t => t.ComponenteId)
+                                            .Distinct()
+                                            .Join(_context.ProcesosCorrectivoModel, tareaComponenteId => tareaComponenteId, procesoComponenteId => procesoComponenteId.ComponenteId, (tareaComponenteId, procesoComponenteId) => new { TareaComponenteId = tareaComponenteId, ProcesoComponenteNombre = procesoComponenteId.Nombre }),
+                                        "TareaComponenteId",
+                                        "ProcesoComponenteNombre"
+                                    );
+            ViewData["IdSalidaA"] = new SelectList(_context.SalidaModel, "IdSalidaA", "FolioSalida", servicioCModel.TareaId);
             return View(servicioCModel);
         }
 
@@ -118,18 +132,32 @@ namespace ServicioMontacargas.Controllers
                 return NotFound();
             }
 
-            var servicioCModel = await _context.ServicioCModel.FindAsync(id);
+            var servicioCModel = await _context.ServicioCModel
+                .Include(s => s.TareasSeleccionadas)
+                .Include(s => s.Salidas)
+                    .ThenInclude(salida => salida.Montacargas)
+                .FirstOrDefaultAsync(m => m.idServicioC == id);
+
             if (servicioCModel == null)
             {
                 return NotFound();
             }
-            ViewData["TareaId"] = new SelectList(_context.Tarea, "TareaId", "TareaId", servicioCModel.TareaId);
+            ViewData["TareaId"] = new SelectList(_context.Tarea, "ComponenteId", "ComponenteId", servicioCModel.TareaId);
+            ViewData["ComponenteId"] = new SelectList(
+                                        _context.Tarea
+                                            .Select(t => t.ComponenteId)
+                                            .Distinct()
+                                            .Join(_context.ProcesosCorrectivoModel, tareaComponenteId => tareaComponenteId, procesoComponenteId => procesoComponenteId.ComponenteId, (tareaComponenteId, procesoComponenteId) => new { TareaComponenteId = tareaComponenteId, ProcesoComponenteNombre = procesoComponenteId.Nombre }),
+                                        "TareaComponenteId",
+                                        "ProcesoComponenteNombre"
+                                    );
+            ViewData["IdSalidaA"] = new SelectList(_context.SalidaModel, "IdSalidaA", "FolioSalida", servicioCModel.TareaId);
             return View(servicioCModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("idServicioC,TareaId,FechaR,FechaE,Refacciones,ServicioD,Status")] ServicioCModel servicioCModel)
+        public async Task<IActionResult> Edit(int id, ServicioCModel servicioCModel, string tareasseleccionadas)
         {
             if (id != servicioCModel.idServicioC)
             {
@@ -140,6 +168,13 @@ namespace ServicioMontacargas.Controllers
             {
                 try
                 {
+                    // Actualizar las tareas seleccionadas del servicioCModel
+                    if (!string.IsNullOrEmpty(tareasseleccionadas))
+                    {
+                        var tareaIds = tareasseleccionadas.Split(',').Select(int.Parse).ToList();
+                        servicioCModel.TareasSeleccionadas = await _context.Tarea.Where(t => tareaIds.Contains(t.TareaId)).ToListAsync();
+                    }
+
                     _context.Update(servicioCModel);
                     await _context.SaveChangesAsync();
                 }
@@ -156,9 +191,20 @@ namespace ServicioMontacargas.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["TareaId"] = new SelectList(_context.Tarea, "TareaId", "TareaId", servicioCModel.TareaId);
+            ViewData["ComponenteId"] = new SelectList(
+                                        _context.Tarea
+                                            .Select(t => t.ComponenteId)
+                                            .Distinct()
+                                            .Join(_context.ProcesosCorrectivoModel, tareaComponenteId => tareaComponenteId, procesoComponenteId => procesoComponenteId.ComponenteId, (tareaComponenteId, procesoComponenteId) => new { TareaComponenteId = tareaComponenteId, ProcesoComponenteNombre = procesoComponenteId.Nombre }),
+                                        "TareaComponenteId",
+                                        "ProcesoComponenteNombre"
+                                    );
+            ViewData["IdSalidaA"] = new SelectList(_context.SalidaModel, "IdSalidaA", "FolioSalida", servicioCModel.TareaId);
             return View(servicioCModel);
         }
+
 
         public async Task<IActionResult> Delete(int? id)
         {
@@ -178,19 +224,23 @@ namespace ServicioMontacargas.Controllers
             return View(servicioCModel);
         }
 
-        
+
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.ServicioCModel == null)
-            {
-                return Problem("Entity set 'ServicioMontacargasContext.ServicioCModel'  is null.");
-            }
             var servicioCModel = await _context.ServicioCModel.FindAsync(id);
-            if (servicioCModel != null)
+            if (servicioCModel == null)
             {
-                _context.ServicioCModel.Remove(servicioCModel);
+                return NotFound();
             }
-            
+
+            // Desvincular las tareas asociadas al servicio correctivo que se está eliminando
+            var tareasAsociadas = await _context.Tarea.Where(t => t.ServicioCModelidServicioC == id).ToListAsync();
+            foreach (var tarea in tareasAsociadas)
+            {
+                tarea.ServicioCModelidServicioC = null;
+            }
+
+            _context.ServicioCModel.Remove(servicioCModel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -198,6 +248,32 @@ namespace ServicioMontacargas.Controllers
         private bool ServicioCModelExists(int id)
         {
           return (_context.ServicioCModel?.Any(e => e.idServicioC == id)).GetValueOrDefault();
+        }
+
+        public async Task<IActionResult> ServicioCPDF(int? id)
+        {
+            if (id == null || _context.ServicioCModel == null)
+            {
+                return NotFound();
+            }
+
+            var servicioCModel = await _context.ServicioCModel
+                .Include(s => s.TareasSeleccionadas)
+                .Include(s => s.Salidas)
+                    .ThenInclude(salida => salida.Montacargas)
+                .Include(s => s.Salidas)
+                    .ThenInclude(cliente => cliente.Clientes)
+                .Include(s => s.Salidas)
+                    .ThenInclude(items => items.SalidaItems)
+                    .ThenInclude(almacen => almacen.Almacen)
+                .FirstOrDefaultAsync(m => m.idServicioC == id);
+
+            if (servicioCModel == null)
+            {
+                return NotFound();
+            }
+
+            return View(servicioCModel);
         }
     }
 }
