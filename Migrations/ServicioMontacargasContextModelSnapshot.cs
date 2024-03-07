@@ -457,6 +457,33 @@ namespace ServicioMontacargas.Migrations
                     b.ToTable("ProcesosCorrectivoModel");
                 });
 
+            modelBuilder.Entity("ServicioMontacargas.Models.Producto", b =>
+                {
+                    b.Property<int>("idProductoSP")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idProductoSP"), 1L, 1);
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NoParte")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ServicioPModelIdServicioP")
+                        .HasColumnType("int");
+
+                    b.HasKey("idProductoSP");
+
+                    b.HasIndex("ServicioPModelIdServicioP");
+
+                    b.ToTable("Producto");
+                });
+
             modelBuilder.Entity("ServicioMontacargas.Models.SalidaItem", b =>
                 {
                     b.Property<int>("IdSalidaItem")
@@ -833,33 +860,6 @@ namespace ServicioMontacargas.Migrations
                     b.ToTable("ServicioPModel");
                 });
 
-            modelBuilder.Entity("ServicioMontacargas.Models.ServicioPModel+Producto", b =>
-                {
-                    b.Property<int>("idProductoSP")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idProductoSP"), 1L, 1);
-
-                    b.Property<int>("Cantidad")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Descripcion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NoParte")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ServicioPModelIdServicioP")
-                        .HasColumnType("int");
-
-                    b.HasKey("idProductoSP");
-
-                    b.HasIndex("ServicioPModelIdServicioP");
-
-                    b.ToTable("Producto");
-                });
-
             modelBuilder.Entity("ServicioMontacargas.Models.Tarea", b =>
                 {
                     b.Property<int>("TareaId")
@@ -944,6 +944,17 @@ namespace ServicioMontacargas.Migrations
                     b.Navigation("Montacargas");
                 });
 
+            modelBuilder.Entity("ServicioMontacargas.Models.Producto", b =>
+                {
+                    b.HasOne("ServicioMontacargas.Models.ServicioPModel", "ServicioPModel")
+                        .WithMany("Productos")
+                        .HasForeignKey("ServicioPModelIdServicioP")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ServicioPModel");
+                });
+
             modelBuilder.Entity("ServicioMontacargas.Models.SalidaItem", b =>
                 {
                     b.HasOne("ServicioMontacargas.Models.AlmacenModel", "Almacen")
@@ -1020,13 +1031,6 @@ namespace ServicioMontacargas.Migrations
                     b.Navigation("Clientes");
 
                     b.Navigation("Montacargas");
-                });
-
-            modelBuilder.Entity("ServicioMontacargas.Models.ServicioPModel+Producto", b =>
-                {
-                    b.HasOne("ServicioMontacargas.Models.ServicioPModel", null)
-                        .WithMany("Productos")
-                        .HasForeignKey("ServicioPModelIdServicioP");
                 });
 
             modelBuilder.Entity("ServicioMontacargas.Models.Tarea", b =>

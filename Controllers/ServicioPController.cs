@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using iText.Commons.Actions.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ServicioMontacargas.Data;
 using ServicioMontacargas.Models;
+using static ServicioMontacargas.Models.ServicioPModel;
 
 namespace ServicioMontacargas.Controllers
 {
@@ -21,7 +23,7 @@ namespace ServicioMontacargas.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var servicioMontacargasContext = _context.ServicioPModel.Include(s => s.Clientes).Include(s => s.Montacargas);
+            var servicioMontacargasContext = _context.ServicioPModel.Include(s => s.Clientes).Include(s => s.Montacargas).Include(s => s.Productos);
             return View(await servicioMontacargasContext.ToListAsync());
         }
 
@@ -35,6 +37,7 @@ namespace ServicioMontacargas.Controllers
             var servicioPModel = await _context.ServicioPModel
                 .Include(s => s.Clientes)
                 .Include(s => s.Montacargas)
+                .Include(s => s.Productos)
                 .FirstOrDefaultAsync(m => m.IdServicioP == id);
             if (servicioPModel == null)
             {
@@ -46,25 +49,34 @@ namespace ServicioMontacargas.Controllers
 
         public IActionResult Create()
         {
-            ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "IdClientes");
-            ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "IdMontacargas");
+            ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "Nombre");
+            ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "DisplayInfoMntCrg");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdServicioP,IdClientes,IdMontacargas,Fecha,NivelAceiteMotor,FiltroAceiteMotor,ElementosAire,VálvulasPCV,Limpieza,Fugas,CapuchoBujia,SelloCapBujia,Tiempo,Vaporizador,ValvulaVacio,Mezclador,RepuestoVaporizador,RepuestoMezclador,RespuestoValVacio,Selenoide,Filtro,TanqueGas,MangueConex,FugasSistema,Alternador,BateriaTermi,Indicadores,Anticongelante,BandaV,MangueraRS,MangueraRI,Radiador,Ventilador,MotorA,Bobina,CablesB,TapaD,RotorD,PastillaC,Distribuidor,SwitchE,EdoNivelA,FiltroT,FugasA,Mangueras,CablePedal,MangosDire,Eslabon,PernosEslabon,Llantas,BirlosTurcas,EdoyNivelA,FugasSH,NivelLiquidoF,CilindroM,Ajuste,Purgar,FugasF,FrenoEst,AceiteDif,Crucetas,LlantasTM,LucesTrab,PlafonAssy,Torreta,AlarmaReversa,Claxon,Extintor,Espejos,CinturonS,RespaldoC,Horquillas,Asiento,Golpes,Tablero,Pintura,CubiertaP,ServicioLyE,FirmaJ,FirmaC,Cantidad,NoParte,Descripcion,Comentarios")] ServicioPModel servicioPModel)
+        public async Task<IActionResult> Create(ServicioPModel servicioPModel, List<Producto> productos)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(servicioPModel);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    _context.Add(servicioPModel);
+                    await _context.SaveChangesAsync();                    
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (DbUpdateException ex)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
             }
-            ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "IdClientes", servicioPModel.IdClientes);
-            ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "IdMontacargas", servicioPModel.IdMontacargas);
+
+            ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "Nombre", servicioPModel.IdClientes);
+            ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "DisplayInfoMntCrg", servicioPModel.IdMontacargas);
             return View(servicioPModel);
         }
+
 
         public async Task<IActionResult> Edit(int? id)
         {
@@ -78,8 +90,8 @@ namespace ServicioMontacargas.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "IdClientes", servicioPModel.IdClientes);
-            ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "IdMontacargas", servicioPModel.IdMontacargas);
+            ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "Nombre", servicioPModel.IdClientes);
+            ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "DisplayInfoMntCrg", servicioPModel.IdMontacargas);
             return View(servicioPModel);
         }
 
@@ -112,8 +124,8 @@ namespace ServicioMontacargas.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "IdClientes", servicioPModel.IdClientes);
-            ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "IdMontacargas", servicioPModel.IdMontacargas);
+            ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "Nombre", servicioPModel.IdClientes);
+            ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "DisplayInfoMntCrg", servicioPModel.IdMontacargas);
             return View(servicioPModel);
         }
 

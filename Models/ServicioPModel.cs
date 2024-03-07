@@ -208,22 +208,24 @@ namespace ServicioMontacargas.Models
         public string? NoParte { get; set; }
         [DisplayName("Descripción")]
         public string? Descripcion { get; set; }
-        public List<Producto>? Productos { get; set; }
-        public class Producto
-        {
-            [Key]
-            public int idProductoSP { get; set; }
-            [DisplayName("Cantidad")]
-            public int Cantidad { get; set; }
-
-            [DisplayName("No. de Parte")]
-            public string? NoParte { get; set; }
-
-            [DisplayName("Descripción")]
-            public string? Descripcion { get; set; }            
-        }
+        public List<Producto>? Productos { get; set; }        
 
         [DisplayName("Comentarios")]
         public string? Comentarios { get; set; }
+    }
+    public class Producto
+    {
+        [Key]
+        public int idProductoSP { get; set; }
+        [DisplayName("Cantidad")]
+        public int Cantidad { get; set; }
+
+        [DisplayName("No. de Parte")]
+        public string? NoParte { get; set; }
+
+        [DisplayName("Descripción")]
+        public string? Descripcion { get; set; }
+        public int ServicioPModelIdServicioP { get; set; }
+        public ServicioPModel? ServicioPModel { get; set; }
     }
 }
