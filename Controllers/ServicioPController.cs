@@ -168,5 +168,25 @@ namespace ServicioMontacargas.Controllers
         {
           return (_context.ServicioPModel?.Any(e => e.IdServicioP == id)).GetValueOrDefault();
         }
+
+        public async Task<IActionResult> ServicioPPDF(int? id)
+        {
+            if (id == null || _context.ServicioPModel == null)
+            {
+                return NotFound();
+            }
+
+            var servicioPModel = await _context.ServicioPModel
+                .Include(s => s.Clientes)
+                .Include(s => s.Montacargas)
+                .Include(s => s.Productos)
+                .FirstOrDefaultAsync(m => m.IdServicioP == id);
+            if (servicioPModel == null)
+            {
+                return NotFound();
+            }
+
+            return View(servicioPModel);
+        }
     }
 }

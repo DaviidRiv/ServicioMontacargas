@@ -632,6 +632,9 @@ namespace ServicioMontacargas.Migrations
                     b.Property<string>("Bobina")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Bujias")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("CablePedal")
                         .HasColumnType("nvarchar(max)");
 

@@ -28,6 +28,8 @@ namespace ServicioMontacargas.Models
         [DisplayName("Elementos de Aire")]
         public string? ElementosAire { get; set; }
         [DisplayName("Bujías")]
+        public string? Bujias { get; set; }
+        [DisplayName("Válvula PCV")]
         public string? VálvulasPCV { get; set; }
         [DisplayName("Limpieza")]
         public string? Limpieza { get; set; }

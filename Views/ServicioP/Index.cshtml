@@ -58,6 +58,9 @@
                         @Html.DisplayNameFor(model => model.ElementosAire)
                     </th>
                     <th>
+                        @Html.DisplayNameFor(model => model.Bujias)
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => model.VálvulasPCV)
                     </th>
                     <th>
@@ -332,6 +335,9 @@
                             @Html.DisplayFor(modelItem => item.ElementosAire)
                         </td>
                         <td>
+                            @Html.DisplayFor(modelItem => item.Bujias)
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.VálvulasPCV)
                         </td>
                         <td>
@@ -552,9 +558,9 @@
                             <a asp-action="Edit" asp-route-id="@item.IdServicioP"><iconify-icon icon="bi:pencil-square"></iconify-icon></a>
                             <a asp-action="Details" asp-route-id="@item.IdServicioP"><iconify-icon icon="bi:eye-fill"></iconify-icon></a>
                             <a href="#" data-bs-toggle="modal" data-bs-target="#eliminarUsuario-@item.IdServicioP" data-original-title="Eliminar"><iconify-icon icon="bi:trash3-fill"></iconify-icon></a>
-                            @*<a href="#" id="generatePdfLink" data-id="@item.IdServicioP">
-                        <iconify-icon icon="bxs:file-pdf"></iconify-icon>
-                        </a>*@
+                            <a href="#" id="generatePdfLink" data-id="@item.IdServicioP">
+                                <iconify-icon icon="bxs:file-pdf"></iconify-icon>
+                            </a>
                         </td>
                     </tr>
                     <!-- Modal -->
@@ -590,7 +596,7 @@
             function generatePdf(id) {
                 // Realiza una solicitud AJAX para obtener los datos necesarios
                 $.ajax({
-                    url: '/Checklist/ReportePDF?id=' + id,
+                    url: '/ServicioP/ServicioPPDF?id=' + id,
                     method: 'GET',
                     success: function (data) {
                         // Llama a la función para generar el PDF con los datos obtenidos
@@ -610,7 +616,7 @@
                 // Llama a html2pdf para generar el PDF
                 html2pdf(tempDiv, {
                     margin: 5,
-                    filename: 'Checklist ' + id + '.pdf',
+                    filename: 'Servicio Preventivo ' + id + '.pdf',
                 });
             }
         </script>

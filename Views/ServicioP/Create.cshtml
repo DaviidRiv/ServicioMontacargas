@@ -74,6 +74,16 @@
                 <span asp-validation-for="ElementosAire" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Bujias" class="control-label"></label>
+                <select asp-for="Bujias" class="form-select" required>
+                    <option value="Cambio">Cambio</option>
+                    <option value="Mantenimiento">Mantenimiento</option>
+                    <option value="Bien">Bien</option>
+                    <option value="Requiere/C/M/R">Requiere/C/M/R</option>
+                </select>
+                <span asp-validation-for="Bujias" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="VálvulasPCV" class="control-label"></label>
                 <select asp-for="VálvulasPCV" class="form-select" required>
                     <option value="Cambio">Cambio</option>
