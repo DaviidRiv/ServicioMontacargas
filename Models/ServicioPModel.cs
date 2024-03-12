@@ -195,10 +195,16 @@ namespace ServicioMontacargas.Models
         public string? ServicioLyE { get; set; }
 
         //Firmas
-        [DisplayName("Firma JACSA")]
+        [DisplayName("Firma Mecánico")]
         public string? FirmaJ { get; set; }
         [DisplayName("Firma Cliente")]
         public string? FirmaC { get; set; }
+
+        //Nombres
+        [DisplayName("Nombre Mecánico")]
+        public string? NombreJ { get; set; }
+        [DisplayName("Nombre Cliente")]
+        public string? NombreC { get; set; }
 
         //FolioSP
         public string FolioSP => $"SP{(IdServicioP < 10 ? $"0{IdServicioP}" : IdServicioP.ToString())}-{Montacargas?.NumeroEconomico}-{Fecha?.ToString()}";

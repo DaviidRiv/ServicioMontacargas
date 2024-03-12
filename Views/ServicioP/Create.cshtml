@@ -48,7 +48,7 @@
                 <select asp-for="NivelAceiteMotor" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="NivelAceiteMotor" class="text-danger"></span>
@@ -58,7 +58,7 @@
                 <select asp-for="FiltroAceiteMotor" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="FiltroAceiteMotor" class="text-danger"></span>
@@ -68,7 +68,7 @@
                 <select asp-for="ElementosAire" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="ElementosAire" class="text-danger"></span>
@@ -78,7 +78,7 @@
                 <select asp-for="Bujias" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="Bujias" class="text-danger"></span>
@@ -88,7 +88,7 @@
                 <select asp-for="VálvulasPCV" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="VálvulasPCV" class="text-danger"></span>
@@ -98,7 +98,7 @@
                 <select asp-for="Limpieza" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="Limpieza" class="text-danger"></span>
@@ -108,7 +108,7 @@
                 <select asp-for="Fugas" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="Fugas" class="text-danger"></span>
@@ -118,7 +118,7 @@
                 <select asp-for="CapuchoBujia" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="CapuchoBujia" class="text-danger"></span>
@@ -128,7 +128,7 @@
                 <select asp-for="SelloCapBujia" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="SelloCapBujia" class="text-danger"></span>
@@ -138,28 +138,29 @@
                 <select asp-for="Tiempo" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="Tiempo" class="text-danger"></span>
             </div>
+            <br />
+            <h5>SISTEMA DE CARBURACIÓN</h5>
             <div class="form-group">
                 <label asp-for="Vaporizador" class="control-label"></label>
                 <select asp-for="Vaporizador" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="Vaporizador" class="text-danger"></span>
-            </div><br />
-            <h5>SISTEMA DE CARBURACIÓN</h5>
+            </div>
             <div class="form-group">
                 <label asp-for="ValvulaVacio" class="control-label"></label>
                 <select asp-for="ValvulaVacio" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="ValvulaVacio" class="text-danger"></span>
@@ -169,7 +170,7 @@
                 <select asp-for="Mezclador" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="Mezclador" class="text-danger"></span>
@@ -179,7 +180,7 @@
                 <select asp-for="RepuestoVaporizador" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="RepuestoVaporizador" class="text-danger"></span>
@@ -189,7 +190,7 @@
                 <select asp-for="RepuestoMezclador" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="RepuestoMezclador" class="text-danger"></span>
@@ -199,7 +200,7 @@
                 <select asp-for="RespuestoValVacio" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="RespuestoValVacio" class="text-danger"></span>
@@ -209,7 +210,7 @@
                 <select asp-for="Selenoide" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="Selenoide" class="text-danger"></span>
@@ -220,7 +221,7 @@
                 <select asp-for="Filtro" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="Filtro" class="text-danger"></span>
@@ -230,7 +231,7 @@
                 <select asp-for="TanqueGas" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="TanqueGas" class="text-danger"></span>
@@ -240,7 +241,7 @@
                 <select asp-for="MangueConex" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="MangueConex" class="text-danger"></span>
@@ -250,7 +251,7 @@
                 <select asp-for="FugasSistema" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="FugasSistema" class="text-danger"></span>
@@ -261,7 +262,7 @@
                 <select asp-for="Alternador" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="Alternador" class="text-danger"></span>
@@ -271,7 +272,7 @@
                 <select asp-for="BateriaTermi" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="BateriaTermi" class="text-danger"></span>
@@ -281,7 +282,7 @@
                 <select asp-for="Indicadores" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="Indicadores" class="text-danger"></span>
@@ -295,7 +296,7 @@
                 <select asp-for="Anticongelante" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="Anticongelante" class="text-danger"></span>
@@ -305,7 +306,7 @@
                 <select asp-for="BandaV" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="BandaV" class="text-danger"></span>
@@ -315,7 +316,7 @@
                 <select asp-for="MangueraRS" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="MangueraRS" class="text-danger"></span>
@@ -325,7 +326,7 @@
                 <select asp-for="MangueraRI" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="MangueraRI" class="text-danger"></span>
@@ -335,7 +336,7 @@
                 <select asp-for="Radiador" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="Radiador" class="text-danger"></span>
@@ -345,7 +346,7 @@
                 <select asp-for="Ventilador" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="Ventilador" class="text-danger"></span>
@@ -356,7 +357,7 @@
                 <select asp-for="MotorA" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="MotorA" class="text-danger"></span>
@@ -366,7 +367,7 @@
                 <select asp-for="Bobina" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="Bobina" class="text-danger"></span>
@@ -376,7 +377,7 @@
                 <select asp-for="CablesB" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="CablesB" class="text-danger"></span>
@@ -386,7 +387,7 @@
                 <select asp-for="TapaD" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="TapaD" class="text-danger"></span>
@@ -396,7 +397,7 @@
                 <select asp-for="RotorD" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="RotorD" class="text-danger"></span>
@@ -406,7 +407,7 @@
                 <select asp-for="PastillaC" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="PastillaC" class="text-danger"></span>
@@ -416,7 +417,7 @@
                 <select asp-for="Distribuidor" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="Distribuidor" class="text-danger"></span>
@@ -426,7 +427,7 @@
                 <select asp-for="SwitchE" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="SwitchE" class="text-danger"></span>
@@ -437,7 +438,7 @@
                 <select asp-for="EdoNivelA" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="EdoNivelA" class="text-danger"></span>
@@ -447,7 +448,7 @@
                 <select asp-for="FiltroT" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="FiltroT" class="text-danger"></span>
@@ -457,7 +458,7 @@
                 <select asp-for="FugasA" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="FugasA" class="text-danger"></span>
@@ -467,7 +468,7 @@
                 <select asp-for="Mangueras" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="Mangueras" class="text-danger"></span>
@@ -477,7 +478,7 @@
                 <select asp-for="CablePedal" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="CablePedal" class="text-danger"></span>
@@ -488,7 +489,7 @@
                 <select asp-for="MangosDire" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="MangosDire" class="text-danger"></span>
@@ -498,7 +499,7 @@
                 <select asp-for="Eslabon" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="Eslabon" class="text-danger"></span>
@@ -508,7 +509,7 @@
                 <select asp-for="PernosEslabon" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="PernosEslabon" class="text-danger"></span>
@@ -518,7 +519,7 @@
                 <select asp-for="Llantas" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="Llantas" class="text-danger"></span>
@@ -528,7 +529,7 @@
                 <select asp-for="BirlosTurcas" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="BirlosTurcas" class="text-danger"></span>
@@ -539,7 +540,7 @@
                 <select asp-for="EdoyNivelA" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="EdoyNivelA" class="text-danger"></span>
@@ -549,7 +550,7 @@
                 <select asp-for="FugasSH" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="FugasSH" class="text-danger"></span>
@@ -563,7 +564,7 @@
                 <select asp-for="NivelLiquidoF" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="NivelLiquidoF" class="text-danger"></span>
@@ -573,7 +574,7 @@
                 <select asp-for="CilindroM" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="CilindroM" class="text-danger"></span>
@@ -583,7 +584,7 @@
                 <select asp-for="Ajuste" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="Ajuste" class="text-danger"></span>
@@ -593,7 +594,7 @@
                 <select asp-for="Purgar" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="Purgar" class="text-danger"></span>
@@ -603,7 +604,7 @@
                 <select asp-for="FugasF" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="FugasF" class="text-danger"></span>
@@ -613,18 +614,18 @@
                 <select asp-for="FrenoEst" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="FrenoEst" class="text-danger"></span>
             </div><br />
-            <h5>EQUIPO DE SEGURIDAD</h5>
+            <h5>TREN MOTRIZ</h5>
             <div class="form-group">
                 <label asp-for="AceiteDif" class="control-label"></label>
                 <select asp-for="AceiteDif" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="AceiteDif" class="text-danger"></span>
@@ -634,7 +635,7 @@
                 <select asp-for="Crucetas" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="Crucetas" class="text-danger"></span>
@@ -644,17 +645,19 @@
                 <select asp-for="LlantasTM" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="LlantasTM" class="text-danger"></span>
             </div>
+            <br />
+            <h5>EQUIPO DE SEGURIDAD</h5>
             <div class="form-group">
                 <label asp-for="LucesTrab" class="control-label"></label>
                 <select asp-for="LucesTrab" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="LucesTrab" class="text-danger"></span>
@@ -664,7 +667,7 @@
                 <select asp-for="PlafonAssy" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="PlafonAssy" class="text-danger"></span>
@@ -674,7 +677,7 @@
                 <select asp-for="Torreta" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="Torreta" class="text-danger"></span>
@@ -684,7 +687,7 @@
                 <select asp-for="AlarmaReversa" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="AlarmaReversa" class="text-danger"></span>
@@ -694,7 +697,7 @@
                 <select asp-for="Claxon" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="Claxon" class="text-danger"></span>
@@ -704,7 +707,7 @@
                 <select asp-for="Extintor" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="Extintor" class="text-danger"></span>
@@ -714,7 +717,7 @@
                 <select asp-for="Espejos" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="Espejos" class="text-danger"></span>
@@ -724,7 +727,7 @@
                 <select asp-for="CinturonS" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="CinturonS" class="text-danger"></span>
@@ -735,7 +738,7 @@
                 <select asp-for="RespaldoC" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="RespaldoC" class="text-danger"></span>
@@ -745,7 +748,7 @@
                 <select asp-for="Horquillas" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="Horquillas" class="text-danger"></span>
@@ -755,7 +758,7 @@
                 <select asp-for="Asiento" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="Asiento" class="text-danger"></span>
@@ -765,7 +768,7 @@
                 <select asp-for="Golpes" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="Golpes" class="text-danger"></span>
@@ -775,7 +778,7 @@
                 <select asp-for="Tablero" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="Tablero" class="text-danger"></span>
@@ -785,7 +788,7 @@
                 <select asp-for="Pintura" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="Pintura" class="text-danger"></span>
@@ -795,7 +798,7 @@
                 <select asp-for="CubiertaP" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="CubiertaP" class="text-danger"></span>
@@ -805,7 +808,7 @@
                 <select asp-for="ServicioLyE" class="form-select" required>
                     <option value="Cambio">Cambio</option>
                     <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Bien">Bien</option>
+                    <option value="Bien" selected>Bien</option>
                     <option value="Requiere/C/M/R">Requiere/C/M/R</option>
                 </select>
                 <span asp-validation-for="ServicioLyE" class="text-danger"></span>
@@ -857,6 +860,11 @@
                 </div>
                 <span asp-validation-for="FirmaJ" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="NombreJ" class="control-label"></label>
+                <input asp-for="NombreJ" class="form-control" required />                  
+                <span asp-validation-for="NombreJ" class="text-danger"></span>
+            </div>
         </div>
         <div class="col-md-4">
             <div class="form-group">
@@ -867,6 +875,11 @@
                     <input type="hidden" asp-for="FirmaC" id="hiddenFirmaCliente" required />
                 </div>
                 <span asp-validation-for="FirmaC" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NombreC" class="control-label"></label>
+                <input asp-for="NombreC" class="form-control" required />
+                <span asp-validation-for="NombreC" class="text-danger"></span>
             </div>
         </div>
     </div>

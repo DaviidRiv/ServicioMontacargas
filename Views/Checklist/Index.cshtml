@@ -285,7 +285,7 @@
                             @Html.DisplayFor(modelItem => item.Ruidos)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Observaciones)
+                            @item.Observaciones?.ToUpper()
                         </td>
                         <td>
                             <a asp-action="Edit" asp-route-id="@item.IdChecklist"><iconify-icon icon="bi:pencil-square"></iconify-icon></a>

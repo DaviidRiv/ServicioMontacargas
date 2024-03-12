@@ -782,6 +782,12 @@ namespace ServicioMontacargas.Migrations
                     b.Property<string>("NoParte")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("NombreC")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NombreJ")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PastillaC")
                         .HasColumnType("nvarchar(max)");
 

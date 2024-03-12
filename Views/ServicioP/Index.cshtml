@@ -277,6 +277,12 @@
                         @Html.DisplayNameFor(model => model.Comentarios)
                     </th>
                     <th>
+                        @Html.DisplayNameFor(model => model.NombreJ)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NombreC)                        
+                    </th>
+                    <th>
                         Opciones
                     </th>
                 </tr>
@@ -553,7 +559,12 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Comentarios)
                         </td>
-
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NombreJ)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NombreC)
+                        </td>
                         <td>
                             <a asp-action="Edit" asp-route-id="@item.IdServicioP"><iconify-icon icon="bi:pencil-square"></iconify-icon></a>
                             <a asp-action="Details" asp-route-id="@item.IdServicioP"><iconify-icon icon="bi:eye-fill"></iconify-icon></a>

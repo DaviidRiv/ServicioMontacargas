@@ -527,12 +527,23 @@
             <img src="@Html.DisplayFor(model => model.FirmaJ)" alt="Firma Jacsa" width="90" height="90" />
         </dd>
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NombreJ)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NombreJ)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.FirmaC)
         </dt>
         <dd class="col-sm-10">
             <img src="@Html.DisplayFor(model => model.FirmaC)" alt="Firma Cliente" width="90" height="90" />
         </dd>        
-        
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NombreC)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NombreC)
+        </dd>
     </dl>
 </div>
 <div>
