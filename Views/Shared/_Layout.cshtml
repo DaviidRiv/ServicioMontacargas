@@ -226,7 +226,7 @@
                                         <a class="list-group-item" type="button" asp-controller="Checklist" asp-action="Index">
                                             <p>Revisión</p>
                                         </a>
-                                        <a class="list-group-item" type="button" asp-controller="ServicioC" asp-action="Index">
+                                        <a class="list-group-item" type="button" href="#">
                                             <p>Servicio Correctivo</p>
                                         </a>
                                         <a class="list-group-item" type="button" asp-controller="ServicioP" asp-action="Index">
@@ -293,9 +293,18 @@
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingOne">
-                                    <a class="btn btn-menu" asp-controller="ServicioC" asp-action="Index">
+                                    <a class="btn btn-menu" href="#">
                                         <p>
-                                            Servicio Correctivo <iconify-icon class="bi fs-5" icon="mdi:forklift"></iconify-icon>
+                                            Correctivo <iconify-icon class="bi fs-5" icon="mdi:forklift"></iconify-icon>
+                                        </p>
+                                    </a>
+                                </h2>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <a class="btn btn-menu" asp-controller="ServicioP" asp-action="Index">
+                                        <p>
+                                            Preventivo <iconify-icon class="bi fs-5" icon="mdi:forklift"></iconify-icon>
                                         </p>
                                     </a>
                                 </h2>

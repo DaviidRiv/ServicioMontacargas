@@ -3,6 +3,12 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Bienvenido</h1>
+    @{
+        var rol = Context.Session.GetString("RolUser");
+        var name = Context.Session.GetString("Nombre");
+        var ap = Context.Session.GetString("ApellidoP");
+        var am = Context.Session.GetString("ApellidoM");
+        <h2 class="display-5">@name @ap @am - @rol</h2>
+    }
 </div>

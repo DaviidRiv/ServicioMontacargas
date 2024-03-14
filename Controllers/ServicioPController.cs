@@ -6,12 +6,14 @@ using iText.Commons.Actions.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using ServicioMontacargas.Auths;
 using ServicioMontacargas.Data;
 using ServicioMontacargas.Models;
 using static ServicioMontacargas.Models.ServicioPModel;
 
 namespace ServicioMontacargas.Controllers
 {
+    [AutorizacionTecnicoMntcAd]
     public class ServicioPController : Controller
     {
         private readonly ServicioMontacargasContext _context;
@@ -90,14 +92,20 @@ namespace ServicioMontacargas.Controllers
             {
                 return NotFound();
             }
+
+            var productos = await _context.Producto.Where(p => p.ServicioPModelIdServicioP == id).ToListAsync();
+
+            ViewData["Productos"] = productos;
+
             ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "Nombre", servicioPModel.IdClientes);
             ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "DisplayInfoMntCrg", servicioPModel.IdMontacargas);
             return View(servicioPModel);
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdServicioP,IdClientes,IdMontacargas,Fecha,NivelAceiteMotor,FiltroAceiteMotor,ElementosAire,VálvulasPCV,Limpieza,Fugas,CapuchoBujia,SelloCapBujia,Tiempo,Vaporizador,ValvulaVacio,Mezclador,RepuestoVaporizador,RepuestoMezclador,RespuestoValVacio,Selenoide,Filtro,TanqueGas,MangueConex,FugasSistema,Alternador,BateriaTermi,Indicadores,Anticongelante,BandaV,MangueraRS,MangueraRI,Radiador,Ventilador,MotorA,Bobina,CablesB,TapaD,RotorD,PastillaC,Distribuidor,SwitchE,EdoNivelA,FiltroT,FugasA,Mangueras,CablePedal,MangosDire,Eslabon,PernosEslabon,Llantas,BirlosTurcas,EdoyNivelA,FugasSH,NivelLiquidoF,CilindroM,Ajuste,Purgar,FugasF,FrenoEst,AceiteDif,Crucetas,LlantasTM,LucesTrab,PlafonAssy,Torreta,AlarmaReversa,Claxon,Extintor,Espejos,CinturonS,RespaldoC,Horquillas,Asiento,Golpes,Tablero,Pintura,CubiertaP,ServicioLyE,FirmaJ,FirmaC,Cantidad,NoParte,Descripcion,Comentarios")] ServicioPModel servicioPModel)
+        public async Task<IActionResult> Edit(int id, ServicioPModel servicioPModel, List<Producto> productos)
         {
             if (id != servicioPModel.IdServicioP)
             {
@@ -108,7 +116,37 @@ namespace ServicioMontacargas.Controllers
             {
                 try
                 {
-                    _context.Update(servicioPModel);
+                    // Obtener todos los productos asociados al servicio
+                    var productosAsociados = await _context.Producto
+                        .Where(p => p.ServicioPModelIdServicioP == id)
+                        .ToListAsync();
+
+                    // Iterar sobre los productos existentes
+                    foreach (var productoExistente in productosAsociados)
+                    {
+                        // Verificar si el producto existente está en la lista recibida
+                        var productoEnSolicitud = productos.FirstOrDefault(np => np.idProductoSP == productoExistente.idProductoSP);
+
+                        // Si el producto existente no está en la lista recibida, eliminarlo
+                        if (productoEnSolicitud == null)
+                        {
+                            _context.Producto.Remove(productoExistente);
+                        }
+                    }
+
+                    // Actualizar o agregar nuevos productos
+                    foreach (var nuevoProducto in productos)
+                    {
+                        if (nuevoProducto.idProductoSP != 0)
+                        {
+                            _context.Update(nuevoProducto);
+                        }
+                        else
+                        {
+                            servicioPModel.Productos.Add(nuevoProducto);
+                        }
+                    }
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -128,6 +166,7 @@ namespace ServicioMontacargas.Controllers
             ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "DisplayInfoMntCrg", servicioPModel.IdMontacargas);
             return View(servicioPModel);
         }
+
 
         public async Task<IActionResult> Delete(int? id)
         {
