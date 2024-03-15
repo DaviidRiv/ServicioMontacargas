@@ -209,13 +209,7 @@ namespace ServicioMontacargas.Models
         //FolioSP
         public string FolioSP => $"SP{(IdServicioP < 10 ? $"0{IdServicioP}" : IdServicioP.ToString())}-{Montacargas?.NumeroEconomico}-{Fecha?.ToString()}";
 
-        //Almacen
-        [DisplayName("Cantidad")]
-        public string? Cantidad { get; set; }
-        [DisplayName("No. de Parte")]
-        public string? NoParte { get; set; }
-        [DisplayName("Descripción")]
-        public string? Descripcion { get; set; }
+        //Almacen        
         public List<Producto>? Productos { get; set; }        
 
         [DisplayName("Comentarios")]

@@ -17,7 +17,7 @@ namespace ServicioMontacargas.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.27")
+                .HasAnnotation("ProductVersion", "6.0.28")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -484,6 +484,33 @@ namespace ServicioMontacargas.Migrations
                     b.ToTable("Producto");
                 });
 
+            modelBuilder.Entity("ServicioMontacargas.Models.ProductoSCo", b =>
+                {
+                    b.Property<int>("idProductoSP")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idProductoSP"), 1L, 1);
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NoParte")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ServicioCoModelIdServicioCo")
+                        .HasColumnType("int");
+
+                    b.HasKey("idProductoSP");
+
+                    b.HasIndex("ServicioCoModelIdServicioCo");
+
+                    b.ToTable("ProductoSCo");
+                });
+
             modelBuilder.Entity("ServicioMontacargas.Models.SalidaItem", b =>
                 {
                     b.Property<int>("IdSalidaItem")
@@ -556,13 +583,16 @@ namespace ServicioMontacargas.Migrations
                     b.ToTable("SalidaModel");
                 });
 
-            modelBuilder.Entity("ServicioMontacargas.Models.ServicioCModel", b =>
+            modelBuilder.Entity("ServicioMontacargas.Models.ServicioCoModel", b =>
                 {
-                    b.Property<int>("idServicioC")
+                    b.Property<int>("IdServicioCo")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idServicioC"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdServicioCo"), 1L, 1);
+
+                    b.Property<string>("CausaFalla")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FechaE")
                         .HasColumnType("nvarchar(max)");
@@ -570,8 +600,26 @@ namespace ServicioMontacargas.Migrations
                     b.Property<string>("FechaR")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("IdSalidaA")
+                    b.Property<string>("FechaReg")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirmaC")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirmaJ")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IdClientes")
                         .HasColumnType("int");
+
+                    b.Property<int>("IdMontacargas")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NombreC")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NombreJ")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Refacciones")
                         .HasColumnType("nvarchar(max)");
@@ -585,13 +633,15 @@ namespace ServicioMontacargas.Migrations
                     b.Property<int>("TareaId")
                         .HasColumnType("int");
 
-                    b.HasKey("idServicioC");
+                    b.HasKey("IdServicioCo");
 
-                    b.HasIndex("IdSalidaA");
+                    b.HasIndex("IdClientes");
+
+                    b.HasIndex("IdMontacargas");
 
                     b.HasIndex("TareaId");
 
-                    b.ToTable("ServicioCModel");
+                    b.ToTable("ServicioCoModel");
                 });
 
             modelBuilder.Entity("ServicioMontacargas.Models.ServicioPModel", b =>
@@ -641,9 +691,6 @@ namespace ServicioMontacargas.Migrations
                     b.Property<string>("CablesB")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Cantidad")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("CapuchoBujia")
                         .HasColumnType("nvarchar(max)");
 
@@ -663,9 +710,6 @@ namespace ServicioMontacargas.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CubiertaP")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Descripcion")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Distribuidor")
@@ -779,9 +823,6 @@ namespace ServicioMontacargas.Migrations
                     b.Property<string>("NivelLiquidoF")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NoParte")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("NombreC")
                         .HasColumnType("nvarchar(max)");
 
@@ -886,11 +927,14 @@ namespace ServicioMontacargas.Migrations
                     b.Property<int?>("ServicioCModelidServicioC")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ServicioCoModelIdServicioCo")
+                        .HasColumnType("int");
+
                     b.HasKey("TareaId");
 
                     b.HasIndex("ComponenteId");
 
-                    b.HasIndex("ServicioCModelidServicioC");
+                    b.HasIndex("ServicioCoModelIdServicioCo");
 
                     b.ToTable("Tarea");
                 });
@@ -964,6 +1008,17 @@ namespace ServicioMontacargas.Migrations
                     b.Navigation("ServicioPModel");
                 });
 
+            modelBuilder.Entity("ServicioMontacargas.Models.ProductoSCo", b =>
+                {
+                    b.HasOne("ServicioMontacargas.Models.ServicioCoModel", "ServicioCoModel")
+                        .WithMany("Productos")
+                        .HasForeignKey("ServicioCoModelIdServicioCo")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ServicioCoModel");
+                });
+
             modelBuilder.Entity("ServicioMontacargas.Models.SalidaItem", b =>
                 {
                     b.HasOne("ServicioMontacargas.Models.AlmacenModel", "Almacen")
@@ -1004,11 +1059,17 @@ namespace ServicioMontacargas.Migrations
                     b.Navigation("Montacargas");
                 });
 
-            modelBuilder.Entity("ServicioMontacargas.Models.ServicioCModel", b =>
+            modelBuilder.Entity("ServicioMontacargas.Models.ServicioCoModel", b =>
                 {
-                    b.HasOne("ServicioMontacargas.Models.SalidaModel", "Salidas")
+                    b.HasOne("ServicioMontacargas.Models.ClientesModel", "Clientes")
                         .WithMany()
-                        .HasForeignKey("IdSalidaA")
+                        .HasForeignKey("IdClientes")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ServicioMontacargas.Models.MontacargasModel", "Montacargas")
+                        .WithMany()
+                        .HasForeignKey("IdMontacargas")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1018,7 +1079,9 @@ namespace ServicioMontacargas.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Salidas");
+                    b.Navigation("Clientes");
+
+                    b.Navigation("Montacargas");
 
                     b.Navigation("Tareas");
                 });
@@ -1050,9 +1113,9 @@ namespace ServicioMontacargas.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ServicioMontacargas.Models.ServicioCModel", null)
+                    b.HasOne("ServicioMontacargas.Models.ServicioCoModel", null)
                         .WithMany("TareasSeleccionadas")
-                        .HasForeignKey("ServicioCModelidServicioC");
+                        .HasForeignKey("ServicioCoModelIdServicioCo");
 
                     b.Navigation("Componente");
                 });
@@ -1067,8 +1130,10 @@ namespace ServicioMontacargas.Migrations
                     b.Navigation("SalidaItems");
                 });
 
-            modelBuilder.Entity("ServicioMontacargas.Models.ServicioCModel", b =>
+            modelBuilder.Entity("ServicioMontacargas.Models.ServicioCoModel", b =>
                 {
+                    b.Navigation("Productos");
+
                     b.Navigation("TareasSeleccionadas");
                 });
 

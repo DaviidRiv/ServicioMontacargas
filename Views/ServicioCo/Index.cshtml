@@ -1,0 +1,230 @@
+﻿@model IEnumerable<ServicioMontacargas.Models.ServicioCoModel>
+
+@{
+    ViewData["Title"] = "Lista Servicios C";
+}
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <h1>Lista Servicios Correctivos</h1>
+    <div>
+        @if (TempData["FailServicioC"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["FailServicioC"]
+            </div>
+        }
+        @if (TempData["ExitoServicioC"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["ExitoServicioC"]
+            </div>
+        }
+    </div>
+    <p>
+        <div class="d-flex justify-content">
+            <a class="btn btn-primary" asp-action="Create">Agregar Nuevo</a>
+        </div>
+    </p>
+    <div class="table-responsive-sm">
+        <table class="table table-striped table-hover" id="tb_checklist" style="width:100%">
+            <thead class="table-dark">
+                <tr>
+                    <th>
+                        Folio
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Montacargas)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Clientes)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FechaReg)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FechaR)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FechaE)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Tareas)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CausaFalla)
+                    </th>
+                    <th>
+                        Refacciones Utilizadas<br />
+                        Cantidad
+                    </th>
+                    <th>No. Parte</th>
+                    <th>Descripción</th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Refacciones)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ServicioD)
+                    </th>                    
+                    <th>
+                        @Html.DisplayNameFor(model => model.NombreJ)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NombreC)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                    <th>
+                        Opciones
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FolioSC)
+                        </td>
+                        <td>
+                            <a asp-controller="Montacarga" asp-action="Details" asp-route-id="@item.IdMontacargas">
+                                @Html.DisplayFor(modelItem => item.Montacargas.NumeroEconomico)
+                            </a>
+                        </td>
+                        <td>
+                            <a asp-controller="Clientes" asp-action="Details" asp-route-id="@item.IdClientes">
+                                @Html.DisplayFor(modelItem => item.Clientes.Nombre)
+                            </a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FechaReg)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FechaR)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FechaE)
+                        </td>
+                        <td>
+                            @foreach (var tarea in item.TareasSeleccionadas)
+                            {
+                                <div style="text-align:left">@tarea.Descripcion</div>
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CausaFalla)
+                        </td>
+                        <td>
+                            @foreach (var producto in item.Productos)
+                            {
+                                <div>
+                                    <a>@producto.Cantidad</a>
+                                </div>
+                            }
+                        </td>
+                        <td>
+                            @foreach (var producto in item.Productos)
+                            {
+                                <div>
+                                    <a>@producto.NoParte</a>
+                                </div>
+                            }
+                        </td>
+                        <td>
+                            @foreach (var producto in item.Productos)
+                            {
+                                <div>
+                                    <a>@producto.Descripcion</a>
+                                </div>
+                            }
+                        </td>
+                                               
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Refacciones)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ServicioD)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NombreJ)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NombreC)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.IdServicioCo"><iconify-icon icon="bi:pencil-square"></iconify-icon></a>
+                            <a asp-action="Details" asp-route-id="@item.IdServicioCo"><iconify-icon icon="bi:eye-fill"></iconify-icon></a>
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#eliminarUsuario-@item.IdServicioCo" data-original-title="Eliminar"><iconify-icon icon="bi:trash3-fill"></iconify-icon></a>
+                            <a href="#" id="generatePdfLink" data-id="@item.IdServicioCo">
+                                <iconify-icon icon="bxs:file-pdf"></iconify-icon>
+                            </a>
+                        </td>
+                    </tr>
+                    <!-- Modal -->
+                    <div class="modal fade" id="eliminarUsuario-@item.IdServicioCo" tabindex="-1" aria-hidden="true" style="width:100%; top:50px;">
+                        <div class="modal-dialog modal-contenedor">
+                            <div class="modal-content contenedor-eliminar">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Eliminar Servicio Correctivo</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                </div>
+                                <div class="modal-body">
+                                    ¿Estas seguro que desea eliminar este Servicio Correctivo?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <a asp-controller="ServicioCo" asp-action="DeleteConfirmed" asp-route-id="@item.IdServicioCo" class="btn btn-danger">Eliminar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </tbody>
+        </table>
+    </div>
+    @section Scripts {
+        <script>
+            $(document).on('click', '#generatePdfLink', function (e) {
+                e.preventDefault();
+                var id = $(this).data('id');
+                generatePdf(id);
+            });
+
+            function generatePdf(id) {
+                // Realiza una solicitud AJAX para obtener los datos necesarios
+                $.ajax({
+                    url: '/ServicioCo/ServicioCPDF?id=' + id,
+                    method: 'GET',
+                    success: function (data) {
+                        // Llama a la función para generar el PDF con los datos obtenidos
+                        generatePdfFromData(data, id);
+                    },
+                    error: function (error) {
+                        console.error('Error al obtener los datos:', error);
+                    }
+                });
+            }
+
+            function generatePdfFromData(data, id) {
+                // Crea un elemento temporal para contener los datos de la vista
+                var tempDiv = document.createElement('div');
+                tempDiv.innerHTML = data;
+
+                // Llama a html2pdf para generar el PDF
+                html2pdf(tempDiv, {
+                    margin: 5,
+                    filename: 'Servicio Correctivo ' + id + '.pdf',
+                });
+            }
+        </script>
+    }
+</body>
+

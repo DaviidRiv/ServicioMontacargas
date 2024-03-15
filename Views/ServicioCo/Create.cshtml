@@ -1,0 +1,313 @@
+﻿@model ServicioMontacargas.Models.ServicioCoModel
+
+@{
+    ViewData["Title"] = "Servicio Correctivo";
+}
+<head>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature-pad.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js"></script>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+</head>
+<h1>Nuevo Servicio Correctivo</h1>
+@if (TempData.ContainsKey("ExitoServicioC"))
+{
+    <script>
+        alert("@TempData["ExitoServicioC"]");
+    </script>
+}
+@if (TempData.ContainsKey("FailServicioC"))
+{
+    <script>
+        alert("@TempData["FailServicioC"]");
+    </script>
+}
+<hr />
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="IdMontacargas" class="control-label"></label>
+                <select asp-for="IdMontacargas" class="form-select" asp-items="ViewBag.IdMontacargas"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdClientes" class="control-label"></label>
+                <select asp-for="IdClientes" class="form-select" asp-items="ViewBag.IdClientes" required></select>
+            </div>
+
+            <select asp-for="TareaId" asp-items="@ViewBag.TareaId" style="display: none;"></select>
+
+            <div class="form-group">
+                <label name="ComponenteId" class="control-label">Componente</label>
+                <select name="ComponenteId" class="form-select" id="ComponenteId" asp-items="ViewBag.ComponenteId">
+                    <option value="" selected disabled>Componente.</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label name="ComponenteId" class="control-label">Tareas</label>
+                <select name="ComponenteId" class="form-select" id="tarea-select">
+                    <option value="" selected disabled>Selecciona un componente.</option>
+                </select>
+                <div style="text-align:right"><br />
+                    <button type="button" id="agregar-tarea" class="btn btn-success">Agregar Tarea</button>
+                </div>
+                <span name="ComponenteId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CausaFalla" class="control-label"></label>
+                <textarea asp-for="CausaFalla" class="form-control" rows="7" required> </textarea>
+                <span asp-validation-for="CausaFalla" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="FechaR" class="control-label"></label>
+                <input type="datetime-local" asp-for="FechaR" class="form-control" />
+                <span asp-validation-for="FechaR" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Refacciones" class="control-label"></label>
+                <select asp-for="Refacciones" class="form-select" required>
+                    <option value="Si">Si</option>
+                    <option value="No">No</option>
+                    <option value="N/A">N/A</option>
+                </select>
+                <span asp-validation-for="Refacciones" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="FirmaJ" class="control-label"></label>
+                <div>
+                    <canvas id="signatureCanvas" width="400" height="200" style="border: solid 1px;" required></canvas>
+                    <button type="button" onclick="clearSignature()">Borrar Firma</button>
+                    <input type="hidden" asp-for="FirmaJ" id="hiddenFirmaJacsa" required />
+                </div>
+                <span asp-validation-for="FirmaJ" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NombreJ" class="control-label"></label>
+                <input asp-for="NombreJ" class="form-control" required />
+                <span asp-validation-for="NombreJ" class="text-danger"></span>
+            </div>
+
+
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <select asp-for="Status" class="form-select" required>
+                    <option value="Entrega">Entrega</option>
+                    <option value="Mantenimiento">Mantenimiento</option>
+                    <option value="Revisión">Revisión</option>
+                    <option value="Finalizado">Finalizado</option>
+                </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaReg" class="control-label"></label>
+                <input type="datetime-local" asp-for="FechaReg" class="form-control" required />
+                <span asp-validation-for="FechaReg" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="tareas-seleccionadas" class="control-label">Tareas Seleccionadas</label>
+                <select id="tareas-seleccionadas" class="form-select" style="height:180px;" multiple>
+                </select>
+                <div style="text-align:right"><br />
+                    <button type="button" id="quitar-tarea" class="btn btn-danger">Quitar Tarea</button>
+                </div>
+            </div>
+            <h5>Refaccion Utilizadas</h5>
+            <div id="productos-container">
+                <div class="row producto">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Cantidad</label>
+                            <input name="Productos[0].Cantidad" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">No. de Parte</label>
+                            <input name="Productos[0].NoParte" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="control-label">Descripción</label>
+                            <input name="Productos[0].Descripcion" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <br />
+                        <button type="button" class="btn btn-danger eliminar-producto"><i class="bi bi-x"></i></button>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <button id="agregar-producto" type="button" class="btn btn-secondary">Agregar Producto</button>
+            <br />
+            <div class="form-group">
+                <label asp-for="FechaE" class="control-label"></label>
+                <input type="datetime-local" asp-for="FechaE" class="form-control" />
+                <span asp-validation-for="FechaE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ServicioD" class="control-label"></label>
+                <select asp-for="ServicioD" class="form-select" required>
+                    <option value="Si">Si</option>
+                    <option value="No">No</option>
+                    <option value="N/A">N/A</option>
+                </select>
+                <span asp-validation-for="ServicioD" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FirmaC" class="control-label"></label>
+                <div>
+                    <canvas id="signatureCanvas2" width="400" height="200" style="border: solid 1px;" required></canvas>
+                    <button type="button" onclick="clearSignature2()">Borrar Firma</button>
+                    <input type="hidden" asp-for="FirmaC" id="hiddenFirmaCliente" required />
+                </div>
+                <span asp-validation-for="FirmaC" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NombreC" class="control-label"></label>
+                <input asp-for="NombreC" class="form-control" required />
+                <span asp-validation-for="NombreC" class="text-danger"></span>
+            </div>
+        </div>
+        <input type="hidden" id="tareas-seleccionadas-hidden" name="TareasSeleccionadas" />
+        <div class="form-group">
+            <br />
+            <center>
+                <input type="submit" value="Crear" class="btn btn-success" />
+            </center>
+        </div>
+    </div>
+</form>
+
+
+<div>
+    <br />
+    <a asp-action="Index"><iconify-icon icon="bi:arrow-left-circle-fill"></iconify-icon> Regresar</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+            $(document).ready(function () {
+                $('#agregar-tarea').click(function () {
+                    var tareaId = $('#tarea-select').val();
+                    var tareaTexto = $('#tarea-select option:selected').text();
+                    $('#tareas-seleccionadas').append($('<option>', {
+                        value: tareaId,
+                        text: tareaTexto
+                    }));
+                    actualizarTareasSeleccionadas();
+                });
+
+                $('#quitar-tarea').click(function () {
+                    $('#tareas-seleccionadas option:selected').remove();
+                    actualizarTareasSeleccionadas();
+                });
+
+                $('#ComponenteId').change(function () {
+                    var componenteId = $(this).val();
+
+                    $.ajax({
+                        url: '@Url.Action("GetTareasByComponenteId", "ServicioCo")',
+                        type: 'GET',
+                        data: { componenteId: componenteId },
+                        success: function (data) {
+                            $('#tarea-select').empty();
+                            $.each(data, function (index, tarea) {
+                                $('#tarea-select').append($('<option>', {
+                                    value: tarea.value,
+                                    text: tarea.text
+                                }));
+                            });
+                            // Al actualizar las opciones de tareas, también actualizamos el campo oculto
+                            actualizarTareasSeleccionadas();
+                        }
+                    });
+                });
+            });
+
+            function actualizarTareasSeleccionadas() {
+                // Creamos un array para almacenar los valores de las tareas seleccionadas
+                var tareasSeleccionadas = [];
+                $('#tareas-seleccionadas option').each(function () {
+                    tareasSeleccionadas.push($(this).val());
+                });
+                // Actualizamos el campo oculto con los valores de las tareas seleccionadas
+                $('#tareas-seleccionadas-hidden').val(tareasSeleccionadas.join(','));
+            }
+
+        </script>
+    <script>
+        var canvas = new SignaturePad(document.getElementById('signatureCanvas'), {
+            backgroundColor: 'rgb(255, 255, 255)',
+            penColor: 'rgb(0, 0, 0)'
+        });
+
+        var canvas2 = new SignaturePad(document.getElementById('signatureCanvas2'), {
+            backgroundColor: 'rgb(255, 255, 255)',
+            penColor: 'rgb(0, 0, 0)'
+        });
+
+        function clearSignature() {
+            canvas.clear();
+            document.getElementById('hiddenFirmaJacsa').value = '';
+        }
+
+        function clearSignature2() {
+            canvas2.clear();
+            document.getElementById('hiddenFirmaCliente').value = '';
+        }
+
+        canvas.onEnd = function () {
+            document.getElementById('hiddenFirmaJacsa').value = canvas.toDataURL();
+        };
+
+        canvas2.onEnd = function () {
+            document.getElementById('hiddenFirmaCliente').value = canvas2.toDataURL();
+        };
+    </script>
+    <script>
+        $(document).ready(function () {
+            var contador = 0;
+
+            $('#agregar-producto').click(function () {
+                contador++;
+                var nuevoProducto = $('.producto:first').clone();
+                nuevoProducto.find('input').val('');
+                nuevoProducto.find('input').each(function () {
+                    var nombre = $(this).attr('name').replace('[0]', '[' + contador + ']');
+                    $(this).attr('name', nombre);
+                });
+                nuevoProducto.find('.eliminar-producto').click(function () {
+                    $(this).closest('.producto').remove();
+                });
+                $('#productos-container').append(nuevoProducto);
+            });
+
+            $('.eliminar-producto').click(function () {
+                $(this).closest('.producto').remove();
+                $('.producto').each(function (index) {
+                    $(this).find('input').each(function () {
+                        var nombre = $(this).attr('name').replace(/\[\d+\]/, '[' + index + ']');
+                        $(this).attr('name', nombre);
+                    });
+                });
+                contador--;
+            });
+        });
+    </script>
+}

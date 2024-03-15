@@ -1,0 +1,132 @@
+﻿@model ServicioMontacargas.Models.ServicioCoModel
+
+@{
+    ViewData["Title"] = "Detalles Servicio P";
+}
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+</head>
+<h1>Detalles Servicio Correctivo - @Model.FolioSC</h1>
+<hr />
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Montacargas)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Montacargas.DisplayInfoMntCrg)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Clientes)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Clientes.Nombre)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaReg)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FechaReg)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaR)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FechaR)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaE)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FechaE)
+        </dd>
+
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Tareas)
+        </dt>
+        <dd class = "col-sm-10">
+            <ul>
+                @foreach (var tarea in Model.TareasSeleccionadas)
+                {
+                    <li>@tarea.Descripcion</li>
+                }
+            </ul>
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CausaFalla)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CausaFalla)
+        </dd>
+        <dt class="col-sm-2">
+            Refacciones Utilizadas
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Productos != null && Model.Productos.Count > 0)
+            {
+                <ul>
+                    @foreach (var producto in Model.Productos)
+                    {
+                        <li>
+                            <strong>Cantidad:</strong> @producto.Cantidad<br />
+                            <strong>No. de Parte:</strong> @producto.NoParte<br />
+                            <strong>Descripción:</strong> @producto.Descripcion<br />
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>No hay productos asociados.</p>
+            }
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Refacciones)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Refacciones)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ServicioD)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ServicioD)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FirmaJ)
+        </dt>
+        <dd class="col-sm-10">
+            <img src="@Html.DisplayFor(model => model.FirmaJ)" alt="Firma Jacsa" width="90" height="90" />
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NombreJ)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NombreJ)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FirmaC)
+        </dt>
+        <dd class="col-sm-10">
+            <img src="@Html.DisplayFor(model => model.FirmaC)" alt="Firma Cliente" width="90" height="90" />
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NombreC)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NombreC)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.IdServicioCo"><iconify-icon icon="bi:pencil-square"></iconify-icon> Editar</a> |
+    <a asp-action="Index"><iconify-icon icon="bi:arrow-left-circle-fill"></iconify-icon> Regresar</a>
+</div>
