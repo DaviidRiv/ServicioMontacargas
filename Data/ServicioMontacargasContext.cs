@@ -41,6 +41,7 @@ namespace ServicioMontacargas.Data
         public DbSet<ServicioMontacargas.Models.ServicioPModel>? ServicioPModel { get; set; }
         public DbSet<ServicioMontacargas.Models.Producto>? Producto { get; set; }
         public DbSet<ServicioMontacargas.Models.ServicioCoModel>? ServicioCoModel { get; set; }
+        public DbSet<ServicioMontacargas.Models.ProductoSCo>? ProductoSCo { get; set; }
 
     }
 }

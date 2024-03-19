@@ -94,7 +94,6 @@ namespace ServicioMontacargas.Controllers
             }
 
             var productos = await _context.Producto.Where(p => p.ServicioPModelIdServicioP == id).ToListAsync();
-
             ViewData["Productos"] = productos;
 
             ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "Nombre", servicioPModel.IdClientes);

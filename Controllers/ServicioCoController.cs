@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Versioning;
 using ServicioMontacargas.Data;
 using ServicioMontacargas.Models;
 
@@ -136,15 +137,27 @@ namespace ServicioMontacargas.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "IdClientes", servicioCoModel.IdClientes);
-            ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "IdMontacargas", servicioCoModel.IdMontacargas);
+
+            var productosCo = await _context.ProductoSCo.Where(p => p.ServicioCoModelIdServicioCo == id).ToListAsync();
+            ViewData["ProductosCo"] = productosCo;
+
+            ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "Nombre", servicioCoModel.IdClientes);
+            ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "DisplayInfoMntCrg", servicioCoModel.IdMontacargas);
             ViewData["TareaId"] = new SelectList(_context.Tarea, "TareaId", "TareaId", servicioCoModel.TareaId);
+            ViewData["ComponenteId"] = new SelectList(
+                                       _context.Tarea
+                                           .Select(t => t.ComponenteId)
+                                           .Distinct()
+                                           .Join(_context.ProcesosCorrectivoModel, tareaComponenteId => tareaComponenteId, procesoComponenteId => procesoComponenteId.ComponenteId, (tareaComponenteId, procesoComponenteId) => new { TareaComponenteId = tareaComponenteId, ProcesoComponenteNombre = procesoComponenteId.Nombre }),
+                                       "TareaComponenteId",
+                                       "ProcesoComponenteNombre"
+                                   );
             return View(servicioCoModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdServicioCo,IdClientes,TareaId,CausaFalla,IdMontacargas,FechaReg,FechaR,FechaE,Refacciones,ServicioD,FirmaJ,FirmaC,NombreJ,NombreC,Status")] ServicioCoModel servicioCoModel)
+        public async Task<IActionResult> Edit(int id, ServicioCoModel servicioCoModel, string tareasseleccionadas, List<ProductoSCo> productos)
         {
             if (id != servicioCoModel.IdServicioCo)
             {
@@ -171,9 +184,17 @@ namespace ServicioMontacargas.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "IdClientes", servicioCoModel.IdClientes);
-            ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "IdMontacargas", servicioCoModel.IdMontacargas);
+            ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "Nombre", servicioCoModel.IdClientes);
+            ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "DisplayInfoMntCrg", servicioCoModel.IdMontacargas);
             ViewData["TareaId"] = new SelectList(_context.Tarea, "TareaId", "TareaId", servicioCoModel.TareaId);
+            ViewData["ComponenteId"] = new SelectList(
+                                       _context.Tarea
+                                           .Select(t => t.ComponenteId)
+                                           .Distinct()
+                                           .Join(_context.ProcesosCorrectivoModel, tareaComponenteId => tareaComponenteId, procesoComponenteId => procesoComponenteId.ComponenteId, (tareaComponenteId, procesoComponenteId) => new { TareaComponenteId = tareaComponenteId, ProcesoComponenteNombre = procesoComponenteId.Nombre }),
+                                       "TareaComponenteId",
+                                       "ProcesoComponenteNombre"
+                                   );
             return View(servicioCoModel);
         }
 
