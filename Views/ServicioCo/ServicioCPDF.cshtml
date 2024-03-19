@@ -22,14 +22,14 @@
                 <h5 style="text-align:center">Tel 444 166 1000</h5>
             </td>
         </tr>
-    </table>
+    </table><br />
     <table style="width: 100%; border: none;">
         <tr>
-            <td style="border: none; color: darkblue; vertical-align: top; line-height: 1; font-size:20px; width:50%; text-align:left">
+            <td style="border: none; color: darkblue; vertical-align: top; line-height: 0; font-size:20px; width:30%; text-align:left">
                 <br /><br />
                 <p><strong>Reporte de Servicio Correctivo</strong></p>
             </td>
-            <td style="border: none; vertical-align: top; line-height: 1; font-size:20px; width:50%; text-align:right">
+            <td style="border: none; vertical-align: top; line-height: 0; font-size:20px; width:70%; text-align:right">
                 <br /><br />
                 <a>Orden de Servicio No. </a> <a style="color: red;"> @Model.FolioSC </a>
             </td>
@@ -37,19 +37,18 @@
     </table>
     <table style="width: 100%; border: none;">
         <tr>
-            <td style="border: none; vertical-align: top; line-height: 1; font-size:18px; width:50%; text-align:left; text-align:left">
+            <td style="border: none; vertical-align: top; line-height: 0; font-size:18px; width:50%; text-align:left; text-align:left">
                 <br /><br />
                 <h5>Cliente : @Model.Clientes.Nombre</h5>
             </td>
-            <td style="border: none; vertical-align: top; line-height: 1; font-size:18px; width:50%; text-align:left; text-align:right">
+            <td style="border: none; vertical-align: top; line-height: 0; font-size:18px; width:50%; text-align:left; text-align:right">
                 <br /><br />
                 <h5>Fecha Registro: @Model.FechaReg</h5>
             </td>
         </tr>
     </table>
-    <br />
 
-    <h6>Tareas Asignadas:</h6>
+    <a style="font-size:15px">Tareas Asignadas:</a>
     <table style="width: 100%; border: none;">
         <tr>
             <td style="border: none; vertical-align: top; line-height: 1; font-size:15px; width:100%; text-align:left">
@@ -64,19 +63,18 @@
             </td>
         </tr>
     </table>
-    <br />
 
-    <h6>Refacciones Utilizadas:</h6>
-    <table style="width: 100%; margin-top:20px;" border="1">
+    <a style="font-size:15px">Refacciones Utilizadas:</a>
+    <table style="width: 100%; margin-top:5px;" border="1">
         <thead>
             <tr>
-                <th style="text-align: center; width: 20%; border: solid 1px">
+                <th style="text-align: center; width: 20%; border: solid 1px; font-size:15px">
                     Cantidad
                 </th>
-                <th style="text-align: center; width: 30%; border: solid 1px">
+                <th style="text-align: center; width: 30%; border: solid 1px; font-size:15px">
                     No. de Parte
                 </th>
-                <th style="text-align: center; width: 50%; border: solid 1px">
+                <th style="text-align: center; width: 50%; border: solid 1px; font-size:15px">
                     Descripcion
                 </th>
             </tr>
@@ -85,37 +83,36 @@
             @foreach (var producto in Model.Productos)
             {
                 <tr>
-                    <td style="text-align: center; width: 20%; border: solid 1px">
+                    <td style="text-align: center; width: 20%; border: solid 1px; font-size:15px">
                         @producto.Cantidad
                     </td>
-                    <td style="text-align: center; width: 30%; border: solid 1px">
+                    <td style="text-align: center; width: 30%; border: solid 1px; font-size:15px">
                         @producto.NoParte
                     </td>
-                    <td style="text-align: center; width: 50%; border: solid 1px">
+                    <td style="text-align: center; width: 50%; border: solid 1px; font-size:15px">
                         @producto.Descripcion
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+    <br />
     <table style="width: 100%; border: none;">
         <tr>
             <td style="border: none; vertical-align: top; line-height: 1; font-size:15px; ">
-                <br /><br />
-                <p style="text-align:left;"><strong>DATOS DE MONTACARGAS</strong></p>
-                <p style="text-align:left;">Marca: @Model.Montacargas.Marca</p>
-                <p style="text-align:left;">Modelo: @Model.Montacargas.Modelo</p>
-                <p style="text-align:left;">Serie: @Model.Montacargas.NumeroSerie</p>
-                <p style="text-align:left;">No Económico: @Model.Montacargas.NumeroEconomico</p>
-                <p style="text-align:left;">Horometro: @Model.Montacargas.Horometro</p>
+                <div style="text-align:left;"><strong>DATOS DE MONTACARGAS</strong></div>
+                <div style="text-align:left;">Marca: @Model.Montacargas.Marca</div>
+                <div style="text-align:left;">Modelo: @Model.Montacargas.Modelo</div>
+                <div style="text-align:left;">Serie: @Model.Montacargas.NumeroSerie</div>
+                <div style="text-align:left;">No Económico: @Model.Montacargas.NumeroEconomico</div>
+                <div style="text-align:left;">Horometro: @Model.Montacargas.Horometro</div>
             </td>
             <td style="border: none; vertical-align: top; line-height: 1; font-size:15px; width:50%;">
                 <br /><br />
-                <br /><br />
-                <p style="text-align:left;">Hora de Recepcion de Equipo: @Model.FechaR</p>
-                <p style="text-align:left;">Hora de Entrega de Equipo: @Model.FechaE</p>
-                <p style="text-align:left;">Entregan Refacciones Remplazadas : @Model.Refacciones</p>
-                <p style="text-align:left;">Servicio en el Domicilio del Cliente : @Model.ServicioD</p>
+                <div style="text-align:left;">Hora de Recepcion de Equipo: @Model.FechaR</div>
+                <div style="text-align:left;">Hora de Entrega de Equipo: @Model.FechaE</div>
+                <div style="text-align:left;">Entregan Refacciones Remplazadas : @Model.Refacciones</div>
+                <div style="text-align:left;">Servicio en el Domicilio del Cliente : @Model.ServicioD</div>
             </td>
         </tr>
     </table>
@@ -123,9 +120,6 @@
         <tr>
             <td style="text-align: center; padding: 10px; width: 50%">
                 <dl>
-                    <br />
-                    <br />
-                    <br />
                     @{
                         @if (Model.FirmaJ != null)
                         {
@@ -150,9 +144,6 @@
             </td>
             <td style="text-align: center; width: 50%; padding: 10px">
                 <dl>
-                    <br />
-                    <br />
-                    <br />
                     @{
                         @if (Model.FirmaC != null)
                         {
