@@ -120,29 +120,32 @@ namespace ServicioMontacargas.Controllers
                         .Where(p => p.ServicioPModelIdServicioP == id)
                         .ToListAsync();
 
-                    // Iterar sobre los productos existentes
-                    foreach (var productoExistente in productosAsociados)
+                    // Actualizar productos existentes y agregar nuevos productos
+                    foreach (var producto in productos)
                     {
-                        // Verificar si el producto existente está en la lista recibida
-                        var productoEnSolicitud = productos.FirstOrDefault(np => np.idProductoSP == productoExistente.idProductoSP);
-
-                        // Si el producto existente no está en la lista recibida, eliminarlo
-                        if (productoEnSolicitud == null)
+                        if (producto.idProductoSP != 0)
                         {
-                            _context.Producto.Remove(productoExistente);
-                        }
-                    }
-
-                    // Actualizar o agregar nuevos productos
-                    foreach (var nuevoProducto in productos)
-                    {
-                        if (nuevoProducto.idProductoSP != 0)
-                        {
-                            _context.Update(nuevoProducto);
+                            var existingProduct = await _context.Producto.FindAsync(producto.idProductoSP);
+                            if (existingProduct != null)
+                            {
+                                _context.Entry(existingProduct).CurrentValues.SetValues(producto);
+                            }
                         }
                         else
                         {
-                            servicioPModel.Productos.Add(nuevoProducto);
+                            servicioPModel.Productos.Add(producto);
+                        }
+
+                        // Aplicar cambios en el modelo ServicioPModel
+                        _context.Entry(servicioPModel).State = EntityState.Modified;
+                    }
+
+                    // Eliminar productos que ya no están presentes en la vista de edición
+                    foreach (var productoExistente in productosAsociados)
+                    {
+                        if (!productos.Any(p => p.idProductoSP == productoExistente.idProductoSP))
+                        {
+                            _context.Producto.Remove(productoExistente);
                         }
                     }
 
@@ -165,7 +168,6 @@ namespace ServicioMontacargas.Controllers
             ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "DisplayInfoMntCrg", servicioPModel.IdMontacargas);
             return View(servicioPModel);
         }
-
 
         public async Task<IActionResult> Delete(int? id)
         {

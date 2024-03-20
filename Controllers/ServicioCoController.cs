@@ -166,8 +166,48 @@ namespace ServicioMontacargas.Controllers
 
             if (ModelState.IsValid)
             {
+                
                 try
                 {
+                    var productosAsociados = await _context.ProductoSCo
+                        .Where(p => p.ServicioCoModelIdServicioCo == id)
+                        .ToListAsync();
+
+                    // Actualizar productos existentes y agregar nuevos productos
+                    foreach (var producto in productos)
+                    {
+                        if (producto.idProductoSP != 0)
+                        {
+                            var existingProduct = await _context.ProductoSCo.FindAsync(producto.idProductoSP);
+                            if (existingProduct != null)
+                            {
+                                _context.Entry(existingProduct).CurrentValues.SetValues(producto);
+                            }
+                        }
+                        else
+                        {
+                            servicioCoModel.Productos.Add(producto);
+                        }
+
+                        // Aplicar cambios en el modelo ServicioPModel
+                        _context.Entry(servicioCoModel).State = EntityState.Modified;
+                    }
+
+                    // Eliminar productos que ya no están presentes en la vista de edición
+                    foreach (var productoExistente in productosAsociados)
+                    {
+                        if (!productos.Any(p => p.idProductoSP == productoExistente.idProductoSP))
+                        {
+                            _context.ProductoSCo.Remove(productoExistente);
+                        }
+                    }
+
+                    // Actualizar las tareas seleccionadas del servicioCModel
+                    if (!string.IsNullOrEmpty(tareasseleccionadas))
+                    {
+                        var tareaIds = tareasseleccionadas.Split(',').Select(int.Parse).ToList();
+                        servicioCoModel.TareasSeleccionadas = await _context.Tarea.Where(t => tareaIds.Contains(t.TareaId)).ToListAsync();
+                    }
                     _context.Update(servicioCoModel);
                     await _context.SaveChangesAsync();
                 }

@@ -126,32 +126,29 @@
                 </div>
                 <h5>Refaccion Utilizadas</h5>
                 <div id="productos-container">
-                    @foreach (var producto in (List<ProductoSCo>)ViewData["ProductosCo"])
+                    @if (Model.Productos != null)
                     {
-                        <div class="row producto">
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label class="control-label">Cantidad</label>
-                                    <input name="Productos[@producto.idProductoSP].Cantidad" value="@producto.Cantidad" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="control-label">No. de Parte</label>
-                                    <input name="Productos[@producto.idProductoSP].NoParte" value="@producto.NoParte" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <label class="control-label">Descripción</label>
-                                    <input name="Productos[@producto.idProductoSP].Descripcion" value="@producto.Descripcion" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="col-md-1">
-                                <br />
+                        @for (var i = 0; i < Model.Productos.Count; i++)
+                        {
+                            <div class="producto">
+                                <input type="hidden" name="Productos[@i].idProductoSP" value="@Model.Productos[i].idProductoSP" />
+                                @Html.EditorFor(model => Model.Productos[i].Cantidad)
+                                @Html.EditorFor(model => Model.Productos[i].NoParte)
+                                @Html.EditorFor(model => Model.Productos[i].Descripcion)
                                 <button type="button" class="btn btn-danger eliminar-producto"><i class="bi bi-x"></i></button>
-
+                                <input type="hidden" name="Productos[@i].ServicioCoModelIdServicioCo" value="@Model.Productos[i].ServicioCoModelIdServicioCo" />
                             </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="producto">
+                            <input type="hidden" name="Productos[0].idProductoSP" value="" />
+                            <input type="number" name="Productos[0].Cantidad" value="" />
+                            <input type="text" name="Productos[0].NoParte" value="" />
+                            <input type="text" name="Productos[0].Descripcion" value="" />
+                            <button type="button" class="btn btn-danger eliminar-producto"><i class="bi bi-x"></i></button>
+                            <input type="hidden" name="Productos[0].ServicioCoModelIdServicioCo" value="" />
                         </div>
                     }
                 </div>
@@ -200,14 +197,14 @@
 
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <br />
+    <a asp-action="Index"><iconify-icon icon="bi:arrow-left-circle-fill"></iconify-icon> Regresar</a>
 </div>
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-
     <script>
         $(document).ready(function () {
             $('#agregar-tarea').click(function () {
@@ -289,14 +286,13 @@
     </script>
     <script>
         $(document).ready(function () {
-            var contador = 0;
-
             $('#agregar-producto').click(function () {
-                contador++;
+                var contador = $('.producto').length;
                 var nuevoProducto = $('.producto:first').clone();
                 nuevoProducto.find('input').val('');
                 nuevoProducto.find('input').each(function () {
-                    var nombre = $(this).attr('name').replace('[0]', '[' + contador + ']');
+                    var nombre = $(this).attr('name').replace(/\[\d+\]/, '[' + contador + ']');
+                    nombre = nombre.replace('Productos[0].', 'Productos[' + contador + '].'); // Agregar el prefijo 'Productos' con el índice
                     $(this).attr('name', nombre);
                 });
                 nuevoProducto.find('.eliminar-producto').click(function () {
@@ -305,15 +301,8 @@
                 $('#productos-container').append(nuevoProducto);
             });
 
-            $('.eliminar-producto').click(function () {
+            $(document).on('click', '.eliminar-producto', function () {
                 $(this).closest('.producto').remove();
-                $('.producto').each(function (index) {
-                    $(this).find('input').each(function () {
-                        var nombre = $(this).attr('name').replace(/\[\d+\]/, '[' + index + ']');
-                        $(this).attr('name', nombre);
-                    });
-                });
-                contador--;
             });
         });
     </script>

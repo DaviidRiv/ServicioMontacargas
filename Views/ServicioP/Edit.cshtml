@@ -18,7 +18,7 @@
         <div class="alert alert-danger">@TempData["FailEditSP"]</div>
     }
     <hr />
-    <form asp-action="Edit">
+    <form id="form-edit" asp-action="Edit">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="IdServicioP" />
         <input type="hidden" name="id" value="@Model.IdServicioP" />
@@ -817,31 +817,29 @@
         </div>
         <h5>ALMACEN</h5>
         <div id="productos-container">
-            @foreach (var producto in (List<Producto>)ViewData["Productos"])
+            @if (Model.Productos != null)
             {
-                <div class="row producto">
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <label class="control-label">Cantidad</label>
-                            <input name="Productos[@producto.idProductoSP].Cantidad" value="@producto.Cantidad" class="form-control" />
-                        </div>
+                @for (var i = 0; i < Model.Productos.Count; i++)
+                {
+                    <div class="producto">
+                        <input type="hidden" name="Productos[@i].idProductoSP" value="@Model.Productos[i].idProductoSP" />
+                        @Html.EditorFor(model => Model.Productos[i].Cantidad)
+                        @Html.EditorFor(model => Model.Productos[i].NoParte)
+                        @Html.EditorFor(model => Model.Productos[i].Descripcion)
+                        <button type="button" class="btn btn-danger eliminar-producto"><i class="bi bi-x"></i></button>
+                        <input type="hidden" name="Productos[@i].ServicioPModelIdServicioP" value="@Model.Productos[i].ServicioPModelIdServicioP" />
                     </div>
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <label class="control-label">No. de Parte</label>
-                            <input name="Productos[@producto.idProductoSP].NoParte" value="@producto.NoParte" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <label class="control-label">Descripción</label>
-                            <input name="Productos[@producto.idProductoSP].Descripcion" value="@producto.Descripcion" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <br />
-                        <button type="button" class="btn btn-danger eliminar-producto">Eliminar Producto</button>
-                    </div>
+                }
+            }
+            else
+            {
+                <div class="producto">
+                    <input type="hidden" name="Productos[0].idProductoSP" value="" />
+                    <input type="number" name="Productos[0].Cantidad" value="" />
+                    <input type="text" name="Productos[0].NoParte" value="" />
+                    <input type="text" name="Productos[0].Descripcion" value="" />
+                    <button type="button" class="btn btn-danger eliminar-producto"><i class="bi bi-x"></i></button>
+                    <input type="hidden" name="Productos[0].ServicioPModelIdServicioP" value="" />
                 </div>
             }
         </div>
@@ -904,6 +902,7 @@
                     nuevoProducto.find('input').val('');
                     nuevoProducto.find('input').each(function () {
                         var nombre = $(this).attr('name').replace(/\[\d+\]/, '[' + contador + ']');
+                        nombre = nombre.replace('Productos[0].', 'Productos[' + contador + '].'); // Agregar el prefijo 'Productos' con el índice
                         $(this).attr('name', nombre);
                     });
                     nuevoProducto.find('.eliminar-producto').click(function () {
@@ -912,11 +911,12 @@
                     $('#productos-container').append(nuevoProducto);
                 });
 
-                $('.eliminar-producto').click(function () {
+                $(document).on('click', '.eliminar-producto', function () {
                     $(this).closest('.producto').remove();
                 });
             });
         </script>
+
         <script>
             var canvas = new SignaturePad(document.getElementById('signatureCanvas'), {
                 backgroundColor: 'rgb(255, 255, 255)',
