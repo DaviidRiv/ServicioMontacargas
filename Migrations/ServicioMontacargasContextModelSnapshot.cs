@@ -924,9 +924,6 @@ namespace ServicioMontacargas.Migrations
                     b.Property<string>("Descripcion")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ServicioCModelidServicioC")
-                        .HasColumnType("int");
-
                     b.Property<int?>("ServicioCoModelIdServicioCo")
                         .HasColumnType("int");
 

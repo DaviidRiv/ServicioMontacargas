@@ -51,7 +51,8 @@
                 <select name="ComponenteId" class="form-select" id="tarea-select">
                     <option value="" selected disabled>Selecciona un componente.</option>
                 </select>
-                <div style="text-align:right"><br />
+                <div style="text-align:right">
+                    <br />
                     <button type="button" id="agregar-tarea" class="btn btn-success">Agregar Tarea</button>
                 </div>
                 <span name="ComponenteId" class="text-danger"></span>
@@ -118,7 +119,8 @@
                 <label for="tareas-seleccionadas" class="control-label">Tareas Seleccionadas</label>
                 <select id="tareas-seleccionadas" class="form-select" style="height:180px;" multiple>
                 </select>
-                <div style="text-align:right"><br />
+                <div style="text-align:right">
+                    <br />
                     <button type="button" id="quitar-tarea" class="btn btn-danger">Quitar Tarea</button>
                 </div>
             </div>
@@ -202,55 +204,56 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
     <script>
-            $(document).ready(function () {
-                $('#agregar-tarea').click(function () {
-                    var tareaId = $('#tarea-select').val();
-                    var tareaTexto = $('#tarea-select option:selected').text();
-                    $('#tareas-seleccionadas').append($('<option>', {
-                        value: tareaId,
-                        text: tareaTexto
-                    }));
-                    actualizarTareasSeleccionadas();
-                });
-
-                $('#quitar-tarea').click(function () {
-                    $('#tareas-seleccionadas option:selected').remove();
-                    actualizarTareasSeleccionadas();
-                });
-
-                $('#ComponenteId').change(function () {
-                    var componenteId = $(this).val();
-
-                    $.ajax({
-                        url: '@Url.Action("GetTareasByComponenteId", "ServicioCo")',
-                        type: 'GET',
-                        data: { componenteId: componenteId },
-                        success: function (data) {
-                            $('#tarea-select').empty();
-                            $.each(data, function (index, tarea) {
-                                $('#tarea-select').append($('<option>', {
-                                    value: tarea.value,
-                                    text: tarea.text
-                                }));
-                            });
-                            // Al actualizar las opciones de tareas, también actualizamos el campo oculto
-                            actualizarTareasSeleccionadas();
-                        }
-                    });
-                });
+        $(document).ready(function () {
+            $('#agregar-tarea').click(function () {
+                var tareaId = $('#tarea-select').val();
+                var tareaTexto = $('#tarea-select option:selected').text();
+                $('#tareas-seleccionadas').append($('<option>', {
+                    value: tareaId,
+                    text: tareaTexto
+                }));
+                actualizarTareasSeleccionadas();
             });
 
-            function actualizarTareasSeleccionadas() {
-                // Creamos un array para almacenar los valores de las tareas seleccionadas
-                var tareasSeleccionadas = [];
-                $('#tareas-seleccionadas option').each(function () {
-                    tareasSeleccionadas.push($(this).val());
-                });
-                // Actualizamos el campo oculto con los valores de las tareas seleccionadas
-                $('#tareas-seleccionadas-hidden').val(tareasSeleccionadas.join(','));
-            }
+            $('#quitar-tarea').click(function () {
+                $('#tareas-seleccionadas option:selected').remove();
+                actualizarTareasSeleccionadas();
+            });
 
-        </script>
+            $('#ComponenteId').change(function () {
+                var componenteId = $(this).val();
+
+                $.ajax({
+                    url: '@Url.Action("GetTareasByComponenteId", "ServicioCo")',
+                    type: 'GET',
+                    data: { componenteId: componenteId },
+                    success: function (data) {
+                        $('#tarea-select').empty();
+                        $.each(data, function (index, tarea) {
+                            $('#tarea-select').append($('<option>', {
+                                value: tarea.value,
+                                text: tarea.text
+                            }));
+                        });
+                        // Al actualizar las opciones de tareas, también actualizamos el campo oculto
+                        actualizarTareasSeleccionadas();
+                    }
+                });
+            });
+        });
+
+        function actualizarTareasSeleccionadas() {
+            // Creamos un array para almacenar los valores de las tareas seleccionadas
+            var tareasSeleccionadas = [];
+            $('#tareas-seleccionadas option').each(function () {
+                tareasSeleccionadas.push($(this).val());
+            });
+            // Actualizamos el campo oculto con los valores de las tareas seleccionadas
+            $('#tareas-seleccionadas-hidden').val(tareasSeleccionadas.join(','));
+        }
+
+    </script>
+
     <script>
         var canvas = new SignaturePad(document.getElementById('signatureCanvas'), {
             backgroundColor: 'rgb(255, 255, 255)',

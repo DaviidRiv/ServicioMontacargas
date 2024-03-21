@@ -34,16 +34,16 @@
                 <a>Orden de Servicio No. </a> <a style="color: red;"> @Model.FolioSC </a>
             </td>
         </tr>
-    </table>
+    </table><br />
     <table style="width: 100%; border: none;">
         <tr>
-            <td style="border: none; vertical-align: top; line-height: 0; font-size:18px; width:50%; text-align:left; text-align:left">
-                <br /><br />
-                <h5>Cliente : @Model.Clientes.Nombre</h5>
+            <td style="border: none; vertical-align: top; line-height: 0; font-size:17px; width:50%; text-align:left; text-align:left">
+                <br /><br /><br />
+                <p>Cliente : @Model.Clientes.Nombre</p>
             </td>
-            <td style="border: none; vertical-align: top; line-height: 0; font-size:18px; width:50%; text-align:left; text-align:right">
-                <br /><br />
-                <h5>Fecha Registro: @Model.FechaReg</h5>
+            <td style="border: none; vertical-align: top; line-height: 0; font-size:17px; width:50%; text-align:left; text-align:right">
+                <br /><br /><br />
+                <p>Fecha Registro: @Model.FechaReg</p>
             </td>
         </tr>
     </table>
@@ -68,13 +68,13 @@
     <table style="width: 100%; margin-top:5px;" border="1">
         <thead>
             <tr>
-                <th style="text-align: center; width: 20%; border: solid 1px; font-size:15px">
+                <th style="text-align: center; width: 20%; border: solid 1px; font-size:11px">
                     Cantidad
                 </th>
-                <th style="text-align: center; width: 30%; border: solid 1px; font-size:15px">
+                <th style="text-align: center; width: 30%; border: solid 1px; font-size:11px">
                     No. de Parte
                 </th>
-                <th style="text-align: center; width: 50%; border: solid 1px; font-size:15px">
+                <th style="text-align: center; width: 50%; border: solid 1px; font-size:11px">
                     Descripcion
                 </th>
             </tr>
@@ -83,13 +83,13 @@
             @foreach (var producto in Model.Productos)
             {
                 <tr>
-                    <td style="text-align: center; width: 20%; border: solid 1px; font-size:15px">
+                    <td style="text-align: center; width: 20%; border: solid 1px; font-size:11px">
                         @producto.Cantidad
                     </td>
-                    <td style="text-align: center; width: 30%; border: solid 1px; font-size:15px">
+                    <td style="text-align: center; width: 30%; border: solid 1px; font-size:11px">
                         @producto.NoParte
                     </td>
-                    <td style="text-align: center; width: 50%; border: solid 1px; font-size:15px">
+                    <td style="text-align: center; width: 50%; border: solid 1px; font-size:11px">
                         @producto.Descripcion
                     </td>
                 </tr>

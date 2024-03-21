@@ -260,19 +260,24 @@ namespace ServicioMontacargas.Controllers
 
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.ServicioCoModel == null)
-            {
-                return Problem("Entity set 'ServicioMontacargasContext.ServicioCoModel'  is null.");
-            }
             var servicioCoModel = await _context.ServicioCoModel.FindAsync(id);
-            if (servicioCoModel != null)
+            if (servicioCoModel == null)
             {
-                _context.ServicioCoModel.Remove(servicioCoModel);
+                return NotFound();
             }
+
+            // Busca todos los registros relacionados en la tabla "Tarea" y los elimina
+            var tareasRelacionadas = _context.Tarea.Where(t => t.ServicioCoModelIdServicioCo == id);
+            _context.Tarea.RemoveRange(tareasRelacionadas);
+
+            // Elimina el registro en "ServicioCoModel"
+            _context.ServicioCoModel.Remove(servicioCoModel);
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+
 
         private bool ServicioCoModelExists(int id)
         {
