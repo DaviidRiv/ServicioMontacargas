@@ -44,7 +44,7 @@
 
                 <div class="form-group">
                     <label name="ComponenteId" class="control-label">Tareas</label>
-                    <select name="ComponenteId" class="form-select" id="tarea-select">
+                    <select name="ComponenteId" class="form-select" id="tarea-select" multiple>
                         <option value="" selected disabled>Selecciona un componente.</option>
                     </select>
                     <div style="text-align:right">
@@ -114,9 +114,12 @@
                 <div class="form-group">
                     <label for="tareas-seleccionadas" class="control-label">Tareas Seleccionadas</label>
                     <select id="tareas-seleccionadas" class="form-select" style="height:180px;" multiple>
-                        @foreach (var tarea in Model.TareasSeleccionadas)
+                        @if (Model.TareasSeleccionadas != null)
                         {
-                            <option value="@tarea.TareaId">@tarea.Descripcion</option>
+                            @foreach (var tarea in Model.TareasSeleccionadas)
+                            {
+                                <option value="@tarea.TareaId">@tarea.Descripcion</option>
+                            }
                         }
                     </select>
                     <div style="text-align:right">

@@ -48,11 +48,24 @@
                             }
                         </td>
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.ComponenteId"><iconify-icon icon="bi:pencil-square"></iconify-icon></a>
-                            <a asp-action="Details" asp-route-id="@item.ComponenteId"><iconify-icon icon="bi:eye-fill"></iconify-icon></a>
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#eliminarUsuario-@item.ComponenteId" data-original-title="Eliminar">
-                                <iconify-icon icon="bi:trash3-fill"></iconify-icon>
-                            </a>
+
+                            @{
+                                var rol = Context.Session.GetString("RolUser");
+
+                                @if (rol == "Administrador")
+                                {
+                                    <a asp-action="Edit" asp-route-id="@item.ComponenteId"><iconify-icon icon="bi:pencil-square"></iconify-icon></a>
+                                    <a asp-action="Details" asp-route-id="@item.ComponenteId"><iconify-icon icon="bi:eye-fill"></iconify-icon></a>
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#eliminarUsuario-@item.ComponenteId" data-original-title="Eliminar">
+                                        <iconify-icon icon="bi:trash3-fill"></iconify-icon>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a asp-action="Edit" asp-route-id="@item.ComponenteId"><iconify-icon icon="bi:pencil-square"></iconify-icon></a>
+                                    <a asp-action="Details" asp-route-id="@item.ComponenteId"><iconify-icon icon="bi:eye-fill"></iconify-icon></a>                                    
+                                }
+                            }
                         </td>
                     </tr>
                     <!-- Modal Eliminar-->

@@ -56,14 +56,16 @@
                     <ul>
                         @foreach (var tarea in Model.TareasSeleccionadas)
                         {
-                            <li>@tarea.Descripcion</li>
+                            <li style="font-size:13px">@tarea.Descripcion</li>
                         }
                     </ul>
                 </a>
             </td>
         </tr>
     </table>
-
+    <a style="font-size:15px">Causa de Falla:</a>
+    <a style="font-size:12px">@Model.CausaFalla</a>
+    <br />
     <a style="font-size:15px">Refacciones Utilizadas:</a>
     <table style="width: 100%; margin-top:5px;" border="1">
         <thead>
