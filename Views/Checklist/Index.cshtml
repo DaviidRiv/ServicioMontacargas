@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ServicioMontacargas.Models.ChecklistModel>
+﻿@model IEnumerable<ServicioMontacargas.Models.ChecklistViewModel>
 
 @{
     ViewData["Title"] = "Lista Revisiones";
@@ -35,19 +35,19 @@
             <thead class="table-dark">
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.IdChecklist)
+                        Folio
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.nombreOperador)
+                        Operador
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Clientes)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.turno)
+                        Turno
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.fecha)
+                        Fecha
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Montacargas)
@@ -153,6 +153,9 @@
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Observaciones)
+                    </th>
+                    <th>
+                        Responsable
                     </th>
                     <th>
                         Opciones
@@ -288,6 +291,9 @@
                             @item.Observaciones?.ToUpper()
                         </td>
                         <td>
+                            @Html.DisplayFor(modelItem => item.nombreJacsa)
+                        </td>
+                        <td>
                             <a asp-action="Edit" asp-route-id="@item.IdChecklist"><iconify-icon icon="bi:pencil-square"></iconify-icon></a>
                             <a asp-action="Details" asp-route-id="@item.IdChecklist"><iconify-icon icon="bi:eye-fill"></iconify-icon></a>
                             <a href="#" data-bs-toggle="modal" data-bs-target="#eliminarUsuario-@item.IdChecklist" data-original-title="Eliminar"><iconify-icon icon="bi:trash3-fill"></iconify-icon></a>
@@ -350,7 +356,7 @@
                 // Llama a html2pdf para generar el PDF
                 html2pdf(tempDiv, {
                     margin: 5,
-                    filename: 'Checklist ' + id + '.pdf',
+                    filename: 'Revision ' + id + '.pdf',
                 });
             }
         </script>

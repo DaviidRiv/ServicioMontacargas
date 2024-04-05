@@ -24,7 +24,55 @@ namespace ServicioMontacargas.Controllers
         {
             var servicioMontacargasContext = _context.ChecklistModel
                 .Include(c => c.Montacargas)
-                .Include(c => c.Clientes); // Incluye la información de los clientes
+                .Include(c => c.Clientes)
+                .Select(c => new ChecklistViewModel
+                { 
+                    IdChecklist = c.IdChecklist,
+                    nombreOperador = c.nombreOperador,
+                    nombreJacsa = c.nombreJacsa,
+                    IdClientes = c.IdClientes,
+                    Clientes = c.Clientes,
+                    turno = c.turno,
+                    IdMontacargas = c.IdMontacargas,
+                    Montacargas = c.Montacargas,
+                    NumeroEconomicoMontacargas = c.NumeroEconomicoMontacargas,
+                    horometro = c.horometro,
+                    fecha = c.fecha,
+                    NivelAceiteMotor = c.NivelAceiteMotor,
+                    NivelAnticongelante = c.NivelAnticongelante,
+                    NivelAceiteHidraulico = c.NivelAceiteHidraulico,
+                    NivelLiquidoFrenos = c.NivelLiquidoFrenos,
+                    BandaVentilador = c.BandaVentilador,
+                    TanqueGasSoportes = c.TanqueGasSoportes,
+                    FrenoEstacionamiento = c.FrenoEstacionamiento,
+                    FugaSistemaGas = c.FugaSistemaGas,
+                    DistanciaFrenado = c.DistanciaFrenado,
+                    RespaldoCarga = c.RespaldoCarga,
+                    Horquillas = c.Horquillas,
+                    Golpes = c.Golpes,
+                    Tablero = c.Tablero,
+                    PinturaGeneral = c.PinturaGeneral,
+                    CubiertaPiston = c.CubiertaPiston,
+                    LlantasDireccion = c.LlantasDireccion,
+                    LlantasTraccion = c.LlantasTraccion,
+                    BateriaTerminales = c.BateriaTerminales,
+                    LimpiezaGeneral = c.LimpiezaGeneral,
+                    Radiador = c.Radiador,
+                    SistemaArranque = c.SistemaArranque,
+                    LucesTrabajo = c.LucesTrabajo,
+                    LucesTraseras = c.LucesTraseras,
+                    Torreta = c.Torreta,
+                    AlarmaReversa = c.AlarmaReversa,
+                    Claxon = c.Claxon,
+                    Extintor = c.Extintor,
+                    Espejos = c.Espejos,
+                    CinturonSeguridad = c.CinturonSeguridad,
+                    Asiento = c.Asiento,
+                    FaroProximidad = c.FaroProximidad,
+                    Ruidos = c.Ruidos,
+                    Llave = c.Llave,
+                    Observaciones = c.Observaciones,
+                });
 
             return View(await servicioMontacargasContext.ToListAsync());
         }

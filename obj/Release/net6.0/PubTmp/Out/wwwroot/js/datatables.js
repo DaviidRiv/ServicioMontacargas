@@ -129,8 +129,8 @@ $(document).ready(function () {
             {
                 extend: 'excelHtml5',
                 text: 'Excel',
-                filename: 'CheckList Montacargas',
-                title: 'CheckList Montacargas',
+                filename: 'Revision Montacargas',
+                title: 'Revision Montacargas',
                 exportOptions: {
                     columns: ':not(:last-child)'
                 },
@@ -139,8 +139,8 @@ $(document).ready(function () {
             {
                 extend: 'pdfHtml5',
                 text: 'PDF',
-                filename: 'CheckList Montacargas',
-                title: 'CheckList Montacargas',
+                filename: 'Revision Montacargas',
+                title: 'Revision Montacargas',
                 exportOptions: {
                     columns: ':not(:last-child)'
                 },
@@ -148,7 +148,7 @@ $(document).ready(function () {
             },
             {
                 extend: 'print',
-                title: 'CheckList Montacargas',
+                title: 'Revision Montacargas',
                 exportOptions: {
                     columns: ':not(:last-child)' // Excluir la última columna
                 },
