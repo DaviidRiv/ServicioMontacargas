@@ -20,6 +20,12 @@
         alert("@TempData["FailRecoleccion"]");
     </script>
 }
+@if (TempData.ContainsKey("FailHoroRecoleccion"))
+{
+    <script>
+        alert("@TempData["FailHoroRecoleccion"]");
+    </script>
+}
 <hr />
 <form asp-controller="EntregaMntCrg" asp-action="Recoleccion" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>

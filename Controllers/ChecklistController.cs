@@ -26,7 +26,7 @@ namespace ServicioMontacargas.Controllers
                 .Include(c => c.Montacargas)
                 .Include(c => c.Clientes)
                 .Select(c => new ChecklistViewModel
-                { 
+                {
                     IdChecklist = c.IdChecklist,
                     nombreOperador = c.nombreOperador,
                     nombreJacsa = c.nombreJacsa,
@@ -141,12 +141,28 @@ namespace ServicioMontacargas.Controllers
             // Obtener Montacargas correspondiente al número económico
             var montacargas = _context.MontacargasModel.FirstOrDefault(m => m.NumeroEconomico == checklistModel.NumeroEconomicoMontacargas);
 
+
+            int numEconomico = int.TryParse(checklistModel.NumeroEconomicoMontacargas, out int temp) ? temp : 0;
+            var montacargasH = await _context.MontacargasModel.FindAsync(numEconomico);
+            int horometroNew;            
+
             if (montacargas != null)
             {
+                if (int.TryParse(checklistModel.horometro, out horometroNew))
+                {
+                    if (horometroNew < montacargas.Horometro)
+                    {
+                        ModelState.AddModelError("horometro", "El Horometro de Revision no puede ser menor que el actual.");
+                    }
+                }
+
                 checklistModel.Montacargas = montacargas;
 
                 if (ModelState.IsValid)
                 {
+                    // Actualizar el horómetro del montacargas
+                    await UpdateHorometro(montacargas.IdMontacargas, horometroNew);
+
                     _context.Add(checklistModel);
                     await _context.SaveChangesAsync();
                     TempData["ExitoChecklist"] = "Creacion Exitosa";
@@ -162,6 +178,20 @@ namespace ServicioMontacargas.Controllers
             ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "DisplayInfoCl", checklistModel.IdClientes);
             TempData["FailChecklist"] = "La creacion no pudo ser completada";
             return View(checklistModel);
+        }
+
+        private async Task UpdateHorometro(int montacargasId, int? newHorometro)
+        {
+            if (newHorometro.HasValue)
+            {
+                var montacargas = await _context.MontacargasModel.FindAsync(montacargasId);
+                if (montacargas != null)
+                {
+                    montacargas.Horometro = newHorometro.Value;
+                    _context.Update(montacargas);
+                    await _context.SaveChangesAsync();
+                }
+            }
         }
 
         [AutorizacionAdmin]

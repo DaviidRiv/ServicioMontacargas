@@ -33,6 +33,13 @@
                     <select asp-for="IdMontacargas" class="form-select" asp-items="ViewBag.IdMontacargas" required></select>
                 </div>
                 <div class="form-group">
+                    <label asp-for="Horometro" class="control-label"></label>
+                    <input asp-for="Horometro" class="form-control" required />
+                    <span asp-validation-for="Horometro" class="text-danger"></span>
+                    <a style="color:red">No modifica el horometro anterior del montacargas, modificalo desde el catalogo.</a>
+
+                </div>
+                <div class="form-group">
                     <label asp-for="Fecha" class="control-label"></label>
                     <input type="datetime-local" asp-for="Fecha" class="form-control" required />
                     <span asp-validation-for="Fecha" class="text-danger"></span>

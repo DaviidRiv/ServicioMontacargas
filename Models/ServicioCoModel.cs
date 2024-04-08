@@ -32,6 +32,8 @@ namespace ServicioMontacargas.Models
         [DisplayName("Montacargas")]
         public int IdMontacargas { get; set; }
         public MontacargasModel? Montacargas { get; set; }
+        [DisplayName("Horometro")]
+        public int? Horometro { get; set; }
 
         [DisplayName("Fecha Registro")]
         public string? FechaReg { get; set; }

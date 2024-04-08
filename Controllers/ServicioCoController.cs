@@ -80,14 +80,38 @@ namespace ServicioMontacargas.Controllers
             return Json(tareas);
         }
 
+        private async Task UpdateHorometro(int montacargasId, int? newHorometro)
+        {
+            if (newHorometro.HasValue)
+            {
+                var montacargas = await _context.MontacargasModel.FindAsync(montacargasId);
+                if (montacargas != null)
+                {
+                    montacargas.Horometro = newHorometro.Value;
+                    _context.Update(montacargas);
+                    await _context.SaveChangesAsync();
+                }
+            }
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ServicioCoModel servicioCoModel, string tareasseleccionadas, List<ProductoSCo> productos)
         {
+            var montacargas = await _context.MontacargasModel.FindAsync(servicioCoModel.IdMontacargas);
+
+            if (servicioCoModel.Horometro < montacargas.Horometro)
+            {
+                ModelState.AddModelError("Horometro", "El Horometro del Servicio Correctivo no puede ser menor que el actual.");
+            }
+
             if (ModelState.IsValid)
             {
                 try
                 {
+                    // Actualizar el horómetro del montacargas
+                    await UpdateHorometro(servicioCoModel.IdMontacargas, servicioCoModel.Horometro);
+
                     _context.Add(servicioCoModel);
                     await _context.SaveChangesAsync();
 

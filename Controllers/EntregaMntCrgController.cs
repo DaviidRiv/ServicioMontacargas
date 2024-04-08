@@ -147,8 +147,18 @@ namespace ServicioMontacargas.Controllers
                 }
             }
 
+            var montacargas = await _context.MontacargasModel.FindAsync(entregaMntCrgModel.IdMontacargas);
+
+            if (entregaMntCrgModel.HorometroEntrega < montacargas.Horometro)
+            {
+                ModelState.AddModelError("HorometroEntrega", "El Horometro de Entrega no puede ser menor que el actual.");
+            }
+
             if (ModelState.IsValid)
             {
+                // Actualizar el horómetro del montacargas
+                await UpdateHorometro(entregaMntCrgModel.IdMontacargas, entregaMntCrgModel.HorometroEntrega);
+
                 _context.Add(entregaMntCrgModel);
                 await _context.SaveChangesAsync();
                 // Agregar mensaje de éxito a TempData
@@ -160,6 +170,21 @@ namespace ServicioMontacargas.Controllers
             TempData["FailEntrega"] = "La creacion no pudo ser completada";
             return View(entregaMntCrgModel);
         }
+
+        private async Task UpdateHorometro(int montacargasId, int? newHorometro)
+        {
+            if (newHorometro.HasValue)
+            {
+                var montacargas = await _context.MontacargasModel.FindAsync(montacargasId);
+                if (montacargas != null)
+                {
+                    montacargas.Horometro = newHorometro.Value;
+                    _context.Update(montacargas);
+                    await _context.SaveChangesAsync();
+                }
+            }
+        }
+
 
         [AutorizacionAdmin]
         public async Task<IActionResult> Edit(int? id)
@@ -368,10 +393,22 @@ namespace ServicioMontacargas.Controllers
             // Actualiza solo los campos necesarios (propiedades escalares)
             _context.Entry(existingEntrega).CurrentValues.SetValues(entregaMntCrgModel);
 
+            var montacargas = await _context.MontacargasModel.FindAsync(entregaMntCrgModel.IdMontacargas);
+
+            if (entregaMntCrgModel.HorometroRecoleccion < montacargas.Horometro)
+            {
+                ModelState.AddModelError("HorometroRecoleccion", "El Horometro de recoleccion no puede ser menor que el actual.");
+                TempData["FailHoroRecoleccion"] = "El Horometro de recoleccion no puede ser menor que el actual.";
+
+            }
+
             if (ModelState.IsValid)
             {
                 try
                 {
+                    // Actualizar el horómetro del montacargas
+                    await UpdateHorometro(entregaMntCrgModel.IdMontacargas, entregaMntCrgModel.HorometroRecoleccion);
+
                     // Guarda los cambios en la base de datos
                     await _context.SaveChangesAsync();
                 }
@@ -392,7 +429,7 @@ namespace ServicioMontacargas.Controllers
 
             ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "DisplayInfoMntCrg", entregaMntCrgModel.IdMontacargas);
             TempData["FailRecoleccion"] = "La recoleccion no pudo ser completada";
-            return View(entregaMntCrgModel);
+            return RedirectToAction(nameof(Entrega), new { id = entregaMntCrgModel.IdEntregaMntCrg });
         }
 
 

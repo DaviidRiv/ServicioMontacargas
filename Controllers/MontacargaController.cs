@@ -53,9 +53,6 @@ namespace ServicioMontacargas.Controllers
             return View();
         }
 
-        // POST: Montacarga/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdMontacargas,NumeroSerie,NumeroEconomico,Marca,Modelo,Horometro,Status,Equipo,HorometroMtto,HorasMtto,cliente,tipo,capacidad,fases")] MontacargasModel montacargasModel)
@@ -69,7 +66,6 @@ namespace ServicioMontacargas.Controllers
             return View(montacargasModel);
         }
 
-        // GET: Montacarga/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.MontacargasModel == null)
@@ -85,9 +81,6 @@ namespace ServicioMontacargas.Controllers
             return View(montacargasModel);
         }
 
-        // POST: Montacarga/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdMontacargas,NumeroSerie,NumeroEconomico,Marca,Modelo,Horometro,Status,Equipo,HorometroMtto,HorasMtto,cliente,tipo,capacidad,fases")] MontacargasModel montacargasModel)

@@ -60,10 +60,19 @@ namespace ServicioMontacargas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ServicioPModel servicioPModel, List<Producto> productos)
         {
+            var montacargas = await _context.MontacargasModel.FindAsync(servicioPModel.IdMontacargas);
+
+            if (servicioPModel.Horometro < montacargas.HorometroMtto)
+            {
+                ModelState.AddModelError("Horometro", "El Horometro del Servicio Preventivo no puede ser menor que el horometro del mantenimiento anterior del montacargas.");
+            }
             if (ModelState.IsValid)
             {
                 try
                 {
+                    // Actualizar el horómetro del montacargas
+                    await UpdateHorometro(servicioPModel.IdMontacargas, servicioPModel.Horometro);
+
                     _context.Add(servicioPModel);
                     await _context.SaveChangesAsync();                    
                     return RedirectToAction(nameof(Index));
@@ -79,6 +88,22 @@ namespace ServicioMontacargas.Controllers
             return View(servicioPModel);
         }
 
+        private async Task UpdateHorometro(int montacargasId, int? newHorometro)
+        {
+            if (newHorometro.HasValue)
+            {
+                var montacargas = await _context.MontacargasModel.FindAsync(montacargasId);
+                string horasMtto = (newHorometro.Value - montacargas.Horometro + 500).ToString();
+
+                if (montacargas != null)
+                {
+                    montacargas.HorometroMtto = newHorometro.Value;
+                    montacargas.HorasMtto = horasMtto;
+                    _context.Update(montacargas);
+                    await _context.SaveChangesAsync();
+                }
+            }
+        }
 
         public async Task<IActionResult> Edit(int? id)
         {

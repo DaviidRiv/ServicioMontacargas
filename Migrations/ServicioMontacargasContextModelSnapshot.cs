@@ -609,6 +609,9 @@ namespace ServicioMontacargas.Migrations
                     b.Property<string>("FirmaJ")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("Horometro")
+                        .HasColumnType("int");
+
                     b.Property<int>("IdClientes")
                         .HasColumnType("int");
 
@@ -771,6 +774,9 @@ namespace ServicioMontacargas.Migrations
 
                     b.Property<string>("Golpes")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Horometro")
+                        .HasColumnType("int");
 
                     b.Property<string>("Horquillas")
                         .HasColumnType("nvarchar(max)");

@@ -43,6 +43,9 @@
                         @Html.DisplayNameFor(model => model.Montacargas)
                     </th>
                     <th>
+                        @Html.DisplayNameFor(model => model.Horometro)
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => model.Fecha)
                     </th>
                     <th>Cantidad</th>
@@ -303,6 +306,9 @@
                             <a asp-controller="Montacarga" asp-action="Details" asp-route-id="@item.IdMontacargas">
                                 @Html.DisplayFor(modelItem => item.Montacargas.NumeroEconomico)
                             </a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Horometro)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Fecha)

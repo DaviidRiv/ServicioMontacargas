@@ -97,6 +97,12 @@
 
             <div class="col-md-6">
                 <div class="form-group">
+                    <label asp-for="Horometro" class="control-label"></label>
+                    <input asp-for="Horometro" class="form-control" required />
+                    <span asp-validation-for="Horometro" class="text-danger"></span>
+                    <a style="color:red">No modifica el horometro actual del montacargas, modificalo desde el catalogo.</a>
+                </div>
+                <div class="form-group">
                     <label asp-for="Status" class="control-label"></label>
                     <select asp-for="Status" class="form-select" required>
                         <option value="Entrega">Entrega</option>
