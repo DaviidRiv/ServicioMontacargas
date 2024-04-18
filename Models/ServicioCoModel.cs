@@ -60,7 +60,7 @@ namespace ServicioMontacargas.Models
 
         [DisplayName("Status")]
         public string? Status { get; set; }
-        public string FolioSC => $"SP{(IdServicioCo < 10 ? $"0{IdServicioCo}" : IdServicioCo.ToString())}-{Montacargas?.NumeroEconomico}-{FechaReg?.ToString()}";
+        public string FolioSC => $"SC{(IdServicioCo < 10 ? $"0{IdServicioCo}" : IdServicioCo.ToString())}-{Montacargas?.NumeroEconomico}-{FechaReg?.ToString()}";
 
     }
     public class ProductoSCo
