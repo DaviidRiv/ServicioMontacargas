@@ -97,19 +97,19 @@
                 }
                 else if (Model.Status == "En renta")
                 {
-                    <span class="badge bg-info text-dark">
+                    <span class="badge bg-info">
                         @Html.DisplayFor(model => model.Status)
                     </span>
                 }
                 else if (Model.Status == "En reparación")
                 {
-                    <span class="badge bg-warning text-dark">
+                    <span class="badge bg-warning">
                         @Html.DisplayFor(model => model.Status)
                     </span>
                 }
                 else if (Model.Status == "Baja")
                 {
-                    <span class="badge bg-danger">
+                    <span class="badge bg-secondary">
                         @Html.DisplayFor(model => model.Status)
                     </span>
                 }
@@ -121,7 +121,7 @@
                 }
                 else
                 {
-                    <span class="badge bg-danger">
+                    <span class="badge bg-dark">
                         @Html.DisplayFor(model => model.Status)
                     </span>
                 }
