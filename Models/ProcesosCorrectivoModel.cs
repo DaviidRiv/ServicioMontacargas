@@ -28,5 +28,8 @@ namespace ServicioMontacargas.Models
         [ForeignKey("ComponenteId")]
         public ProcesosCorrectivoModel? Componente { get; set; }
 
+        public int ServicioCoModelId { get; set; }
+        public ServicioCoModel? ServicioCoModel { get; set; }
+
     }
 }

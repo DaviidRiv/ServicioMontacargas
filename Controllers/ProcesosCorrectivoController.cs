@@ -121,33 +121,23 @@ namespace ServicioMontacargas.Controllers
 
                     existingProceso.Nombre = procesosCorrectivoModel.Nombre;
 
-                    if (procesosCorrectivoModel.Tareas != null)
+                    // Recargar las tareas desde la base de datos
+                    foreach (var tarea in existingProceso.Tareas)
                     {
-                        // Eliminar las tareas que no se envían en el modelo
-                        foreach (var tarea in existingProceso.Tareas.ToList())
-                        {
-                            if (!procesosCorrectivoModel.Tareas.Any(t => t.TareaId == tarea.TareaId))
-                            {
-                                existingProceso.Tareas.Remove(tarea);
-                                _context.Tarea.Remove(tarea);
-                            }
-                        }
+                        _context.Entry(tarea).State = EntityState.Detached; // Desvincular la tarea existente
+                    }
 
-                        // Agregar nuevas tareas
-                        foreach (var tarea in procesosCorrectivoModel.Tareas)
+                    // Actualizar tareas existentes y agregar nuevas tareas
+                    foreach (var tarea in procesosCorrectivoModel.Tareas)
+                    {
+                        var existingTarea = existingProceso.Tareas.FirstOrDefault(t => t.TareaId == tarea.TareaId);
+                        if (existingTarea != null)
                         {
-                            if (tarea.TareaId == 0)
-                            {
-                                existingProceso.Tareas.Add(tarea);
-                            }
-                            else
-                            {
-                                var existingTarea = existingProceso.Tareas.FirstOrDefault(t => t.TareaId == tarea.TareaId);
-                                if (existingTarea != null)
-                                {
-                                    existingTarea.Descripcion = tarea.Descripcion;
-                                }
-                            }
+                            existingTarea.Descripcion = tarea.Descripcion;
+                        }
+                        else
+                        {
+                            existingProceso.Tareas.Add(tarea);
                         }
                     }
 

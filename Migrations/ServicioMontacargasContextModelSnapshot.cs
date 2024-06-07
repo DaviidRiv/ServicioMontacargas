@@ -930,6 +930,9 @@ namespace ServicioMontacargas.Migrations
                     b.Property<string>("Descripcion")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ServicioCoModelId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("ServicioCoModelIdServicioCo")
                         .HasColumnType("int");
 
@@ -1116,11 +1119,14 @@ namespace ServicioMontacargas.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ServicioMontacargas.Models.ServicioCoModel", null)
+                    b.HasOne("ServicioMontacargas.Models.ServicioCoModel", "ServicioCoModel")
                         .WithMany("TareasSeleccionadas")
-                        .HasForeignKey("ServicioCoModelIdServicioCo");
+                        .HasForeignKey("ServicioCoModelIdServicioCo")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Componente");
+
+                    b.Navigation("ServicioCoModel");
                 });
 
             modelBuilder.Entity("ServicioMontacargas.Models.ProcesosCorrectivoModel", b =>

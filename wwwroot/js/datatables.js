@@ -113,6 +113,14 @@
 
 //CheckList
 $(document).ready(function () {
+    $.fn.dataTable.ext.order['custom-folio-sort'] = function (settings, colIdx) {
+        return this.api().column(colIdx, { order: 'index' }).nodes().map(function (td, i) {
+            var val = $(td).text();
+            var match = val.match(/^SC(\d+)-/); // Extraer la parte numérica después de "SC"
+            return match ? parseInt(match[1], 10) : 0; // Convertir a entero para comparación numérica
+        });
+    };
+
     $('#tb_checklist').DataTable({
         language: {
             url: "https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
@@ -120,7 +128,8 @@ $(document).ready(function () {
         columnDefs: [
             {
                 targets: 0,
-                visible: true
+                visible: true,
+                orderDataType: 'custom-folio-sort'
             }
         ],
         scrollX: true, // Habilitar scroll horizontal
@@ -164,6 +173,69 @@ $(document).ready(function () {
         ],
     });
 });
+
+$(document).ready(function () {
+    $.fn.dataTable.ext.order['custom-folio-sort'] = function (settings, colIdx) {
+        return this.api().column(colIdx, { order: 'index' }).nodes().map(function (td, i) {
+            var val = $(td).text();
+            var match = val.match(/^SP(\d+)-/); // Extraer la parte numérica después de "SC"
+            return match ? parseInt(match[1], 10) : 0; // Convertir a entero para comparación numérica
+        });
+    };
+
+    $('#tb_serviciop').DataTable({
+        language: {
+            url: "https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
+        },
+        columnDefs: [
+            {
+                targets: 0,
+                visible: true,
+                orderDataType: 'custom-folio-sort'
+            }
+        ],
+        scrollX: true, // Habilitar scroll horizontal
+        dom: 'BfrtipC',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: 'Excel',
+                filename: 'Servicio P Montacargas',
+                title: 'Revision Montacargas',
+                exportOptions: {
+                    columns: ':not(:last-child)'
+                },
+                className: 'btn-exportar-excel',
+            },
+            {
+                extend: 'pdfHtml5',
+                text: 'PDF',
+                filename: 'Revision Montacargas',
+                title: 'Revision Montacargas',
+                exportOptions: {
+                    columns: ':not(:last-child)'
+                },
+                className: 'btn-exportar-pdf',
+            },
+            {
+                extend: 'print',
+                title: 'Revision Montacargas',
+                exportOptions: {
+                    columns: ':not(:last-child)' // Excluir la última columna
+                },
+                className: 'btn-exportar-print'
+            },
+            {
+                extend: 'colvis',
+                text: 'Columnas',
+                className: 'btn-colvis',
+                collectionLayout: 'fixed three-column'
+            },
+            'pageLength'
+        ],
+    });
+});
+
 //EntregaMontacarga
 $(document).ready(function () {
 
@@ -231,7 +303,16 @@ $(document).ready(function () {
 
 
 
+
 $(document).ready(function () {
+
+    $.fn.dataTable.ext.order['custom-folio-sort'] = function (settings, colIdx) {
+        return this.api().column(colIdx, { order: 'index' }).nodes().map(function (td, i) {
+            var val = $(td).text();
+            var match = val.match(/^SC(\d+)-/); // Extraer la parte numérica después de "SC"
+            return match ? parseInt(match[1], 10) : 0; // Convertir a entero para comparación numérica
+        });
+    };
 
     $('#tb_salida thead tr').clone(true).addClass('filters').appendTo('#tb_salida thead');
 
@@ -247,7 +328,8 @@ $(document).ready(function () {
         columnDefs: [
             {
                 targets: 0,
-                visible: true
+                visible: true,
+                orderDataType: 'custom-folio-sort'
             }
         ],
         scrollX: true, // Habilitar scroll horizontal

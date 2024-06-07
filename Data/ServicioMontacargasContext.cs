@@ -27,21 +27,37 @@ namespace ServicioMontacargas.Data
         public DbSet<ServicioMontacargas.Models.AlmacenModel>? AlmacenModel { get; set; }
 
         public DbSet<ServicioMontacargas.Models.SalidaModel>? SalidaModel { get; set; }
-        public DbSet<ServicioMontacargas.Models.SalidaItem>? SalidaItem { get; set; }
+        public DbSet<ServicioMontacargas.Models.SalidaItem>? SalidaItem { get; set; }       
+        public DbSet<ServicioMontacargas.Models.ProcesosCorrectivoModel>? ProcesosCorrectivoModel { get; set; }
+        public DbSet<ServicioMontacargas.Models.Tarea>? Tarea { get; set; }        
+        public DbSet<ServicioMontacargas.Models.ServicioPModel>? ServicioPModel { get; set; }
+        public DbSet<ServicioMontacargas.Models.Producto>? Producto { get; set; }
+        public DbSet<ServicioMontacargas.Models.ServicioCoModel>? ServicioCoModel { get; set; }
+        public DbSet<ServicioMontacargas.Models.ProductoSCo>? ProductoSCo { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<ServicioMontacargas.Models.SalidaModel>()
                 .HasMany(sm => sm.SalidaItems)
                 .WithOne(si => si.SalidaModel)
                 .HasForeignKey(si => si.SalidaModelIdSalidaA)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Tarea>()
+                .HasOne(t => t.Componente)
+                .WithMany(pc => pc.Tareas)
+                .HasForeignKey(t => t.ComponenteId)
+                .OnDelete(DeleteBehavior.Cascade); // Eliminación en cascada
+
+            modelBuilder.Entity<Tarea>()
+                .HasOne(t => t.ServicioCoModel)
+                .WithMany(sc => sc.TareasSeleccionadas)
+                .HasForeignKey(t => t.ServicioCoModelIdServicioCo)
+                .OnDelete(DeleteBehavior.Restrict); // or DeleteBehavior.Cascade if you want cascade delete
         }
-        public DbSet<ServicioMontacargas.Models.ProcesosCorrectivoModel>? ProcesosCorrectivoModel { get; set; }
-        public DbSet<ServicioMontacargas.Models.Tarea>? Tarea { get; set; }
-        public DbSet<ServicioMontacargas.Models.ServicioPModel>? ServicioPModel { get; set; }
-        public DbSet<ServicioMontacargas.Models.Producto>? Producto { get; set; }
-        public DbSet<ServicioMontacargas.Models.ServicioCoModel>? ServicioCoModel { get; set; }
-        public DbSet<ServicioMontacargas.Models.ProductoSCo>? ProductoSCo { get; set; }
+
 
     }
 }
