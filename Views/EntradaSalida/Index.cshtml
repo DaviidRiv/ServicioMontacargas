@@ -1,0 +1,182 @@
+﻿@model IEnumerable<ServicioMontacargas.Models.EntradaSalidaModel>
+
+@{
+    ViewData["Title"] = "Lista Entradas y Salidas";
+    var rol = Context.Session.GetString("RolUser");
+    var nombreC = Context.Session.GetString("NombreC");
+    var iduser = Context.Session.GetString("IdUsuario");
+}
+
+@if (rol == "Administrador")
+{
+    <h1>Lista de Incidencias</h1>
+    <p>
+        <div class="d-flex justify-content">
+            <a class="btn btn-primary" asp-action="Create">Agregar Nuevo</a>
+        </div>
+    </p>
+    <div style="text-align:right">
+        @if (ViewBag.UltimoTipo == "Entrada")
+        {
+            <h1>Registra tu Entrada</h1>
+            <p>
+                <div class="d-flex justify-content-end">
+                    <!-- Aplicando justify-content-end para alinear a la derecha -->
+                    <form asp-controller="EntradaSalida" asp-action="Entrada" method="post">
+                        <input type="hidden" name="personal" value="@nombreC" />
+                        <input type="hidden" name="fechaEntrada" value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")" />
+                        <input type="hidden" name="tipo" value="Entrada" />
+                        <input type="hidden" name="iduser" value="@iduser" />
+
+                        <button type="submit" class="btn btn-success">Entrada</button>
+                    </form>
+                </div>
+            </p>
+        }
+        else
+        {
+            <h1>Registra tu Salida</h1>
+            <p>
+                <div class="d-flex justify-content-end">
+                    <!-- Aplicando justify-content-end para alinear a la derecha -->
+                    <form asp-controller="EntradaSalida" asp-action="Salida" method="post">
+                        <input type="hidden" name="FechaSalida" value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")" />
+                        <input type="hidden" name="Tipo" value="Salida" />
+                        <input type="hidden" name="IdUser" value="@iduser" />
+
+                        <button type="submit" class="btn btn-warning">Salida</button>
+                    </form>
+                </div>
+            </p>
+        }
+    </div>
+}
+else
+{
+    @if (ViewBag.UltimoTipo == "Entrada")
+    {
+        <h1>Registra tu Entrada</h1>
+        <p>
+            <div class="d-flex justify-content">
+                <form asp-controller="EntradaSalida" asp-action="Entrada" method="post">
+                    <input type="hidden" name="personal" value="@nombreC" />
+                    <input type="hidden" name="fechaEntrada" value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")" />
+                    <input type="hidden" name="tipo" value="Entrada" />
+                    <input type="hidden" name="iduser" value="@iduser" />
+
+                    <button type="submit" class="btn btn-success">Entrada</button>
+                </form>
+            </div>
+        </p>
+    }
+    else
+    {
+        <h1>Registra tu Salida</h1>
+        <p>
+            <div class="d-flex justify-content">
+                <form asp-controller="EntradaSalida" asp-action="Salida" method="post">
+                    <input type="hidden" name="FechaSalida" value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")" />
+                    <input type="hidden" name="Tipo" value="Salida" />
+                    <input type="hidden" name="IdUser" value="@iduser" />
+
+                    <button type="submit" class="btn btn-warning">Salida</button>
+                </form>
+            </div>
+        </p>
+    }
+}
+<div>
+    @if (TempData["FailEntrada"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["FailEntrada"]
+        </div>
+    }
+</div>
+<div>
+    @if (TempData["SuccessEntrada"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessEntrada"]
+        </div>
+    }
+</div>
+@if (rol == "Administrador")
+{
+    <div class="table-responsive-sm">
+        <table class="table table-striped table-hover" id="tb_monta" style="width:100%">
+            <thead class="table-dark">
+                <tr>
+                    <th>Folio</th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Personal)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FechaEntrada)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FechaSalida)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Tipo)
+                    </th>
+                    <th>
+                        Opciones
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdEntradaSalida)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Personal)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FechaEntrada)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FechaSalida)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Tipo)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.IdEntradaSalida"><iconify-icon icon="bi:pencil-square"></iconify-icon></a>
+                            <a asp-action="Details" asp-route-id="@item.IdEntradaSalida"><iconify-icon icon="bi:eye-fill"></iconify-icon></a>
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#eliminarUsuario-@item.IdEntradaSalida" data-original-title="Eliminar">
+                                <iconify-icon icon="bi:trash3-fill"></iconify-icon>
+                            </a>
+                        </td>
+                    </tr>
+                    <!-- Modal -->
+                    <div class="modal fade" id="eliminarUsuario-@item.IdEntradaSalida" tabindex="-1" aria-hidden="true" style="width:100%; top:50px;">
+                        <div class="modal-dialog modal-contenedor">
+                            <div class="modal-content contenedor-eliminar">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Eliminar Registro</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                </div>
+                                <div class="modal-body">
+                                    ¿Estas seguro que desea eliminar este Registro : @item.IdEntradaSalida?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <a asp-controller="EntradaSalida" asp-action="DeleteConfirmed" asp-route-id="@item.IdEntradaSalida" class="btn btn-danger">Eliminar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

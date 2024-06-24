@@ -17,7 +17,7 @@ namespace ServicioMontacargas.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.28")
+                .HasAnnotation("ProductVersion", "6.0.29")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -222,6 +222,34 @@ namespace ServicioMontacargas.Migrations
                     b.HasKey("IdClientes");
 
                     b.ToTable("ClientesModel");
+                });
+
+            modelBuilder.Entity("ServicioMontacargas.Models.EntradaSalidaModel", b =>
+                {
+                    b.Property<int>("IdEntradaSalida")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdEntradaSalida"), 1L, 1);
+
+                    b.Property<string>("FechaEntrada")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FechaSalida")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("IdUser")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Personal")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tipo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdEntradaSalida");
+
+                    b.ToTable("EntradaSalidaModel");
                 });
 
             modelBuilder.Entity("ServicioMontacargas.Models.EntregaMntCrgModel", b =>
@@ -509,6 +537,168 @@ namespace ServicioMontacargas.Migrations
                     b.HasIndex("ServicioCoModelIdServicioCo");
 
                     b.ToTable("ProductoSCo");
+                });
+
+            modelBuilder.Entity("ServicioMontacargas.Models.RevisionCamionModel", b =>
+                {
+                    b.Property<int>("IdRevisionCamion")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdRevisionCamion"), 1L, 1);
+
+                    b.Property<string>("AlarmaReversa")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AleronD")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AleronI")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BateriayTerminales")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Claxon")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Comentarios")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Direccion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EspejosRetrovisores")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Extintor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Fecha")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirmaInspector")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirmaOperador")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Frenos")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FrenosEstac")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IdMontacargas")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IndicadorCombus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IndicadorPresionA")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IndicadorTemp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Kilometraje")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Limpiaparabrisas")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LineasAire")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LiquidoFrenos")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LlantasDelanteras")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LlantasTraserasLD")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LlantasTraserasLI")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LucesDelanterasA")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LucesDelanterasB")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LucesDireccionales")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LucesFreno")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LucesIntermitentes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LucesTraseras")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MedallonVT")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Muelles")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NivelAceiteDirec")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NivelAceiteHidrau")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NivelAceiteMotor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NivelAceiteTrans")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NivelCombustible")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NombreInspector")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NombreOperador")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrdenyLG")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ParabrisasVD")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PinturayC")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Radiador")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RefrigeranteMotor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SuspensionD")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TaponC")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VidrioLD")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VidrioLI")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdRevisionCamion");
+
+                    b.HasIndex("IdMontacargas");
+
+                    b.ToTable("RevisionCamionModel");
                 });
 
             modelBuilder.Entity("ServicioMontacargas.Models.SalidaItem", b =>
@@ -1023,6 +1213,17 @@ namespace ServicioMontacargas.Migrations
                         .IsRequired();
 
                     b.Navigation("ServicioCoModel");
+                });
+
+            modelBuilder.Entity("ServicioMontacargas.Models.RevisionCamionModel", b =>
+                {
+                    b.HasOne("ServicioMontacargas.Models.MontacargasModel", "Montacargas")
+                        .WithMany()
+                        .HasForeignKey("IdMontacargas")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Montacargas");
                 });
 
             modelBuilder.Entity("ServicioMontacargas.Models.SalidaItem", b =>

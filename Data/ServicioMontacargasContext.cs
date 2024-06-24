@@ -58,6 +58,13 @@ namespace ServicioMontacargas.Data
                 .OnDelete(DeleteBehavior.Restrict); // or DeleteBehavior.Cascade if you want cascade delete
         }
 
+        public async Task ActualizarHorasMtto()
+        {
+            await Database.ExecuteSqlRawAsync("EXEC ActualizarHorasMtto");
+        }
 
+        public DbSet<ServicioMontacargas.Models.EntradaSalidaModel>? EntradaSalidaModel { get; set; }
+
+        public DbSet<ServicioMontacargas.Models.RevisionCamionModel>? RevisionCamionModel { get; set; }
     }
 }

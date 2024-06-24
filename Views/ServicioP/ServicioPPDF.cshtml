@@ -38,11 +38,9 @@
     <table style="width: 100%; border: none;">
         <tr>
             <td style="border: none; vertical-align: top; line-height: 1; font-size:16px; width:50%; text-align:left">
-                <br />
                 <p>Cliente : @Model.Clientes.Nombre</p>
             </td>
             <td style="border: none; vertical-align: top; line-height: 1; font-size:16px; width:50%; text-align:right">
-                <br />
                 <a>Fecha : @Model.Fecha</a>
             </td>
         </tr>
@@ -175,7 +173,8 @@
                             <a style="font-size:15px">Modelo : @Model.Montacargas.Modelo </a><br />
                             <a style="font-size:15px">Serie : @Model.Montacargas.NumeroSerie </a><br />
                             <a style="font-size:15px">No. Económico : @Model.Montacargas.NumeroEconomico </a><br />
-                            <a style="font-size:15px">Horometro : @Model.Montacargas.Horometro</a>
+                            <a style="font-size:15px">Horometro Actual: @Model.Montacargas.Horometro</a><br />
+                            <a style="font-size:15px">Horometro Servicio P: @Model.Horometro</a>
                         </td>
                     </tr>
                 </table>

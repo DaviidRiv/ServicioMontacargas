@@ -29,7 +29,7 @@ namespace ServicioMontacargas.Controllers
 
 
         [HttpPost]
-        public IActionResult IniciarSesion(string nombre, string apellidoP, string apellidoM, string password)
+        public async Task<IActionResult> IniciarSesion(string nombre, string apellidoP, string apellidoM, string password)
         {
             // Buscar al usuario en la base de datos
             var usuario = _context.UsuariosModel.FirstOrDefault(u =>
@@ -45,8 +45,11 @@ namespace ServicioMontacargas.Controllers
                 HttpContext.Session.SetString("ApellidoP", usuario.ApellidoP);
                 HttpContext.Session.SetString("ApellidoM", usuario.ApellidoM);
                 HttpContext.Session.SetString("RolUser", usuario.rolUser);
+                HttpContext.Session.SetString("NombreC", usuario.Nombre + " " + usuario.ApellidoP + " " + usuario.ApellidoM);
+
                 if(usuario.rolUser == "Administrador")
                 {
+                    await _context.ActualizarHorasMtto();
                     return RedirectToAction("Index", "Home");
                 }
                 else if (usuario.rolUser == "Técnico" || usuario.rolUser == "Operador Grua" || usuario.rolUser == "Montacarguista")

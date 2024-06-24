@@ -1,0 +1,323 @@
+﻿@model IEnumerable<ServicioMontacargas.Models.RevisionCamionModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NivelCombustible)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Kilometraje)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Montacargas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comentarios)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NivelAceiteMotor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NivelAceiteTrans)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NivelAceiteDirec)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NivelAceiteHidrau)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RefrigeranteMotor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LiquidoFrenos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Radiador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IndicadorCombus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IndicadorTemp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IndicadorPresionA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BateriayTerminales)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Direccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Frenos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FrenosEstac)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LineasAire)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SuspensionD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Muelles)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PinturayC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrdenyLG)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LlantasDelanteras)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LlantasTraserasLD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LlantasTraserasLI)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LucesDelanterasB)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LucesDelanterasA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LucesTraseras)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LucesFreno)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LucesIntermitentes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LucesDireccionales)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Claxon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AlarmaReversa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Limpiaparabrisas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EspejosRetrovisores)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParabrisasVD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MedallonVT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VidrioLD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VidrioLI)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AleronD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AleronI)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Extintor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaponC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreOperador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirmaOperador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreInspector)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirmaInspector)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NivelCombustible)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Kilometraje)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Montacargas.IdMontacargas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comentarios)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NivelAceiteMotor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NivelAceiteTrans)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NivelAceiteDirec)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NivelAceiteHidrau)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RefrigeranteMotor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LiquidoFrenos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Radiador)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IndicadorCombus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IndicadorTemp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IndicadorPresionA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BateriayTerminales)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Direccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Frenos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FrenosEstac)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LineasAire)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SuspensionD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Muelles)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PinturayC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrdenyLG)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LlantasDelanteras)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LlantasTraserasLD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LlantasTraserasLI)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LucesDelanterasB)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LucesDelanterasA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LucesTraseras)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LucesFreno)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LucesIntermitentes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LucesDireccionales)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Claxon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AlarmaReversa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Limpiaparabrisas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EspejosRetrovisores)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParabrisasVD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MedallonVT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VidrioLD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VidrioLI)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AleronD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AleronI)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Extintor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaponC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreOperador)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirmaOperador)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreInspector)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirmaInspector)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdRevisionCamion">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdRevisionCamion">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdRevisionCamion">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
