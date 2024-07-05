@@ -152,5 +152,24 @@ namespace ServicioMontacargas.Controllers
         {
           return (_context.ChequeoDiarioModel?.Any(e => e.IdChequeoDiario == id)).GetValueOrDefault();
         }
+
+        public async Task<IActionResult> ChequeoDiarioPDF(int? id)
+        {
+            if (id == null || _context.ChequeoDiarioModel == null)
+            {
+                return NotFound();
+            }
+
+            var chequeoDiarioModel = await _context.ChequeoDiarioModel
+                .Include(c => c.Montacargas)
+                .FirstOrDefaultAsync(m => m.IdChequeoDiario == id);
+
+            if (chequeoDiarioModel == null)
+            {
+                return NotFound();
+            }
+
+            return View(chequeoDiarioModel);
+        }
     }
 }

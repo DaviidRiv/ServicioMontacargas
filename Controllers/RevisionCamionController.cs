@@ -155,5 +155,24 @@ namespace ServicioMontacargas.Controllers
         {
           return (_context.RevisionCamionModel?.Any(e => e.IdRevisionCamion == id)).GetValueOrDefault();
         }
+
+        public async Task<IActionResult> RevisionCamionPDF(int? id)
+        {
+            if (id == null || _context.RevisionCamionModel == null)
+            {
+                return NotFound();
+            }
+
+            var revisionCamionModel = await _context.RevisionCamionModel
+                .Include(r => r.Montacargas)
+                .FirstOrDefaultAsync(m => m.IdRevisionCamion == id);
+
+            if (revisionCamionModel == null)
+            {
+                return NotFound();
+            }
+
+            return View(revisionCamionModel);
+        }
     }
 }

@@ -239,6 +239,7 @@
                                 <a href="#" id="generatePdfLink" data-id="@item.IdChequeoDiario">
                                     <iconify-icon icon="bxs:file-pdf"></iconify-icon>
                                 </a>
+                                <a asp-action="ChequeoDiarioPDF" asp-route-id="@item.IdChequeoDiario"><iconify-icon icon="bi:eye-fill"></iconify-icon></a>
                             }
                             else
                             {
@@ -273,3 +274,39 @@
         </tbody>
     </table>
 </div>
+@section Scripts {
+    <script>
+        $(document).on('click', '#generatePdfLink', function (e) {
+            e.preventDefault();
+            var id = $(this).data('id');
+            generatePdf(id);
+        });
+
+        function generatePdf(id) {
+            // Realiza una solicitud AJAX para obtener los datos necesarios
+            $.ajax({
+                url: '/ChequeoDiario/ChequeoDiarioPDF?id=' + id,
+                method: 'GET',
+                success: function (data) {
+                    // Llama a la función para generar el PDF con los datos obtenidos
+                    generatePdfFromData(data, id);
+                },
+                error: function (error) {
+                    console.error('Error al obtener los datos:', error);
+                }
+            });
+        }
+
+        function generatePdfFromData(data, id) {
+            // Crea un elemento temporal para contener los datos de la vista
+            var tempDiv = document.createElement('div');
+            tempDiv.innerHTML = data;
+
+            // Llama a html2pdf para generar el PDF
+            html2pdf(tempDiv, {
+                margin: 5,
+                filename: 'Lista Chequeo Diario ' + id + '.pdf',
+            });
+        }
+    </script>
+}
