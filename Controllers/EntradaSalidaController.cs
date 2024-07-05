@@ -84,16 +84,22 @@ namespace ServicioMontacargas.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Entrada(int? iduser, string? personal, string? fechaEntrada, string? tipo)
+        public async Task<IActionResult> Entrada(int? iduser, string? personal, string? tipo, double? latitud, double? longitud)
         {
             if (ModelState.IsValid)
             {
+                TimeZoneInfo mexicoCityTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time (Mexico)");
+                DateTime localDateTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, mexicoCityTimeZone);
+                string formattedDateTime = localDateTime.ToString("yyyy-MM-dd HH:mm:ss");
+
                 var entradaSalidaModel = new EntradaSalidaModel
                 {
                     Personal = personal,
-                    FechaEntrada = fechaEntrada,
+                    FechaEntrada = formattedDateTime,
                     Tipo = tipo,
-                    IdUser = iduser
+                    IdUser = iduser,
+                    LatitudE = latitud,
+                    LongitudE = longitud
                 };
 
                 _context.Add(entradaSalidaModel);
@@ -104,9 +110,10 @@ namespace ServicioMontacargas.Controllers
             TempData["FailEntrada"] = "La Entrada no pudo ser Registrada.";
             return RedirectToAction(nameof(Index));
         }
+      
 
         [HttpPost]
-        public async Task<IActionResult> Salida(int? IdUser, string? FechaSalida, string? Tipo)
+        public async Task<IActionResult> Salida(int? IdUser, string? Tipo, double? latitud, double? longitud)
         {
             if (IdUser == null || !ModelState.IsValid)
             {
@@ -123,10 +130,14 @@ namespace ServicioMontacargas.Controllers
             {
                 return NotFound("No matching entry found for the given user.");
             }
+            TimeZoneInfo mexicoCityTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time (Mexico)");
+            DateTime localDateTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, mexicoCityTimeZone);
+            string formattedDateTime = localDateTime.ToString("yyyy-MM-dd HH:mm:ss");
 
-            // Actualizar los campos necesarios
-            entradaSalidaModel.FechaSalida = FechaSalida;
+            entradaSalidaModel.FechaSalida = formattedDateTime;
             entradaSalidaModel.Tipo = Tipo;
+            entradaSalidaModel.LatitudS = latitud;
+            entradaSalidaModel.LongitudS = longitud;
 
             try
             {

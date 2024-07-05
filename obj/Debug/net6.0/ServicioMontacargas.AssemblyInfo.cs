@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ServicioMontacargas")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+52f14fd1fa1ae7129f9f545ee1f3c69458870f03")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fcf50c1c1fdc0b0cc31a0d870b62386dd64050b7")]
 [assembly: System.Reflection.AssemblyProductAttribute("ServicioMontacargas")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ServicioMontacargas")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

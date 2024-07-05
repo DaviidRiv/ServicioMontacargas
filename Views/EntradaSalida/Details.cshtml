@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Detalles Registro";
+    var nombreC = Context.Session.GetString("NombreC");
 }
 
 <h1>Detalles de Registro : @Model.IdEntradaSalida</h1>
@@ -32,10 +33,41 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Tipo)
         </dd>
-        <dt class="col-sm-2">
+
+        @if (nombreC == "Antonio Castillo Sifuentes")
+        {
+            <dt class="col-sm-2">
+                Ubicacion Entrada
+            </dt>
+            <dd class="col-sm-10">
+                @if (Model.LatitudE.HasValue && Model.LongitudE.HasValue)
+                {
+                    <a href="https://www.google.com/maps?q=@Model.LatitudE,@Model.LongitudE" target="_blank">Ver en Google Maps</a>
+                }
+                else
+                {
+                    <p>Coordenadas no disponibles</p>
+                }
+            </dd>
+            <dt class="col-sm-2">
+                Ubicacion Salida
+            </dt>
+            <dd class="col-sm-10">
+                @if (Model.LatitudS.HasValue && Model.LongitudS.HasValue)
+                {
+                    <a href="https://www.google.com/maps?q=@Model.LatitudS,@Model.LongitudS" target="_blank">Ver en Google Maps</a>
+                }
+                else
+                {
+                    <p>Coordenadas no disponibles</p>
+                }
+            </dd>
+        }
+        
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.IdUser)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-2" style="text-align:left">
             <a asp-controller="Usuarios" asp-action="Details" asp-route-id="@Model.IdUser">
                 @Html.DisplayFor(model => model.IdUser)
             </a>

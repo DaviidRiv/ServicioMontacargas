@@ -25,11 +25,13 @@ namespace ServicioMontacargas.Controllers
             var servicioMontacargasContext = _context.ServicioCoModel
                 .Include(s => s.Clientes)
                 .Include(s => s.Montacargas)
-                .Include(s => s.Tareas)
-                .Include(s => s.TareasSeleccionadas)
-                .Include(s => s.Productos);
+                .Include(s => s.Productos)
+                .Include(s => s.ServicioTareas)
+                    .ThenInclude(st => st.Tarea);  // Incluir las tareas a través de ServicioTareas
+
             return View(await servicioMontacargasContext.ToListAsync());
         }
+
 
         public async Task<IActionResult> Details(int? id)
         {
@@ -41,9 +43,9 @@ namespace ServicioMontacargas.Controllers
             var servicioCoModel = await _context.ServicioCoModel
                 .Include(s => s.Clientes)
                 .Include(s => s.Montacargas)
-                .Include(s => s.Tareas)
-                .Include(s => s.TareasSeleccionadas)
                 .Include(s => s.Productos)
+                .Include(s => s.ServicioTareas)
+                .ThenInclude(st => st.Tarea)
                 .FirstOrDefaultAsync(m => m.IdServicioCo == id);
             if (servicioCoModel == null)
             {
@@ -96,7 +98,7 @@ namespace ServicioMontacargas.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ServicioCoModel servicioCoModel, string tareasseleccionadas, List<ProductoSCo> productos)
+        public async Task<IActionResult> Create(ServicioCoModel servicioCoModel, string TareasSeleccionadas, List<ProductoSCo> productos)
         {
             var montacargas = await _context.MontacargasModel.FindAsync(servicioCoModel.IdMontacargas);
 
@@ -109,22 +111,26 @@ namespace ServicioMontacargas.Controllers
             {
                 try
                 {
-                    // Actualizar el horómetro del montacargas
                     await UpdateHorometro(servicioCoModel.IdMontacargas, servicioCoModel.Horometro);
 
+                    // Guardar el servicio primero
                     _context.Add(servicioCoModel);
                     await _context.SaveChangesAsync();
 
-                    var tareasSeleccionadas = tareasseleccionadas
-                    .Split(',', StringSplitOptions.RemoveEmptyEntries)
-                    .Select(int.Parse)
-                    .ToList();
+                    // Separar las tareas seleccionadas
+                    var tareasSeleccionadas = TareasSeleccionadas
+                        .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                        .Select(int.Parse)
+                        .ToList();
 
                     foreach (var tareaId in tareasSeleccionadas)
                     {
-                        var tarea = new Tarea { TareaId = tareaId };
-                        _context.Attach(tarea);
-                        servicioCoModel.TareasSeleccionadas.Add(tarea);
+                        var servicioTarea = new ServicioTarea
+                        {
+                            ServicioCoModelId = servicioCoModel.IdServicioCo,
+                            TareaId = tareaId
+                        };
+                        _context.Add(servicioTarea);
                     }
 
                     await _context.SaveChangesAsync();
@@ -133,22 +139,30 @@ namespace ServicioMontacargas.Controllers
                 }
                 catch (DbUpdateException ex)
                 {
-                    return RedirectToAction(nameof(Index));
+                    // Log or handle the error as needed
+                    ModelState.AddModelError(string.Empty, "An error occurred while saving the data. Please try again.");
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine(ex.Message);
                 }
             }
+
             ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "Nombre", servicioCoModel.IdClientes);
             ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "DisplayInfoMntCrg", servicioCoModel.IdMontacargas);
             ViewData["ComponenteId"] = new SelectList(
-                                       _context.Tarea
-                                           .Select(t => t.ComponenteId)
-                                           .Distinct()
-                                           .Join(_context.ProcesosCorrectivoModel, tareaComponenteId => tareaComponenteId, procesoComponenteId => procesoComponenteId.ComponenteId, (tareaComponenteId, procesoComponenteId) => new { TareaComponenteId = tareaComponenteId, ProcesoComponenteNombre = procesoComponenteId.Nombre }),
-                                       "TareaComponenteId",
-                                       "ProcesoComponenteNombre"
-                                   );
-            ViewData["TareaId"] = new SelectList(_context.Tarea, "TareaId", "TareaId", servicioCoModel.TareaId);
+                _context.Tarea
+                    .Select(t => t.ComponenteId)
+                    .Distinct()
+                    .Join(_context.ProcesosCorrectivoModel, tareaComponenteId => tareaComponenteId, procesoComponenteId => procesoComponenteId.ComponenteId, (tareaComponenteId, procesoComponenteId) => new { TareaComponenteId = tareaComponenteId, ProcesoComponenteNombre = procesoComponenteId.Nombre }),
+                "TareaComponenteId",
+                "ProcesoComponenteNombre"
+            );
+
             return View(servicioCoModel);
         }
+
+
+
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.ServicioCoModel == null)
@@ -156,7 +170,10 @@ namespace ServicioMontacargas.Controllers
                 return NotFound();
             }
 
-            var servicioCoModel = await _context.ServicioCoModel.FindAsync(id);
+            var servicioCoModel = await _context.ServicioCoModel
+                                    .Include(s => s.ServicioTareas)
+                                        .ThenInclude(st => st.Tarea)
+                                    .FirstOrDefaultAsync(m => m.IdServicioCo == id);
             if (servicioCoModel == null)
             {
                 return NotFound();
@@ -167,7 +184,7 @@ namespace ServicioMontacargas.Controllers
 
             ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "Nombre", servicioCoModel.IdClientes);
             ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "DisplayInfoMntCrg", servicioCoModel.IdMontacargas);
-            ViewData["TareaId"] = new SelectList(_context.Tarea, "TareaId", "TareaId", servicioCoModel.TareaId);
+            //ViewData["TareaId"] = new SelectList(_context.Tarea, "TareaId", "TareaId", servicioCoModel.TareaId);
             ViewData["ComponenteId"] = new SelectList(
                                        _context.Tarea
                                            .Select(t => t.ComponenteId)
@@ -230,7 +247,7 @@ namespace ServicioMontacargas.Controllers
                     if (!string.IsNullOrEmpty(tareasseleccionadas))
                     {
                         var tareaIds = tareasseleccionadas.Split(',').Select(int.Parse).ToList();
-                        servicioCoModel.TareasSeleccionadas = await _context.Tarea.Where(t => tareaIds.Contains(t.TareaId)).ToListAsync();
+                        //servicioCoModel.TareasSeleccionadas = await _context.Tarea.Where(t => tareaIds.Contains(t.TareaId)).ToListAsync();
                     }
                     _context.Update(servicioCoModel);
                     await _context.SaveChangesAsync();
@@ -250,7 +267,7 @@ namespace ServicioMontacargas.Controllers
             }
             ViewData["IdClientes"] = new SelectList(_context.ClientesModel, "IdClientes", "Nombre", servicioCoModel.IdClientes);
             ViewData["IdMontacargas"] = new SelectList(_context.MontacargasModel, "IdMontacargas", "DisplayInfoMntCrg", servicioCoModel.IdMontacargas);
-            ViewData["TareaId"] = new SelectList(_context.Tarea, "TareaId", "TareaId", servicioCoModel.TareaId);
+            //ViewData["TareaId"] = new SelectList(_context.Tarea, "TareaId", "TareaId", servicioCoModel.TareaId);
             ViewData["ComponenteId"] = new SelectList(
                                        _context.Tarea
                                            .Select(t => t.ComponenteId)
@@ -259,26 +276,6 @@ namespace ServicioMontacargas.Controllers
                                        "TareaComponenteId",
                                        "ProcesoComponenteNombre"
                                    );
-            return View(servicioCoModel);
-        }
-
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.ServicioCoModel == null)
-            {
-                return NotFound();
-            }
-
-            var servicioCoModel = await _context.ServicioCoModel
-                .Include(s => s.Clientes)
-                .Include(s => s.Montacargas)
-                .Include(s => s.Tareas)
-                .FirstOrDefaultAsync(m => m.IdServicioCo == id);
-            if (servicioCoModel == null)
-            {
-                return NotFound();
-            }
-
             return View(servicioCoModel);
         }
 
@@ -291,7 +288,7 @@ namespace ServicioMontacargas.Controllers
             }
 
             // Busca todos los registros relacionados en la tabla "Tarea" y los elimina
-            var tareasRelacionadas = _context.Tarea.Where(t => t.ServicioCoModelIdServicioCo == id);
+            var tareasRelacionadas = _context.Tarea.Where(t => t.TareaId == id);
             _context.Tarea.RemoveRange(tareasRelacionadas);
 
             // Elimina el registro en "ServicioCoModel"
@@ -318,9 +315,9 @@ namespace ServicioMontacargas.Controllers
             var servicioCoModel = await _context.ServicioCoModel
                 .Include(s => s.Clientes)
                 .Include(s => s.Montacargas)
-                .Include(s => s.Tareas)
-                .Include(s => s.TareasSeleccionadas)
                 .Include(s => s.Productos)
+                .Include(s => s.ServicioTareas)
+                .ThenInclude(st => st.Tarea)
                 .FirstOrDefaultAsync(m => m.IdServicioCo == id);
             if (servicioCoModel == null)
             {

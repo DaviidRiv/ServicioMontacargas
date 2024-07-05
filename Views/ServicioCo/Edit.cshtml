@@ -33,8 +33,6 @@
                     <select asp-for="IdClientes" class="form-select" asp-items="ViewBag.IdClientes" required></select>
                 </div>
 
-                <select asp-for="TareaId" asp-items="@ViewBag.TareaId" style="display: none;"></select>
-
                 <div class="form-group">
                     <label name="ComponenteId" class="control-label">Componente</label>
                     <select name="ComponenteId" class="form-select" id="ComponenteId" asp-items="ViewBag.ComponenteId">
@@ -120,11 +118,11 @@
                 <div class="form-group">
                     <label for="tareas-seleccionadas" class="control-label">Tareas Seleccionadas</label>
                     <select id="tareas-seleccionadas" class="form-select" style="height:180px;" multiple>
-                        @if (Model.TareasSeleccionadas != null)
+                        @if (Model.ServicioTareas != null)
                         {
-                            @foreach (var tarea in Model.TareasSeleccionadas)
+                            @foreach (var tarea in Model.ServicioTareas)
                             {
-                                <option value="@tarea.TareaId">@tarea.Descripcion</option>
+                                <option value="@tarea.TareaId">@tarea.Tarea.Descripcion</option>
                             }
                         }
                     </select>
@@ -193,7 +191,9 @@
                     <span asp-validation-for="NombreC" class="text-danger"></span>
                 </div>
             </div>
-            <input type="hidden" id="tareas-seleccionadas-hidden" name="TareasSeleccionadas" />
+            <input type="hidden" asp-for="TareaId"/>
+
+            <input type="text" id="tareas-seleccionadas-hidden" name="TareasSeleccionadas" />
             <div class="form-group">
                 <br />
                 <center>
@@ -215,6 +215,14 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
     <script>
+        function actualizarTareasSeleccionadas() {
+            var tareasSeleccionadas = [];
+            $('#tareas-seleccionadas option').each(function () {
+                tareasSeleccionadas.push($(this).val());
+            });
+            $('#tareas-seleccionadas-hidden').val(tareasSeleccionadas.join(','));
+        }
+
         $(document).ready(function () {
             $('#agregar-tarea').click(function () {
                 var tareaId = $('#tarea-select').val();
@@ -246,23 +254,11 @@
                                 text: tarea.text
                             }));
                         });
-                        // Al actualizar las opciones de tareas, también actualizamos el campo oculto
                         actualizarTareasSeleccionadas();
                     }
                 });
             });
         });
-
-        function actualizarTareasSeleccionadas() {
-            // Creamos un array para almacenar los valores de las tareas seleccionadas
-            var tareasSeleccionadas = [];
-            $('#tareas-seleccionadas option').each(function () {
-                tareasSeleccionadas.push($(this).val());
-            });
-            // Actualizamos el campo oculto con los valores de las tareas seleccionadas
-            $('#tareas-seleccionadas-hidden').val(tareasSeleccionadas.join(','));
-        }
-
     </script>
     <script>
         var canvas = new SignaturePad(document.getElementById('signatureCanvas'), {

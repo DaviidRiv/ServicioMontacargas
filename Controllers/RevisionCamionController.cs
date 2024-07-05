@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using ServicioMontacargas.Auths;
 using ServicioMontacargas.Data;
 using ServicioMontacargas.Models;
 
 namespace ServicioMontacargas.Controllers
 {
+    [AutorizacionAdmin]
     public class RevisionCamionController : Controller
     {
         private readonly ServicioMontacargasContext _context;
@@ -70,7 +72,10 @@ namespace ServicioMontacargas.Controllers
                 return NotFound();
             }
 
-            var revisionCamionModel = await _context.RevisionCamionModel.FindAsync(id);
+            var revisionCamionModel = await _context.RevisionCamionModel
+                .Include(s => s.Montacargas)
+                .FirstOrDefaultAsync(m => m.IdRevisionCamion == id);
+
             if (revisionCamionModel == null)
             {
                 return NotFound();

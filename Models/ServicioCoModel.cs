@@ -14,15 +14,6 @@ namespace ServicioMontacargas.Models
         public int IdClientes { get; set; }
         public ClientesModel? Clientes { get; set; }
 
-        [ForeignKey("Tareas")]
-        [DisplayName("Tareas")]
-        public int TareaId { get; set; }
-        public Tarea? Tareas { get; set; }
-
-        [DisplayName("Tareas seleccionadas")]
-        public List<Tarea>? TareasSeleccionadas { get; set; }
-
-
         [DisplayName("Causa de Falla")]
         public string? CausaFalla { get; set; }
 
@@ -62,7 +53,15 @@ namespace ServicioMontacargas.Models
         public string? Status { get; set; }
         public string FolioSC => $"SC{(IdServicioCo < 10 ? $"0{IdServicioCo}" : IdServicioCo.ToString())}-{Montacargas?.NumeroEconomico}-{FechaReg?.ToString()}";
 
+        // Esta lista se relaciona con ServicioTarea
+        public List<ServicioTarea> ServicioTareas { get; set; } = new List<ServicioTarea>();
+
+        [NotMapped]
+        public List<Tarea> TareasSeleccionadas => ServicioTareas.Select(st => st.Tarea).ToList();
+        public int? TareaId { get; set; }
+
     }
+
     public class ProductoSCo
     {
         [Key]
@@ -77,6 +76,14 @@ namespace ServicioMontacargas.Models
         public string? Descripcion { get; set; }
         public int ServicioCoModelIdServicioCo { get; set; }
         public ServicioCoModel? ServicioCoModel { get; set; }
+    }
+    public class ServicioTarea
+    {
+        public int ServicioCoModelId { get; set; }
+        public ServicioCoModel? ServicioCoModel { get; set; }
+
+        public int TareaId { get; set; }
+        public Tarea? Tarea { get; set; }
     }
 }
 

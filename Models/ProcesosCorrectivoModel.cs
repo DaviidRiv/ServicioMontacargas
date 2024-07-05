@@ -23,13 +23,10 @@ namespace ServicioMontacargas.Models
         [Key]
         public int TareaId { get; set; }
         public string? Descripcion { get; set; }
-        public int? ServicioCoModelIdServicioCo { get; set; }
         public int ComponenteId { get; set; }
         [ForeignKey("ComponenteId")]
         public ProcesosCorrectivoModel? Componente { get; set; }
 
-        public int ServicioCoModelId { get; set; }
-        public ServicioCoModel? ServicioCoModel { get; set; }
-
+        public List<ServicioTarea> ServicioTareas { get; set; } = new List<ServicioTarea>();
     }
 }

@@ -51,11 +51,26 @@ namespace ServicioMontacargas.Data
                 .HasForeignKey(t => t.ComponenteId)
                 .OnDelete(DeleteBehavior.Cascade); // Eliminación en cascada
 
-            modelBuilder.Entity<Tarea>()
-                .HasOne(t => t.ServicioCoModel)
-                .WithMany(sc => sc.TareasSeleccionadas)
-                .HasForeignKey(t => t.ServicioCoModelIdServicioCo)
-                .OnDelete(DeleteBehavior.Restrict); // or DeleteBehavior.Cascade if you want cascade delete
+            //modelBuilder.Entity<Tarea>()
+            //    .HasOne(t => t.ServicioCoModel)
+            //    .WithMany(sc => sc.TareasSeleccionadas)
+            //    .HasForeignKey(t => t.ServicioCoModelIdServicioCo)
+            //    .OnDelete(DeleteBehavior.Restrict); // or DeleteBehavior.Cascade if you want cascade delete
+
+            modelBuilder.Entity<ServicioTarea>()
+                .HasKey(st => new { st.ServicioCoModelId, st.TareaId });
+
+            modelBuilder.Entity<ServicioTarea>()
+                .HasOne(st => st.ServicioCoModel)
+                .WithMany(s => s.ServicioTareas)
+                .HasForeignKey(st => st.ServicioCoModelId)
+                .OnDelete(DeleteBehavior.Restrict); // or DeleteBehavior.NoAction if you want no action
+
+            modelBuilder.Entity<ServicioTarea>()
+                .HasOne(st => st.Tarea)
+                .WithMany(t => t.ServicioTareas)
+                .HasForeignKey(st => st.TareaId)
+                .OnDelete(DeleteBehavior.Restrict); // or DeleteBehavior.NoAction if you want no action
         }
 
         public async Task ActualizarHorasMtto()
@@ -66,5 +81,7 @@ namespace ServicioMontacargas.Data
         public DbSet<ServicioMontacargas.Models.EntradaSalidaModel>? EntradaSalidaModel { get; set; }
 
         public DbSet<ServicioMontacargas.Models.RevisionCamionModel>? RevisionCamionModel { get; set; }
+
+        public DbSet<ServicioMontacargas.Models.ChequeoDiarioModel>? ChequeoDiarioModel { get; set; }
     }
 }

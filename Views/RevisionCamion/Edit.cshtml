@@ -1,274 +1,609 @@
 ﻿@model ServicioMontacargas.Models.RevisionCamionModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Revision Camion";
 }
 
-<h1>Edit</h1>
+<h1>Editar</h1>
 
-<h4>RevisionCamionModel</h4>
+<h4>Revision Camion : @Model.IdRevisionCamion</h4>
+<div>
+    @if (TempData["FailRevisionC"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["FailRevisionC"]
+        </div>
+    }
+</div>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="IdRevisionCamion" />
-            <div class="form-group">
-                <label asp-for="NivelCombustible" class="control-label"></label>
-                <input asp-for="NivelCombustible" class="form-control" />
-                <span asp-validation-for="NivelCombustible" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Fecha" class="control-label"></label>
-                <input asp-for="Fecha" class="form-control" />
-                <span asp-validation-for="Fecha" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Kilometraje" class="control-label"></label>
-                <input asp-for="Kilometraje" class="form-control" />
-                <span asp-validation-for="Kilometraje" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdMontacargas" class="control-label"></label>
-                <select asp-for="IdMontacargas" class="form-control" asp-items="ViewBag.IdMontacargas"></select>
-                <span asp-validation-for="IdMontacargas" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Comentarios" class="control-label"></label>
-                <input asp-for="Comentarios" class="form-control" />
-                <span asp-validation-for="Comentarios" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NivelAceiteMotor" class="control-label"></label>
-                <input asp-for="NivelAceiteMotor" class="form-control" />
-                <span asp-validation-for="NivelAceiteMotor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NivelAceiteTrans" class="control-label"></label>
-                <input asp-for="NivelAceiteTrans" class="form-control" />
-                <span asp-validation-for="NivelAceiteTrans" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NivelAceiteDirec" class="control-label"></label>
-                <input asp-for="NivelAceiteDirec" class="form-control" />
-                <span asp-validation-for="NivelAceiteDirec" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NivelAceiteHidrau" class="control-label"></label>
-                <input asp-for="NivelAceiteHidrau" class="form-control" />
-                <span asp-validation-for="NivelAceiteHidrau" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RefrigeranteMotor" class="control-label"></label>
-                <input asp-for="RefrigeranteMotor" class="form-control" />
-                <span asp-validation-for="RefrigeranteMotor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LiquidoFrenos" class="control-label"></label>
-                <input asp-for="LiquidoFrenos" class="form-control" />
-                <span asp-validation-for="LiquidoFrenos" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Radiador" class="control-label"></label>
-                <input asp-for="Radiador" class="form-control" />
-                <span asp-validation-for="Radiador" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IndicadorCombus" class="control-label"></label>
-                <input asp-for="IndicadorCombus" class="form-control" />
-                <span asp-validation-for="IndicadorCombus" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IndicadorTemp" class="control-label"></label>
-                <input asp-for="IndicadorTemp" class="form-control" />
-                <span asp-validation-for="IndicadorTemp" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IndicadorPresionA" class="control-label"></label>
-                <input asp-for="IndicadorPresionA" class="form-control" />
-                <span asp-validation-for="IndicadorPresionA" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BateriayTerminales" class="control-label"></label>
-                <input asp-for="BateriayTerminales" class="form-control" />
-                <span asp-validation-for="BateriayTerminales" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Direccion" class="control-label"></label>
-                <input asp-for="Direccion" class="form-control" />
-                <span asp-validation-for="Direccion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Frenos" class="control-label"></label>
-                <input asp-for="Frenos" class="form-control" />
-                <span asp-validation-for="Frenos" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FrenosEstac" class="control-label"></label>
-                <input asp-for="FrenosEstac" class="form-control" />
-                <span asp-validation-for="FrenosEstac" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LineasAire" class="control-label"></label>
-                <input asp-for="LineasAire" class="form-control" />
-                <span asp-validation-for="LineasAire" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SuspensionD" class="control-label"></label>
-                <input asp-for="SuspensionD" class="form-control" />
-                <span asp-validation-for="SuspensionD" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Muelles" class="control-label"></label>
-                <input asp-for="Muelles" class="form-control" />
-                <span asp-validation-for="Muelles" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PinturayC" class="control-label"></label>
-                <input asp-for="PinturayC" class="form-control" />
-                <span asp-validation-for="PinturayC" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="OrdenyLG" class="control-label"></label>
-                <input asp-for="OrdenyLG" class="form-control" />
-                <span asp-validation-for="OrdenyLG" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LlantasDelanteras" class="control-label"></label>
-                <input asp-for="LlantasDelanteras" class="form-control" />
-                <span asp-validation-for="LlantasDelanteras" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LlantasTraserasLD" class="control-label"></label>
-                <input asp-for="LlantasTraserasLD" class="form-control" />
-                <span asp-validation-for="LlantasTraserasLD" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LlantasTraserasLI" class="control-label"></label>
-                <input asp-for="LlantasTraserasLI" class="form-control" />
-                <span asp-validation-for="LlantasTraserasLI" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LucesDelanterasB" class="control-label"></label>
-                <input asp-for="LucesDelanterasB" class="form-control" />
-                <span asp-validation-for="LucesDelanterasB" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LucesDelanterasA" class="control-label"></label>
-                <input asp-for="LucesDelanterasA" class="form-control" />
-                <span asp-validation-for="LucesDelanterasA" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LucesTraseras" class="control-label"></label>
-                <input asp-for="LucesTraseras" class="form-control" />
-                <span asp-validation-for="LucesTraseras" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LucesFreno" class="control-label"></label>
-                <input asp-for="LucesFreno" class="form-control" />
-                <span asp-validation-for="LucesFreno" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LucesIntermitentes" class="control-label"></label>
-                <input asp-for="LucesIntermitentes" class="form-control" />
-                <span asp-validation-for="LucesIntermitentes" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LucesDireccionales" class="control-label"></label>
-                <input asp-for="LucesDireccionales" class="form-control" />
-                <span asp-validation-for="LucesDireccionales" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Claxon" class="control-label"></label>
-                <input asp-for="Claxon" class="form-control" />
-                <span asp-validation-for="Claxon" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AlarmaReversa" class="control-label"></label>
-                <input asp-for="AlarmaReversa" class="form-control" />
-                <span asp-validation-for="AlarmaReversa" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Limpiaparabrisas" class="control-label"></label>
-                <input asp-for="Limpiaparabrisas" class="form-control" />
-                <span asp-validation-for="Limpiaparabrisas" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EspejosRetrovisores" class="control-label"></label>
-                <input asp-for="EspejosRetrovisores" class="form-control" />
-                <span asp-validation-for="EspejosRetrovisores" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ParabrisasVD" class="control-label"></label>
-                <input asp-for="ParabrisasVD" class="form-control" />
-                <span asp-validation-for="ParabrisasVD" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MedallonVT" class="control-label"></label>
-                <input asp-for="MedallonVT" class="form-control" />
-                <span asp-validation-for="MedallonVT" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VidrioLD" class="control-label"></label>
-                <input asp-for="VidrioLD" class="form-control" />
-                <span asp-validation-for="VidrioLD" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VidrioLI" class="control-label"></label>
-                <input asp-for="VidrioLI" class="form-control" />
-                <span asp-validation-for="VidrioLI" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AleronD" class="control-label"></label>
-                <input asp-for="AleronD" class="form-control" />
-                <span asp-validation-for="AleronD" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AleronI" class="control-label"></label>
-                <input asp-for="AleronI" class="form-control" />
-                <span asp-validation-for="AleronI" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Extintor" class="control-label"></label>
-                <input asp-for="Extintor" class="form-control" />
-                <span asp-validation-for="Extintor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TaponC" class="control-label"></label>
-                <input asp-for="TaponC" class="form-control" />
-                <span asp-validation-for="TaponC" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NombreOperador" class="control-label"></label>
-                <input asp-for="NombreOperador" class="form-control" />
-                <span asp-validation-for="NombreOperador" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FirmaOperador" class="control-label"></label>
-                <input asp-for="FirmaOperador" class="form-control" />
-                <span asp-validation-for="FirmaOperador" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NombreInspector" class="control-label"></label>
-                <input asp-for="NombreInspector" class="form-control" />
-                <span asp-validation-for="NombreInspector" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FirmaInspector" class="control-label"></label>
-                <input asp-for="FirmaInspector" class="form-control" />
-                <span asp-validation-for="FirmaInspector" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="IdRevisionCamion" />
+                <input type="hidden" name="id" value="@Model.IdRevisionCamion" />
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label asp-for="IdMontacargas" class="control-label"></label>
+                            <select asp-for="IdMontacargas" class="form-select" asp-items="ViewBag.IdMontacargas" required></select>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Fecha" class="control-label"></label>
+                            <input asp-for="Fecha" type="datetime-local" class="form-control" required />
+                            <span asp-validation-for="Fecha" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label asp-for="NivelCombustible" class="control-label"></label>
+                            <select asp-for="NivelCombustible" class="form-select" required>
+                                <option value="1/4">1/4</option>
+                                <option value="2/4">2/4</option>
+                                <option value="3/4">3/4</option>
+                                <option value="4/4">4/4</option>
+                            </select>
+                            <span asp-validation-for="NivelCombustible" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Kilometraje" class="control-label"></label>
+                            <input asp-for="Kilometraje" class="form-control" required />
+                            <span asp-validation-for="Kilometraje" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label asp-for="NivelAceiteMotor" class="control-label"></label>
+                            <select asp-for="NivelAceiteMotor" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="NivelAceiteMotor" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="NivelAceiteTrans" class="control-label"></label>
+                            <select asp-for="NivelAceiteTrans" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="NivelAceiteTrans" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="NivelAceiteDirec" class="control-label"></label>
+                            <select asp-for="NivelAceiteDirec" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="NivelAceiteDirec" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="NivelAceiteHidrau" class="control-label"></label>
+                            <select asp-for="NivelAceiteHidrau" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="NivelAceiteHidrau" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="RefrigeranteMotor" class="control-label"></label>
+                            <select asp-for="RefrigeranteMotor" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="RefrigeranteMotor" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="LiquidoFrenos" class="control-label"></label>
+                            <select asp-for="LiquidoFrenos" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="LiquidoFrenos" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Radiador" class="control-label"></label>
+                            <select asp-for="Radiador" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="Radiador" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="IndicadorCombus" class="control-label"></label>
+                            <select asp-for="IndicadorCombus" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="IndicadorCombus" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="IndicadorTemp" class="control-label"></label>
+                            <select asp-for="IndicadorTemp" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="IndicadorTemp" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="IndicadorPresionA" class="control-label"></label>
+                            <select asp-for="IndicadorPresionA" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="IndicadorPresionA" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="BateriayTerminales" class="control-label"></label>
+                            <select asp-for="BateriayTerminales" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="BateriayTerminales" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Direccion" class="control-label"></label>
+                            <select asp-for="Direccion" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="Direccion" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Frenos" class="control-label"></label>
+                            <select asp-for="Frenos" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="Frenos" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="FrenosEstac" class="control-label"></label>
+                            <select asp-for="FrenosEstac" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="FrenosEstac" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="LineasAire" class="control-label"></label>
+                            <select asp-for="LineasAire" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="LineasAire" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="SuspensionD" class="control-label"></label>
+                            <select asp-for="SuspensionD" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="SuspensionD" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Muelles" class="control-label"></label>
+                            <select asp-for="Muelles" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="Muelles" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="PinturayC" class="control-label"></label>
+                            <select asp-for="PinturayC" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="PinturayC" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="OrdenyLG" class="control-label"></label>
+                            <select asp-for="OrdenyLG" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="OrdenyLG" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="LlantasDelanteras" class="control-label"></label>
+                            <select asp-for="LlantasDelanteras" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="LlantasDelanteras" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label asp-for="LlantasTraserasLD" class="control-label"></label>
+                            <select asp-for="LlantasTraserasLD" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="LlantasTraserasLD" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="LlantasTraserasLI" class="control-label"></label>
+                            <select asp-for="LlantasTraserasLI" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="LlantasTraserasLI" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="LucesDelanterasB" class="control-label"></label>
+                            <select asp-for="LucesDelanterasB" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="LucesDelanterasB" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="LucesDelanterasA" class="control-label"></label>
+                            <select asp-for="LucesDelanterasA" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="LucesDelanterasA" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="LucesTraseras" class="control-label"></label>
+                            <select asp-for="LucesTraseras" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="LucesTraseras" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="LucesFreno" class="control-label"></label>
+                            <select asp-for="LucesFreno" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="LucesFreno" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="LucesIntermitentes" class="control-label"></label>
+                            <select asp-for="LucesIntermitentes" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="LucesIntermitentes" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="LucesDireccionales" class="control-label"></label>
+                            <select asp-for="LucesDireccionales" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="LucesDireccionales" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Claxon" class="control-label"></label>
+                            <select asp-for="Claxon" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="Claxon" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AlarmaReversa" class="control-label"></label>
+                            <select asp-for="AlarmaReversa" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="AlarmaReversa" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Limpiaparabrisas" class="control-label"></label>
+                            <select asp-for="Limpiaparabrisas" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="Limpiaparabrisas" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="EspejosRetrovisores" class="control-label"></label>
+                            <select asp-for="EspejosRetrovisores" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="EspejosRetrovisores" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ParabrisasVD" class="control-label"></label>
+                            <select asp-for="ParabrisasVD" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="ParabrisasVD" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="MedallonVT" class="control-label"></label>
+                            <select asp-for="MedallonVT" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="MedallonVT" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="VidrioLD" class="control-label"></label>
+                            <select asp-for="VidrioLD" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="VidrioLD" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="VidrioLI" class="control-label"></label>
+                            <select asp-for="VidrioLI" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="VidrioLI" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AleronD" class="control-label"></label>
+                            <select asp-for="AleronD" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="AleronD" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AleronI" class="control-label"></label>
+                            <select asp-for="AleronI" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="AleronI" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Extintor" class="control-label"></label>
+                            <select asp-for="Extintor" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="Extintor" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="TaponC" class="control-label"></label>
+                            <select asp-for="TaponC" class="form-select">
+                                <option value="Bien">Bien</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Mal">Mal</option>
+                                <option value="Rellenar">Rellenar</option>
+                                <option value="Cambiar">Cambiar</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                            <span asp-validation-for="TaponC" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Comentarios" class="control-label"></label>
+                    <input asp-for="Comentarios" class="form-control text-muted" />
+                    <span asp-validation-for="Comentarios" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label asp-for="FirmaOperador" class="control-label"></label>
+                            <div>
+                                <canvas id="signatureCanvas" width="400" height="200" style="border:1px solid;"></canvas><br />
+                                <button type="button" class="btn btn-outline-secondary" onclick="clearSignature()">Borrar Firma</button>
+                                <input type="hidden" asp-for="FirmaOperador" id="hiddenFirmaCliente" />
+                                <span asp-validation-for="FirmaOperador" class="text-danger"></span>
+                            </div>
+                            <span asp-validation-for="FirmaOperador" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="NombreOperador" class="control-label"></label>
+                            <input asp-for="NombreOperador" class="form-control" />
+                            <span asp-validation-for="NombreOperador" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label asp-for="FirmaInspector" class="control-label"></label>
+                            <div>
+                                <canvas id="signatureCanvas2" width="400" height="200" style="border:1px solid;"></canvas><br />
+                                <button type="button" class="btn btn-outline-secondary" onclick="clearSignature2()">Borrar Firma</button>
+                                <input type="hidden" asp-for="FirmaInspector" id="hiddenFirmaCliente2" />
+                                <span asp-validation-for="FirmaInspector" class="text-danger"></span>
+                            </div>
+                            <span asp-validation-for="FirmaInspector" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="NombreInspector" class="control-label"></label>
+                            <input asp-for="NombreInspector" class="form-control" />
+                            <span asp-validation-for="NombreInspector" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <center>
+                    <div class="form-group">
+                        <br />
+                        <input type="submit" value="Crear" class="btn btn-success" />
+                    </div>
+                </center>
+            </form>
+        </div>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <br />
+    <a asp-action="Index"><iconify-icon icon="bi:arrow-left-circle-fill"></iconify-icon> Regresar</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

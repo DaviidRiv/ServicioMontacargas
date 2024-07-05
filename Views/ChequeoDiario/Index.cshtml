@@ -1,0 +1,275 @@
+﻿@model IEnumerable<ServicioMontacargas.Models.ChequeoDiarioModel>
+
+@{
+    ViewData["Title"] = "Chequeo Diario";
+}
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+</head>
+<h1>Lista Chequeos Diarios</h1>
+<div>
+    @if (TempData["FailChequeoD"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["FailChequeoD"]
+        </div>
+    }
+    @if (TempData["ExitoChequeoD"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["ExitoChequeoD"]
+        </div>
+    }
+</div>
+<p>
+    <div class="d-flex justify-content">
+        <a class="btn btn-primary" asp-action="Create">Agregar Nuevo</a>
+    </div>
+</p>
+<div class="table-responsive-sm">
+    <table class="table table-striped table-hover" id="tb_serviciop" style="width:100%">
+        <thead class="table-dark">
+            <tr>
+                <th>
+                    Folio
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Fecha)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HorometroActual)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Montacargas)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NivelAceiteMotor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NivelRefrigerante)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FugaLineaGas)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FuncPedestalFreno)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FrenoMano)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FugasAceiteH)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FuncDireccion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IndicadoresTemp)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IndicadoresVolt)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IndicadoresPA)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TensionCadenas)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LlantasBirlos)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CondicionesGnrls)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PalancaAvanceReversa)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SistemaLevante)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EquipoSeguridad)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LucesTrabajo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Claxon)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Torreta)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Extintor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CinturonSeguridad)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EspejoRetrovisor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Alarma)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PlafonStop)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CapacidadCarga)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Comentarios)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NombreOperador)
+                </th>
+                <th>
+                    Opciones
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdChequeoDiario)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fecha)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HorometroActual)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Montacargas.IdMontacargas)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NivelAceiteMotor)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NivelRefrigerante)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FugaLineaGas)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FuncPedestalFreno)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FrenoMano)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FugasAceiteH)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FuncDireccion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IndicadoresTemp)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IndicadoresVolt)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IndicadoresPA)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TensionCadenas)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LlantasBirlos)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CondicionesGnrls)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PalancaAvanceReversa)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SistemaLevante)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EquipoSeguridad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LucesTrabajo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Claxon)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Torreta)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Extintor)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CinturonSeguridad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EspejoRetrovisor)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Alarma)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PlafonStop)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CapacidadCarga)
+                    </td>
+                    <td style="text-align:left;">
+                        @Html.DisplayFor(modelItem => item.Comentarios)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NombreOperador)
+                    </td>
+                    <td>
+                        @{
+                            var rol = Context.Session.GetString("RolUser");
+
+                            @if (rol == "Administrador")
+                            {
+                                <a asp-action="Edit" asp-route-id="@item.IdChequeoDiario"><iconify-icon icon="bi:pencil-square"></iconify-icon></a>
+                                <a asp-action="Details" asp-route-id="@item.IdChequeoDiario"><iconify-icon icon="bi:eye-fill"></iconify-icon></a>
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#eliminarUsuario-@item.IdChequeoDiario" data-original-title="Eliminar"><iconify-icon icon="bi:trash3-fill"></iconify-icon></a>
+                                <a href="#" id="generatePdfLink" data-id="@item.IdChequeoDiario">
+                                    <iconify-icon icon="bxs:file-pdf"></iconify-icon>
+                                </a>
+                            }
+                            else
+                            {
+                                <a asp-action="Edit" asp-route-id="@item.IdChequeoDiario"><iconify-icon icon="bi:pencil-square"></iconify-icon></a>
+                                <a asp-action="Details" asp-route-id="@item.IdChequeoDiario"><iconify-icon icon="bi:eye-fill"></iconify-icon></a>
+                                <a href="#" id="generatePdfLink" data-id="@item.IdChequeoDiario">
+                                    <iconify-icon icon="bxs:file-pdf"></iconify-icon>
+                                </a>
+                            }
+                        }
+                    </td>
+                </tr>
+                <!-- Modal -->
+                <div class="modal fade" id="eliminarUsuario-@item.IdChequeoDiario" tabindex="-1" aria-hidden="true" style="width:100%; top:50px;">
+                    <div class="modal-dialog modal-contenedor">
+                        <div class="modal-content contenedor-eliminar">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Eliminar Chequeo</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                            </div>
+                            <div class="modal-body">
+                                ¿Estas seguro que desea eliminar esta Chequeo?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <a asp-controller="ChequeoDiario" asp-action="DeleteConfirmed" asp-route-id="@item.IdChequeoDiario" class="btn btn-danger">Eliminar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </tbody>
+    </table>
+</div>

@@ -37,7 +37,6 @@
                 <select asp-for="IdClientes" class="form-select" asp-items="ViewBag.IdClientes" required></select>
             </div>
 
-            <select asp-for="TareaId" asp-items="@ViewBag.TareaId" style="display: none;"></select>
 
             <div class="form-group">
                 <label name="ComponenteId" class="control-label">Componente</label>
@@ -129,25 +128,28 @@
                     <button type="button" id="quitar-tarea" class="btn btn-danger">Quitar Tarea</button>
                 </div>
             </div>
+
+            <input type="hidden" id="tareas-seleccionadas-hidden" name="TareasSeleccionadas" />
+
             <h5>Refaccion Utilizadas</h5>
             <div id="productos-container">
                 <div class="row producto">
                     <div class="col-md-2">
                         <div class="form-group">
                             <label class="control-label">Cantidad</label>
-                            <input name="Productos[0].Cantidad" class="form-control" />
+                            <input name="Productos[0].Cantidad" class="form-control" required />
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="control-label">No. de Parte</label>
-                            <input name="Productos[0].NoParte" class="form-control" />
+                            <input name="Productos[0].NoParte" class="form-control" required />
                         </div>
                     </div>
                     <div class="col-md-5">
                         <div class="form-group">
                             <label class="control-label">Descripción</label>
-                            <input name="Productos[0].Descripcion" class="form-control" />
+                            <input name="Productos[0].Descripcion" class="form-control" required />
                         </div>
                     </div>
                     <div class="col-md-1">
@@ -188,7 +190,7 @@
                 <span asp-validation-for="NombreC" class="text-danger"></span>
             </div>
         </div>
-        <input type="hidden" id="tareas-seleccionadas-hidden" name="TareasSeleccionadas" />
+        <input type="hidden" asp-for="TareaId" value="2"/>
         <div class="form-group">
             <br />
             <center>
@@ -209,6 +211,14 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
     <script>
+        function actualizarTareasSeleccionadas() {
+            var tareasSeleccionadas = [];
+            $('#tareas-seleccionadas option').each(function () {
+                tareasSeleccionadas.push($(this).val());
+            });
+            $('#tareas-seleccionadas-hidden').val(tareasSeleccionadas.join(','));
+        }
+
         $(document).ready(function () {
             $('#agregar-tarea').click(function () {
                 var tareaId = $('#tarea-select').val();
@@ -240,23 +250,11 @@
                                 text: tarea.text
                             }));
                         });
-                        // Al actualizar las opciones de tareas, también actualizamos el campo oculto
                         actualizarTareasSeleccionadas();
                     }
                 });
             });
         });
-
-        function actualizarTareasSeleccionadas() {
-            // Creamos un array para almacenar los valores de las tareas seleccionadas
-            var tareasSeleccionadas = [];
-            $('#tareas-seleccionadas option').each(function () {
-                tareasSeleccionadas.push($(this).val());
-            });
-            // Actualizamos el campo oculto con los valores de las tareas seleccionadas
-            $('#tareas-seleccionadas-hidden').val(tareasSeleccionadas.join(','));
-        }
-
     </script>
 
     <script>

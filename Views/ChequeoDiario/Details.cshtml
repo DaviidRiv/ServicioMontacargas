@@ -1,0 +1,205 @@
+﻿@model ServicioMontacargas.Models.ChequeoDiarioModel
+
+@{
+    ViewData["Title"] = "Detalles Chequeo Diario";
+}
+
+<h1>Detalles</h1>
+<h4>Chequeo Diario: @Model.IdChequeoDiario</h4>
+<hr />
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.HorometroActual)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.HorometroActual)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Montacargas)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Montacargas.IdMontacargas)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.NivelAceiteMotor)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.NivelAceiteMotor)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.NivelRefrigerante)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.NivelRefrigerante)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.FugaLineaGas)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.FugaLineaGas)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.FuncPedestalFreno)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.FuncPedestalFreno)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.FrenoMano)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.FrenoMano)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.FugasAceiteH)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.FugasAceiteH)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.FuncDireccion)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.FuncDireccion)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.IndicadoresTemp)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.IndicadoresTemp)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.IndicadoresVolt)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.IndicadoresVolt)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.IndicadoresPA)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.IndicadoresPA)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.TensionCadenas)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.TensionCadenas)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.LlantasBirlos)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.LlantasBirlos)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.CondicionesGnrls)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.CondicionesGnrls)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.PalancaAvanceReversa)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.PalancaAvanceReversa)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.SistemaLevante)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.SistemaLevante)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.EquipoSeguridad)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.EquipoSeguridad)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.LucesTrabajo)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.LucesTrabajo)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Claxon)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Claxon)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Torreta)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Torreta)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Extintor)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Extintor)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.CinturonSeguridad)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.CinturonSeguridad)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.EspejoRetrovisor)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.EspejoRetrovisor)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Alarma)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Alarma)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.PlafonStop)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.PlafonStop)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.CapacidadCarga)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.CapacidadCarga)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Comentarios)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Comentarios)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.NombreOperador)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.NombreOperador)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.FirmaOperador)
+        </dt>
+        <dd class = "col-sm-9">
+            <img src="@Model.FirmaOperador" alt="Firma del Operador" width="100" height="100" />
+
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.IdChequeoDiario"><iconify-icon icon="bi:pencil-square"></iconify-icon> Editar</a> |
+    <a asp-action="Index"><iconify-icon icon="bi:arrow-left-circle-fill"></iconify-icon> Regresar</a>
+</div>

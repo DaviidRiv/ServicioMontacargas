@@ -7,7 +7,7 @@ namespace ServicioMontacargas.Models
     {
         [Key]
         public int IdRevisionCamion { get; set; }
-
+        [DisplayName("Nivel Combustible")]
         public string? NivelCombustible { get; set; }
         public string? Fecha { get; set; }
         public string? Kilometraje { get; set; }

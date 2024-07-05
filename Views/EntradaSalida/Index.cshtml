@@ -21,12 +21,12 @@
             <h1>Registra tu Entrada</h1>
             <p>
                 <div class="d-flex justify-content-end">
-                    <!-- Aplicando justify-content-end para alinear a la derecha -->
-                    <form asp-controller="EntradaSalida" asp-action="Entrada" method="post">
+                    <form asp-controller="EntradaSalida" asp-action="Entrada" method="post" id="entradaForm">
                         <input type="hidden" name="personal" value="@nombreC" />
-                        <input type="hidden" name="fechaEntrada" value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")" />
                         <input type="hidden" name="tipo" value="Entrada" />
                         <input type="hidden" name="iduser" value="@iduser" />
+                        <input type="hidden" name="latitud" id="latitud" />
+                        <input type="hidden" name="longitud" id="longitud" />
 
                         <button type="submit" class="btn btn-success">Entrada</button>
                     </form>
@@ -39,10 +39,11 @@
             <p>
                 <div class="d-flex justify-content-end">
                     <!-- Aplicando justify-content-end para alinear a la derecha -->
-                    <form asp-controller="EntradaSalida" asp-action="Salida" method="post">
-                        <input type="hidden" name="FechaSalida" value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")" />
+                    <form asp-controller="EntradaSalida" asp-action="Salida" method="post" id="entradaForm">
                         <input type="hidden" name="Tipo" value="Salida" />
                         <input type="hidden" name="IdUser" value="@iduser" />
+                        <input type="hidden" name="latitud" id="latitud" />
+                        <input type="hidden" name="longitud" id="longitud" />
 
                         <button type="submit" class="btn btn-warning">Salida</button>
                     </form>
@@ -58,11 +59,13 @@ else
         <h1>Registra tu Entrada</h1>
         <p>
             <div class="d-flex justify-content">
-                <form asp-controller="EntradaSalida" asp-action="Entrada" method="post">
+                <form asp-controller="EntradaSalida" asp-action="Entrada" method="post" id="entradaForm">
                     <input type="hidden" name="personal" value="@nombreC" />
-                    <input type="hidden" name="fechaEntrada" value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")" />
                     <input type="hidden" name="tipo" value="Entrada" />
                     <input type="hidden" name="iduser" value="@iduser" />
+                    <input type="hidden" name="latitud" id="latitud" />
+                    <input type="hidden" name="longitud" id="longitud" />
+
 
                     <button type="submit" class="btn btn-success">Entrada</button>
                 </form>
@@ -74,10 +77,11 @@ else
         <h1>Registra tu Salida</h1>
         <p>
             <div class="d-flex justify-content">
-                <form asp-controller="EntradaSalida" asp-action="Salida" method="post">
-                    <input type="hidden" name="FechaSalida" value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")" />
+                <form asp-controller="EntradaSalida" asp-action="Salida" method="post" id="entradaForm">
                     <input type="hidden" name="Tipo" value="Salida" />
                     <input type="hidden" name="IdUser" value="@iduser" />
+                    <input type="hidden" name="latitud" id="latitud" />
+                    <input type="hidden" name="longitud" id="longitud" />
 
                     <button type="submit" class="btn btn-warning">Salida</button>
                 </form>
@@ -120,6 +124,10 @@ else
                     <th>
                         @Html.DisplayNameFor(model => model.Tipo)
                     </th>
+                    @if (nombreC == "Antonio Castillo Sifuentes")
+                    {
+                        <th>Ubicaciones</th>
+                    }
                     <th>
                         Opciones
                     </th>
@@ -144,6 +152,14 @@ else
                         <td>
                             @Html.DisplayFor(modelItem => item.Tipo)
                         </td>
+                        @if (nombreC == "Antonio Castillo Sifuentes")
+                        {
+                            <td>
+
+                                Entrada : <a href="https://www.google.com/maps?q=@item.LatitudE,@item.LongitudE" target="_blank">Ver en Google Maps</a><br />
+                                Salida : <a href="https://www.google.com/maps?q=@item.LatitudS,@item.LongitudS" target="_blank">Ver en Google Maps</a>
+                            </td>
+                        }
                         <td>
                             <a asp-action="Edit" asp-route-id="@item.IdEntradaSalida"><iconify-icon icon="bi:pencil-square"></iconify-icon></a>
                             <a asp-action="Details" asp-route-id="@item.IdEntradaSalida"><iconify-icon icon="bi:eye-fill"></iconify-icon></a>
@@ -179,4 +195,40 @@ else
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+        document.getElementById('entradaForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            if (navigator.geolocation) {
+                var retries = 3; // Intentos máximos
+                attemptGetLocation(retries);
+            } else {
+                console.error("Geolocalización no soportada por el navegador.");
+                document.getElementById('entradaForm').submit();
+            }
+        });
+
+        function attemptGetLocation(retries) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                document.getElementById('latitud').value = position.coords.latitude;
+                document.getElementById('longitud').value = position.coords.longitude;
+                console.log("Ubicación obtenida: Latitud " + position.coords.latitude + ", Longitud " + position.coords.longitude);
+
+                // Enviar el formulario después de obtener la ubicación
+                document.getElementById('entradaForm').submit();
+            }, function (error) {
+                console.error("Error al obtener la ubicación: " + error.message);
+                if (retries > 0) {
+                    // Intentar de nuevo después de un breve tiempo
+                    setTimeout(function () {
+                        attemptGetLocation(retries - 1);
+                    }, 1000); // 1 segundo
+                } else {
+                    // Manejar el error después de los intentos
+                    console.error("No se pudo obtener la ubicación después de varios intentos.");
+                    document.getElementById('entradaForm').submit();
+                }
+            });
+        }
+    </script>
 }
