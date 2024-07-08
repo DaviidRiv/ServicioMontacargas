@@ -11,7 +11,7 @@ using ServicioMontacargas.Models;
 
 namespace ServicioMontacargas.Controllers
 {
-    [AutorizacionAdmin]
+    [AutorizacionMontacarguista]
     public class RevisionCamionController : Controller
     {
         private readonly ServicioMontacargasContext _context;

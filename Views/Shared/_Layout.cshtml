@@ -298,7 +298,43 @@
                                 </h2>
                             </div>
                         }
-                        else if (rol == "Montacarguista" || rol == "Operador Grua")
+                        else if (rol == "Montacarguista" )
+                        {
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <a class="btn btn-menu" asp-controller="Home" asp-action="Modulos">
+                                        <p>Inicio <i class="bi bi-house-fill"></i></p>
+                                    </a>
+                                </h2>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <a class="btn btn-menu" asp-controller="EntradaSalida" asp-action="Index">
+                                        <p>Entrada y Salida <i class="bi bi-calendar-check"></i></p>
+                                    </a>
+                                </h2>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOneU">
+                                    <a class="btn btn-menu accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneU3" aria-expanded="false" aria-controls="collapseOneO">
+                                        <p>Camion Diesel <i class="bi bi-truck-front"></i></p>
+                                    </a>
+                                </h2>
+
+                                <div id="collapseOneU3" class="accordion-collapse collapse" aria-labelledby="headingOneU"
+                                     data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <a class="list-group-item" type="button" asp-controller="RevisionCamion" asp-action="Index">
+                                            <p>Revison de Camiones</p>
+                                        </a>
+                                        <a class="list-group-item" type="button" asp-controller="ChequeoDiario" asp-action="Index">
+                                            <p>Checklist Diario</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else if (rol == "Operador Grua")
                         {
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingOne">
