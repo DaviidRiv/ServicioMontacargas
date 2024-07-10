@@ -144,7 +144,9 @@
                         @Html.DisplayFor(modelItem => item.HorometroActual)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Montacargas.IdMontacargas)
+                        <a asp-controller="Montacargas" asp-action="Details" asp-route-id="@item.IdMontacargas">
+                            @Html.DisplayFor(modelItem => item.Montacargas.NumeroEconomico)
+                        </a>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.NivelAceiteMotor)
