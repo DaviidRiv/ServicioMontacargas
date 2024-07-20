@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using ServicioMontacargas.Auths;
 using ServicioMontacargas.Data;
 using ServicioMontacargas.Models;
 
 namespace ServicioMontacargas.Controllers
 {
+    [AutorizacionAll]
     public class EntradaSalidaController : Controller
     {
         private readonly ServicioMontacargasContext _context;

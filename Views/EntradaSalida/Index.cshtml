@@ -122,6 +122,9 @@ else
                         @Html.DisplayNameFor(model => model.FechaSalida)
                     </th>
                     <th>
+                        Horas Extra
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => model.Tipo)
                     </th>
                     @if (nombreC == "Antonio Castillo Sifuentes")
@@ -148,6 +151,43 @@ else
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.FechaSalida)
+                        </td>
+                        <td>
+                            @{
+                                var personalEspecial = new List<string>
+                                        {
+                                        "JOSE LUIS PUENTE RAMOS",
+                                        "ENRIQUE MARTINEZ RODRIGUEZ",
+                                        "ROMAN SALDAÑA MEDINA",
+                                        "CESAR MUÑOZ MARQUINA"
+                                        };
+
+                                DateTime? fechaEntrada = string.IsNullOrEmpty(item.FechaEntrada) ? (DateTime?)null : DateTime.Parse(item.FechaEntrada);
+                                DateTime? fechaSalida = string.IsNullOrEmpty(item.FechaSalida) ? (DateTime?)null : DateTime.Parse(item.FechaSalida);
+                                TimeSpan? excesoTiempo = null;
+
+                                if (fechaEntrada.HasValue && fechaSalida.HasValue)
+                                {
+                                    var diferencia = fechaSalida.Value - fechaEntrada.Value;
+                                    double limiteHoras = personalEspecial.Contains(item.Personal) ? 8 : 9;
+                                    if (diferencia.TotalHours > limiteHoras)
+                                    {
+                                        excesoTiempo = diferencia - TimeSpan.FromHours(limiteHoras);
+                                    }
+                                }
+
+                                @if (excesoTiempo.HasValue)
+                                {
+                                    // Calcular horas y minutos en el formato hh:mm
+                                    var horas = (int)excesoTiempo.Value.TotalHours;
+                                    var minutos = excesoTiempo.Value.Minutes;
+                                    <span>@horas.ToString("D2"):@minutos.ToString("D2") hrs</span>
+                                }
+                                else
+                                {
+                                    <span>00:00 hrs</span>
+                                }
+                            }
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Tipo)
